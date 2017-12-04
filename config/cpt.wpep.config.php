@@ -148,30 +148,6 @@ $config['meta_box']['post']['wpep-location'] = array(
 	),
 );
 
-$config['meta_box']['post']['wpep-attributes'] = array(
-	'active' => true,
-	'name' => __( 'Attributes', 'wpep' ),
-	'post_type' => array( 'wpep' ),
-	'context' => 'normal', // normal | advanced | side
-	'priority' => 'high', // high | core | default | low
-	'fields' => array(
-		'additional-attributes' => array(
-			'type' => 'group',
-			'label' => __( 'Additional Attributes', 'wpep' ),
-			'fields' => array(
-				'name' => array(
-					'type' => 'text',
-					'label' => __( 'Name', 'wpep' ),
-				),
-				'value' => array(
-					'type' => 'text',
-					'label' => __( 'Value', 'wpep' ),
-				),
-			),
-		),
-	),
-);
-
 $config['admin_custom_columns']['gallery'] = array(
 	'post_type' => 'wpep',
 	'columns' => array(
