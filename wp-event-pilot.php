@@ -16,5 +16,15 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'WPEP_URL', plugin_dir_url( __FILE__ ) );
+
 // load composer libraries
 require __DIR__ . '/vendor/autoload.php';
+
+use Wiredot\WPEP\Core;
+
+function wpep() {
+	return Core::run();
+}
+
+wpep();
