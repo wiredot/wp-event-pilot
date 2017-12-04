@@ -1,0 +1,10 @@
+{
+    "require": {
+        "wiredot/preamp": "dev-master"
+    },
+    "autoload": {
+		"psr-4": {
+			"Wiredot\\WPEP\\": "classes/"
+		}
+	}
+}
