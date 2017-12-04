@@ -69,7 +69,6 @@ $config['meta_box']['post']['wpep-details'] = array(
 			'type' => 'select',
 			'label' => __( 'Event Type', 'wpep' ),
 			'options' => array(
-				-1 => __( '-- select --', 'wpep' ),
 				1 => __( 'One day event', 'wpep' ),
 				2 => __( 'Multi-day event', 'wpep' ),
 			),
