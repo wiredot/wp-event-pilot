@@ -58,6 +58,121 @@ $config['custom_post_type']['wpep'] = array(
 	'custom_menu_icon' => 'assets/images/wpep.svg',
 );
 
+$config['meta_box']['post']['wpep-details'] = array(
+	'active' => true,
+	'name' => __( 'Details', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'fields' => array(
+		'event-type' => array(
+			'type' => 'select',
+			'label' => __( 'Event Type', 'wpep' ),
+			'options' => array(
+				-1 => __( '-- select --', 'wpep' ),
+				1 => __( 'One day event', 'wpep' ),
+				2 => __( 'Multi-day event', 'wpep' ),
+			),
+		),
+		'start-date' => array(
+			'type' => 'date',
+			'label' => __( 'Start Date', 'wpep' ),
+		),
+		'start-time' => array(
+			'type' => 'text',
+			'label' => __( 'Start Time', 'wpep' ),
+			'condition' => array(
+				'event-type' => 1,
+			),
+		),
+		'end-time' => array(
+			'type' => 'text',
+			'label' => __( 'End Time', 'wpep' ),
+			'condition' => array(
+				'event-type' => 1,
+			),
+		),
+		'end-date' => array(
+			'type' => 'date',
+			'label' => __( 'End Date', 'wpep' ),
+			'condition' => array(
+				'event-type' => 2,
+			),
+		),
+		'options' => array(
+			'type' => 'checkbox',
+			'label' => __( 'Options', 'wpep' ),
+			'options' => array(
+				'location' => __( 'Location', 'wpep' ),
+				'attributes' => __( 'Attributes', 'wpep' ),
+			),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-location'] = array(
+	'active' => true,
+	'name' => __( 'Location', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'_condition' => array(
+		'options' => 'location',
+	),
+	'fields' => array(
+		'location-name' => array(
+			'type' => 'text',
+			'label' => __( 'Name', 'wpep' ),
+		),
+		'location-address' => array(
+			'type' => 'text',
+			'label' => __( 'Address line 1', 'wpep' ),
+			'size' => 'regular',
+		),
+		'location-addressb' => array(
+			'type' => 'text',
+			'label' => __( 'Address line 2', 'wpep' ),
+			'size' => 'regular',
+		),
+		'location-city' => array(
+			'type' => 'text',
+			'label' => __( 'City', 'wpep' ),
+		),
+		'location-zip' => array(
+			'type' => 'text',
+			'label' => __( 'Postal Code / Zip', 'wpep' ),
+		),
+		'location-country' => array(
+			'type' => 'text',
+			'label' => __( 'Country', 'wpep' ),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-attributes'] = array(
+	'active' => true,
+	'name' => __( 'Attributes', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'fields' => array(
+		'additional-attributes' => array(
+			'type' => 'group',
+			'label' => __( 'Additional Attributes', 'wpep' ),
+			'fields' => array(
+				'name' => array(
+					'type' => 'text',
+					'label' => __( 'Name', 'wpep' ),
+				),
+				'value' => array(
+					'type' => 'text',
+					'label' => __( 'Value', 'wpep' ),
+				),
+			),
+		),
+	),
+);
+
 $config['admin_custom_columns']['gallery'] = array(
 	'post_type' => 'wpep',
 	'columns' => array(
