@@ -12,6 +12,12 @@ class Core {
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 		$Preamp = Preamp::run( WPEP_URL );
+
+		if ( is_admin() ) {
+			new Settings();
+			new Support();
+			new Addons();
+		}
 	}
 
 	public static function run() {
