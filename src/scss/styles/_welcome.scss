@@ -1,0 +1,36 @@
+.wpep-welcome {
+
+	.wpep-header {
+
+		img {
+			float: right;
+		    border-radius: 4px;
+		    margin: 0 0 15px 15px;
+		    width: 100px;
+		    height: auto;
+		}
+	}
+
+	.feature-section-media, .feature-section-content {
+		width: 50%;
+		box-sizing: border-box;
+
+		h4 {
+		    margin: 0 0 1em;
+		}
+	}
+
+	.feature-section-media {
+		float: right;
+
+		img {
+			border: 1px solid #ddd;
+		}
+	}
+
+	.feature-section-content {
+		float: left;
+		padding-right: 50px;
+
+	}
+}

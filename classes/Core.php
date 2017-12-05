@@ -17,6 +17,7 @@ class Core {
 			new Settings();
 			new Support();
 			new Addons();
+			new Welcome();
 		}
 	}
 

@@ -17,6 +17,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'WPEP_URL', plugin_dir_url( __FILE__ ) );
+define( 'WPEP_BASENAME', plugin_basename( __FILE__ ) );
+
 
 // load composer libraries
 require __DIR__ . '/vendor/autoload.php';

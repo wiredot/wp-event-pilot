@@ -1,0 +1,143 @@
+<div class="wrap about-wrap wpep-welcome wpep-wrap">
+	<div class="wpep-header">
+		<img src="{{ constant('WPEP_URL') }}assets/images/wpep.svg" alt="WP Gallery Logo">
+		<h1>{{ __('Welcome to WP Gallery', 'wpep') }}</h1>
+		<p class="about-text">{{ __('Thank you for installing WP Gallery.', 'wpep') }}</p>
+	</div>
+	<h1 class="nav-tab-wrapper">
+        <a class="nav-tab{% if tab == 'getting-started' %} nav-tab-active{% endif %}" rel="getting-started">{{ __('Getting Started', 'wpep') }}</a>
+        <a class="nav-tab{% if tab == 'support' %} nav-tab-active{% endif %}" rel="support">{{ __('Support', 'wpep') }}</a>
+        <a class="nav-tab{% if tab == 'credits' %} nav-tab-active{% endif %}" rel="credits">{{ __('Credits', 'wpep') }}</a>
+    </h1><div class="updated notice pm-notice hidden"></div>
+
+    <div class="tab-content tab-getting-started{% if tab == 'getting-started' %} active{% endif %}">
+        <p class="about-description">{{ __('Follow the steps below to get started using WP Gallery. Your Galleries will be ready in just few minutes!', 'wpep') }}</p>
+
+        <div class="changelog">
+            <h3>{{ __('Creating Your First Gallery', 'wpep') }}</h3>
+            <div class="feature-section">
+                <div class="feature-section-media">
+                    <img src="{{ constant('WPEP_URL') }}assets/images/step1.jpg">
+                </div>
+                <div class="feature-section-content">
+                    <h4><a href="{{ admin_url('post-new.php?post_type=wpep') }}">{{ __('Photo Gallery', 'wpep') }} → {{ __('Add New Photo Gallery', 'wpep') }}</a></h4>
+                    <p>{{ __('On this page you can create your first Photo Gallery. Simply enter the Gallery title and click on the Add Photos button. You can chose photos from your WordPress Media Library or upload them. Then you can add a Gallery Cover if you want and Publish the Gallery.', 'wpep') }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="changelog">
+            <h3>{{ __('Adding a Gallery List to a Page', 'wpep') }}</h3>
+            <div class="feature-section">
+                <div class="feature-section-media">
+                    <img src="{{ constant('WPEP_URL') }}assets/images/step2.jpg">
+                </div>
+                <div class="feature-section-content">
+                    <p>{{ __('On any page click on the Add Photo Gallery button directly above the Editor. Then click on the Insert Shortcode button next to Galleries List. Save the page and you\'re done.', 'wpep') }}</p>
+                    <p>{{ __('Shortcode', 'wpep') }}:</p>
+                    <pre>[wpep]</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="changelog">
+            <h3>{{ __('Adding a Gallery to a Page', 'wpep') }}</h3>
+            <div class="feature-section">
+                <div class="feature-section-media">
+                    <img src="{{ constant('WPEP_URL') }}assets/images/step3.jpg">
+                </div>
+                <div class="feature-section-content">
+                    <p>{{ __('You can display a single Gallery on a page. Click on the Add Photo Gallery button directly above the Editor. Then click on the Insert Shortcode button next to the Gallery you want to show. Save the page and that\'s it.', 'wpep') }}</p>
+                    <p>{{ __('Example Shortcode (id is a post id of your Gallery)', 'wpep') }}:</p>
+                    <pre>[wpep id=1]</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="changelog">
+            <h3>{{ __('Selecting a Skin', 'wpep') }}</h3>
+            <div class="feature-section">
+                <div class="feature-section-media">
+                    <img src="{{ constant('WPEP_URL') }}assets/images/step4.jpg">
+                </div>
+                <div class="feature-section-content">
+                    <h4><a href="{{ admin_url('edit.php?post_type=wpep&page=skins') }}">{{ __('Photo Gallery', 'wpep') }} → {{ __('Skins', 'wpep') }}</a></h4>
+                    <p>{{ __('WP Gallery has several beautiful skins. Select the one you like the most on the Skns page. More skins coming soon.', 'wpep') }}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="tab-content tab-support{% if tab == 'support' %} active{% endif %}">
+        <p class="about-description">{{ __('We did our best to make WP Gallery as simple to use as possible. But if you have a problem or a questions, get in  touch and we will do everything to help.', 'wpep') }}</p>
+
+        <div class="changelog">
+            <h3>{{ __('Need help?', 'wpep') }}</h3>
+            <div class="feature-section">
+                
+                <div class="feature-section-content">
+                    <h4>{{ __('Free Support', 'wpep') }}</h4>
+                    <p>{{ sprintf(__('Visit our <a href="%s" target="_blank">Support page</a> and submit a ticket if you have a problem or a question. We will get back to you as soon as we can.', 'wpep'), "https://wiredot.com/labs/support/") }}</p>
+                </div>
+                <div class="feature-section-media">
+                    <h4>{{ __('Premium Support', 'wpep') }}</h4>
+                    <p>{{ sprintf(__('You can purchase our <a href="%s" target="_blank">Premium Support</a> access if you need our help right away. You will get a phone support and access to our Slack.', 'wpep'), "https://wiredot.com/labs/support/premium-support/") }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="changelog">
+            <h3>{{ __('Learn more', 'wpep') }}</h3>
+            <div class="feature-section">
+                
+                <div class="feature-section-content">
+                    <h4>{{ __('Documentation', 'wpep') }}</h4>
+                    <p>{{ __('Visit WP Gallery website and have a look at the documentation to learn more about the plugin.', 'wpep') }}</p>
+                </div>
+                <div class="feature-section-media">
+                    <h4>{{ __('Newsletter', 'wpep') }}</h4>
+                    <p>{{ __('Get regular updates on new features, new skins and tips & tricks. Sign up for our Newsletter <a href="%s" target="_blank">here</a>.', 'wpep') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>	
+
+    <div class="tab-content tab-credits{% if tab == 'credits' %} active{% endif %}">
+        <p class="about-description">{{ sprintf(__('WP Gallery is created and maintained by <a href="%s" target="_blank">WireDot Labs</a>.', 'wpep'), "https://wiredot.com/labs") }}</p>
+
+        <div class="changelog">
+            <div class="feature-section">
+                <div class="feature-section-content">
+                    <h4>{{ __('Contribute', 'wpep') }}</h4>
+                    <p>{{ sprintf(__('If you want to contribute go to our <a href="%s" target="_blank">GitHub Repository</a>, fork WP Gallery and submit a Pull Request.', 'wpep'), "https://github.com/wiredot/wpep") }}</p>
+                </div>
+                <div class="feature-section-media">
+                    <h4>{{ __('Issues', 'wpep') }}</h4>
+                    <p>{{ sprintf(__('If you find any problems or bugs, report them on our <a href="%s" target="_blank">GitHub Issues page</a>.', 'wpep'), 'https://github.com/wiredot/wpep/issues') }}</p>
+                </div>
+            </div>
+            <div class="feature-section">
+                <div class="feature-section-content">
+                    <h4>{{ __('Libraries', 'wpep') }}</h4>
+                    <p>{{ __('WP Gallery uses following libraries', 'wpep') }}:</p>
+                    <ul>
+                        <li>Composer</li>
+                        <li>Bower</li>
+                        <li>Preamp</li>
+                        <li>Twig</li>
+                        <li>phpThumb</li>
+                    </ul>
+                </div>
+                <div class="feature-section-media">
+                    <h4>{{ __('Inspiration', 'wpep') }}</h4>
+                    <p>{{ __('Parts of WP Gallery have been inspired by', 'wpep') }}:</p>
+                    <ul>
+                        <li>Easy Digital Downloads (Pippin Williamson)</li>
+                        <li>Meadow (Rarst)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>

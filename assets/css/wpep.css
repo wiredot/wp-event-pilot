@@ -3,4 +3,26 @@
   height: 20px;
   margin-top: -2px; }
 
+.wpep-welcome .wpep-header img {
+  float: right;
+  border-radius: 4px;
+  margin: 0 0 15px 15px;
+  width: 100px;
+  height: auto; }
+
+.wpep-welcome .feature-section-media, .wpep-welcome .feature-section-content {
+  width: 50%;
+  box-sizing: border-box; }
+  .wpep-welcome .feature-section-media h4, .wpep-welcome .feature-section-content h4 {
+    margin: 0 0 1em; }
+
+.wpep-welcome .feature-section-media {
+  float: right; }
+  .wpep-welcome .feature-section-media img {
+    border: 1px solid #ddd; }
+
+.wpep-welcome .feature-section-content {
+  float: left;
+  padding-right: 50px; }
+
 /*# sourceMappingURL=wpep.css.map */
