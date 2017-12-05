@@ -1,0 +1,32 @@
+{
+  "name": "wp-event-pilot",
+  "version": "1.0.0",
+  "description": "WP Event Pilot",
+  "main": "wp-event-pilot.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiredot/wp-event-pilot.git"
+  },
+  "keywords": [
+    "gallery",
+    "WordPress",
+    "plugin"
+  ],
+  "author": "WireDot Labs",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/wiredot/wp-gallery/issues"
+  },
+  "homepage": "https://github.com/wiredot/wp-gallery#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+}
