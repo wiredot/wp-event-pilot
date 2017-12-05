@@ -14,6 +14,7 @@ class Core {
 		$Preamp = Preamp::run( WPEP_URL );
 
 		if ( is_admin() ) {
+			new Admin();
 			new Settings();
 			new Support();
 			new Addons();
