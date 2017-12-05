@@ -98,12 +98,20 @@ $config['meta_box']['post']['wpep-details'] = array(
 				'event-type' => 2,
 			),
 		),
+		'form' => array(
+			'type' => 'post',
+			'label' => __( 'Form', 'wpep' ),
+			'arguments' => array(
+				'post_type' => 'wpep-form',
+			),
+		),
 		'options' => array(
 			'type' => 'checkbox',
 			'label' => __( 'Options', 'wpep' ),
 			'options' => array(
 				'location' => __( 'Location', 'wpep' ),
-				'attributes' => __( 'Attributes', 'wpep' ),
+				'accommodation' => __( 'Accommodation', 'wpep' ),
+				'additional' => __( 'Additional Options', 'wpep' ),
 			),
 		),
 	),
@@ -115,7 +123,7 @@ $config['meta_box']['post']['wpep-location'] = array(
 	'post_type' => array( 'wpep' ),
 	'context' => 'normal', // normal | advanced | side
 	'priority' => 'high', // high | core | default | low
-	'_condition' => array(
+	'condition' => array(
 		'options' => 'location',
 	),
 	'fields' => array(
@@ -144,6 +152,81 @@ $config['meta_box']['post']['wpep-location'] = array(
 		'location-country' => array(
 			'type' => 'text',
 			'label' => __( 'Country', 'wpep' ),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-accommodation'] = array(
+	'active' => true,
+	'name' => __( 'Accommodation', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'accommodation',
+	),
+	'fields' => array(
+		'accommodation' => array(
+			'type' => 'group',
+			'label' => __( 'Accommodation', 'wpep' ),
+			'fields' => array(
+				'name' => array(
+					'type' => 'text',
+					'label' => __( 'Name', 'wpep' ),
+					'size' => 'regular',
+				),
+				'max-people' => array(
+					'type' => 'number',
+					'label' => __( 'Max nr. of People', 'wpep' ),
+					'size' => 'small',
+				),
+				'cost' => array(
+					'type' => 'text',
+					'label' => __( 'Cost (per person & night)', 'wpep' ),
+				),
+			),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-additional'] = array(
+	'active' => true,
+	'name' => __( 'Additional Options', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'additional',
+	),
+	'fields' => array(
+		'additional' => array(
+			'type' => 'group',
+			'label' => __( 'Options', 'wpep' ),
+			'fields' => array(
+				'name' => array(
+					'type' => 'text',
+					'label' => __( 'Name', 'wpep' ),
+					'size' => 'regular',
+				),
+				'cost' => array(
+					'type' => 'text',
+					'label' => __( 'Cost', 'wpep' ),
+				),
+			),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-tickets'] = array(
+	'active' => true,
+	'name' => __( 'Tickets', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'fields' => array(
+		'tickets-price' => array(
+			'type' => 'number',
+			'label' => __( 'Price', 'wpep' ),
 		),
 	),
 );
