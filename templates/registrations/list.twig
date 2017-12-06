@@ -1,0 +1,11 @@
+<div class="wrap">    
+    <h2>sdsd</h2>
+	<form action="{{ admin_url( 'edit.php?post_type=wpep&page=wpep-registration' ) }}" id="nds-user-list-form" method="get">
+		{{ List_Table.search_box( __( 'Search Participants', 'easy-digital-downloads' ), 'edd-customers' ) }}				
+		{{ List_Table.views() }}
+		{{ List_Table.display() }}
+		<input type="hidden" name="post_type" value="wpep">
+		<input type="hidden" name="page" value="wpep_registrations">
+		<input type="hidden" name="view" value="list">
+	</form>
+</div>

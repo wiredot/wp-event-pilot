@@ -3,6 +3,8 @@
 namespace Wiredot\WPEP;
 
 use Wiredot\Preamp\Core as Preamp;
+use Wiredot\WPEP\Registrations\Registration_List;
+use Wiredot\WPEP\Admin\Admin;
 
 class Core {
 

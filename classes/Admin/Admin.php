@@ -1,6 +1,6 @@
 <?php
 
-namespace Wiredot\WPEP;
+namespace Wiredot\WPEP\Admin;
 
 class Admin {
 
