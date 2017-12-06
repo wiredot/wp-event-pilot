@@ -15,9 +15,9 @@ class Core {
 
 		if ( is_admin() ) {
 			new Admin();
-			new Settings();
 			new Support();
 			new Addons();
+			new Registration_List();
 			new Welcome();
 		}
 	}
@@ -31,9 +31,9 @@ class Core {
 
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
-			'wpep',
+			WPEP_TEXT_DOMAIN,
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname( WPEP_BASENAME ) . '/languages/'
 		);
 	}
 }

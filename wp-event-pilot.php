@@ -16,9 +16,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'WPEP', 'wp-event-pilot' );
+define( 'WPEP_VERSION', '1.0.0' );
+define( 'WPEP_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPEP_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPEP_BASENAME', plugin_basename( __FILE__ ) );
-
+define( 'WPEP_TEXT_DOMAIN', 'wpep' );
 
 // load composer libraries
 require __DIR__ . '/vendor/autoload.php';
