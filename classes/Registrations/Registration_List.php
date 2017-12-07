@@ -30,10 +30,9 @@ class Registration_List {
 			'option'	=>	'users_per_page'
 		);
 		add_screen_option( 'per_page', $arguments );
-		add_screen_option( 'layout_columns', array(
-'max'     => 4,
-'default' => 1
-) );
+
+		$List_Table = new Registration_List_Table();
+
 		/*
 		 * Instantiate the User List Table. Creating an instance here will allow the core WP_List_Table class to automatically
 		 * load the table columns in the screen options panel		 
