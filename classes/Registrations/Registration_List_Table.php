@@ -140,10 +140,12 @@ class Registration_List_Table extends WP_List_Table {
 
 		$this->total = count( $this->items );
 
+		$users_per_page = $this->get_items_per_page( 'users_per_page' );
+
 		$this->set_pagination_args(
 			array(
 				'total_items' => $this->total,
-				'per_page'    => $this->per_page,
+				'per_page'    => $users_per_page,
 				'total_pages' => ceil( $this->total / $this->per_page ),
 			)
 		);

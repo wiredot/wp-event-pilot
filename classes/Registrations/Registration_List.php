@@ -11,7 +11,7 @@ class Registration_List {
 	}
 
 	public function add_submenu_page() {
-		add_submenu_page(
+		$page_hook = add_submenu_page(
 			'edit.php?post_type=wpep',
 			__( 'WP Event Pilot Registrations', 'wpep' ),
 			__( 'Registrations', 'wpep' ),
@@ -19,6 +19,26 @@ class Registration_List {
 			'wpep_registrations',
 			array( $this, 'registrations_page' )
 		);
+
+		add_action( 'load-'.$page_hook, array( $this, 'load_user_list_table_screen_options' ) );
+	}
+
+	public function load_user_list_table_screen_options() {
+		$arguments = array(
+			'label'		=>	__( 'Users Per Page', 'wpep' ),
+			'default'	=>	5,
+			'option'	=>	'users_per_page'
+		);
+		add_screen_option( 'per_page', $arguments );
+		add_screen_option( 'layout_columns', array(
+'max'     => 4,
+'default' => 1
+) );
+		/*
+		 * Instantiate the User List Table. Creating an instance here will allow the core WP_List_Table class to automatically
+		 * load the table columns in the screen options panel		 
+		 */	 
+		// $this->user_list_table = new User_List_Table( $this->plugin_text_domain );		
 	}
 
 	public function registrations_page() {
