@@ -17,6 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'WPEP', 'wp-event-pilot' );
+define( 'WPEP_NS', 'wpep' );
 define( 'WPEP_VERSION', '1.0.0' );
 define( 'WPEP_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPEP_URL', plugin_dir_url( __FILE__ ) );

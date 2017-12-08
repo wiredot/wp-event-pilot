@@ -2,3 +2,4 @@
 /vendor
 *.map
 /node_modules
+/.idea

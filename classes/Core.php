@@ -13,7 +13,7 @@ class Core {
 	private function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
-		$Preamp = Preamp::run( WPEP_URL );
+		Preamp::run( WPEP_URL, WPEP_DIR );
 
 		if ( is_admin() ) {
 			new Admin();

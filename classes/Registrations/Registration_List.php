@@ -20,14 +20,14 @@ class Registration_List {
 			array( $this, 'registrations_page' )
 		);
 
-		add_action( 'load-'.$page_hook, array( $this, 'load_user_list_table_screen_options' ) );
+		add_action( 'load-' . $page_hook, array( $this, 'load_user_list_table_screen_options' ) );
 	}
 
 	public function load_user_list_table_screen_options() {
 		$arguments = array(
-			'label'		=>	__( 'Users Per Page', 'wpep' ),
-			'default'	=>	5,
-			'option'	=>	'users_per_page'
+			'label'     => __( 'Users Per Page', 'wpep' ),
+			'default'   => 5,
+			'option'    => 'users_per_page',
 		);
 		add_screen_option( 'per_page', $arguments );
 
@@ -35,9 +35,9 @@ class Registration_List {
 
 		/*
 		 * Instantiate the User List Table. Creating an instance here will allow the core WP_List_Table class to automatically
-		 * load the table columns in the screen options panel		 
-		 */	 
-		// $this->user_list_table = new User_List_Table( $this->plugin_text_domain );		
+         * load the table columns in the screen options panel
+		 */
+		// $this->user_list_table = new User_List_Table( $this->plugin_text_domain );
 	}
 
 	public function registrations_page() {
