@@ -1,0 +1,728 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Event Pilot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-08 01:31+0000\n"
+"PO-Revision-Date: 2017-12-08 01:41+0000\n"
+"Last-Translator: psoluch <psoluch@wiredot.com>\n"
+"Language-Team: Polish\n"
+"Language: pl-PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
+"&&(n%100<10||n%100 >= 20)? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:10
+msgctxt "participant"
+msgid "Add New Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:11
+msgid "Add New Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:12
+msgid "New Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:13
+msgid "Edit Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:14
+msgid "View Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:16
+msgid "Search Participant"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:17
+msgid "No Participant found."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:18
+msgid "No Participant found in Trash."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:19
+msgid "Participant Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:20
+msgid "Remove Participant Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:21
+msgid "Use as Participant Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:22
+msgid "Set Participant Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:25
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:26
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:28
+msgid "Participant updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:27
+msgid "Participant deleted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:29
+msgid "Participant restored to revision from %revision%"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:30
+msgid "Participant published."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:31
+msgid "Participant saved."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:32
+msgid "Participant submitted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:33
+msgid "Participant scheduled for: <strong>%date%</strong>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:34
+msgid "Participant draft updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:36
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:36
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:36
+msgid "Description."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:63
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:63
+msgid "Details"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:70
+msgid "First Name"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:74
+msgid "Last Name"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:82
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:89
+msgid "Address"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:94
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:141
+msgid "Address line 2"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:99
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:146
+msgid "City"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:103
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:150
+msgid "Postal Code / Zip"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:107
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:154
+msgid "Country"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:8
+msgctxt "admin menu"
+msgid "WP Event Pilot"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:10
+msgctxt "event"
+msgid "Add New Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:11
+msgid "Add New Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:12
+msgid "New Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:13
+msgid "Edit Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:14
+msgid "View Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:15
+msgid "Events"
+msgstr "Wydarzenia"
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:16
+msgid "Search Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:17
+msgid "No Event found."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:18
+msgid "No Event found in Trash."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:19
+msgid "Event Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:20
+msgid "Remove Event Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:21
+msgid "Use as Event Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:22
+msgid "Set Event Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:25
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:26
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:28
+msgid "Event updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:27
+msgid "Event deleted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:29
+msgid "Event restored to revision from %revision%"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:30
+msgid "Event published."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:31
+msgid "Event saved."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:32
+msgid "Event submitted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:33
+msgid "Event scheduled for: <strong>%date%</strong>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:34
+msgid "Event draft updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:70
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:32
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:40
+msgid "Event Type"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:72
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:34
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:42
+msgid "One day event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:73
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:35
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:43
+msgid "Multi-day event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:78
+msgid "Start Date"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:82
+msgid "Start Time"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:89
+msgid "End Time"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:96
+msgid "End Date"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:103
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:7
+msgid "Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:110
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:204
+msgid "Options"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:112
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:122
+msgid "Location"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:113
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:161
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:171
+msgid "Accommodation"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:114
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:194
+msgid "Additional Options"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:132
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:175
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:208
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:91
+msgid "Name"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:136
+msgid "Address line 1"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:180
+msgid "Max nr. of People"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:185
+msgid "Cost (per person & night)"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:213
+msgid "Cost"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:222
+msgid "Tickets"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:229
+msgid "Price"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:6
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:9
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:15
+msgid "Forms"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:8
+msgctxt "admin menu"
+msgid "Forms"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:10
+msgctxt "form"
+msgid "Add New Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:11
+msgid "Add New Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:12
+msgid "New Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:13
+msgid "Edit Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:14
+msgid "View Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:16
+msgid "Search Form"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:17
+msgid "No Form found."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:18
+msgid "No Form found in Trash."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:19
+msgid "Form Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:20
+msgid "Remove Form Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:21
+msgid "Use as Form Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:22
+msgid "Set Form Cover"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:25
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:26
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:28
+msgid "Form updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:27
+msgid "Form deleted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:29
+msgid "Form restored to revision from %revision%"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:30
+msgid "Form published."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:31
+msgid "Form saved."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:32
+msgid "Form submitted."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:33
+msgid "Form scheduled for: <strong>%date%</strong>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:34
+msgid "Form draft updated."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:6
+msgid "WP Event Pilot Settings"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:7
+msgid "Settings"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:15
+msgid "General"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:21
+msgid "User Fields"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:27
+msgid "General Settings"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:28
+msgid "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:49
+msgid "Text Type"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Addons.php:14
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Addons.php:15
+msgid "Addons"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Support.php:14
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Support.php:15
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Welcome.php:45
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:9
+msgid "Support"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Welcome.php:17
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Welcome.php:18
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Welcome.php:44
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:8
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List.php:16
+msgid "WP Event Pilot Registrations"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List.php:17
+msgid "Registrations"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List.php:28
+msgid "Users Per Page"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:81
+msgid "Edit"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:82
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:110
+msgid "Delete"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:92
+msgid "Email"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:93
+msgid "Event"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:94
+msgid "Date Created"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:179
+msgid "No users avaliable."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:4
+msgid "Welcome to WP Gallery"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:5
+msgid "Thank you for installing WP Gallery."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:10
+msgid "Credits"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:14
+msgid ""
+"Follow the steps below to get started using WP Gallery. Your Galleries will "
+"be ready in just few minutes!"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:17
+msgid "Creating Your First Gallery"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:23
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:64
+msgid "Photo Gallery"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:23
+msgid "Add New Photo Gallery"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:24
+msgid ""
+"On this page you can create your first Photo Gallery. Simply enter the "
+"Gallery title and click on the Add Photos button. You can chose photos from "
+"your WordPress Media Library or upload them. Then you can add a Gallery "
+"Cover if you want and Publish the Gallery."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:30
+msgid "Adding a Gallery List to a Page"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:36
+msgid ""
+"On any page click on the Add Photo Gallery button directly above the Editor. "
+"Then click on the Insert Shortcode button next to Galleries List. Save the "
+"page and you're done."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:37
+msgid "Shortcode"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:44
+msgid "Adding a Gallery to a Page"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:50
+msgid ""
+"You can display a single Gallery on a page. Click on the Add Photo Gallery "
+"button directly above the Editor. Then click on the Insert Shortcode button "
+"next to the Gallery you want to show. Save the page and that's it."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:51
+msgid "Example Shortcode (id is a post id of your Gallery)"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:58
+msgid "Selecting a Skin"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:64
+msgid "Skins"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:65
+msgid ""
+"WP Gallery has several beautiful skins. Select the one you like the most on "
+"the Skns page. More skins coming soon."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:73
+msgid ""
+"We did our best to make WP Gallery as simple to use as possible. But if you "
+"have a problem or a questions, get in  touch and we will do everything to "
+"help."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:76
+msgid "Need help?"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:80
+msgid "Free Support"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:81
+#, php-format
+msgid ""
+"Visit our <a href=\"%s\" target=\"_blank\">Support page</a> and submit a "
+"ticket if you have a problem or a question. We will get back to you as soon "
+"as we can."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:84
+msgid "Premium Support"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:85
+#, php-format
+msgid ""
+"You can purchase our <a href=\"%s\" target=\"_blank\">Premium Support</a> "
+"access if you need our help right away. You will get a phone support and "
+"access to our Slack."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:91
+msgid "Learn more"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:95
+msgid "Documentation"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:96
+msgid ""
+"Visit WP Gallery website and have a look at the documentation to learn more "
+"about the plugin."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:99
+msgid "Newsletter"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:100
+#, php-format
+msgid ""
+"Get regular updates on new features, new skins and tips & tricks. Sign up "
+"for our Newsletter <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:107
+#, php-format
+msgid ""
+"WP Gallery is created and maintained by <a href=\"%s\" target=\"_blank\">"
+"WireDot Labs</a>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:112
+msgid "Contribute"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:113
+#, php-format
+msgid ""
+"If you want to contribute go to our <a href=\"%s\" target=\"_blank\">GitHub "
+"Repository</a>, fork WP Gallery and submit a Pull Request."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:116
+msgid "Issues"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:117
+#, php-format
+msgid ""
+"If you find any problems or bugs, report them on our <a href=\"%s\" "
+"target=\"_blank\">GitHub Issues page</a>."
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:122
+msgid "Libraries"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:123
+msgid "WP Gallery uses following libraries"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:133
+msgid "Inspiration"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:134
+msgid "Parts of WP Gallery have been inspired by"
+msgstr ""
+
+#. Name of the plugin
+msgid "WP Event Pilot"
+msgstr ""
+
+#. Description of the plugin
+msgid "Event Management"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wiredot.com/wp-event-pilot/"
+msgstr ""
+
+#. Author of the plugin
+msgid "WireDot Labs"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wiredot.com/labs/"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:6
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:9
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:15
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:35
+msgid "Participants"
+msgstr "Uczestnicy"
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:7
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:34
+msgid "Participant"
+msgstr "Uczestnik"
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:8
+msgctxt "admin menu"
+msgid "Participants"
+msgstr "Uczestnicy"

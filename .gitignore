@@ -3,3 +3,4 @@
 *.map
 /node_modules
 /.idea
+*.po~

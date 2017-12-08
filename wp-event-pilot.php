@@ -5,7 +5,7 @@
  * Description: Event Management
  * Author: WireDot Labs
  * Version: 1.0.0
- * Text Domain: wp-event-pilot
+ * Text Domain: wpep
  * Domain Path: /languages
  * Author URI: https://wiredot.com/labs/
  * License: GPLv2 or later
