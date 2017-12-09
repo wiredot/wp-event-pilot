@@ -28,9 +28,22 @@ define( 'WPEP_TEXT_DOMAIN', 'wpep' );
 require __DIR__ . '/vendor/autoload.php';
 
 use Wiredot\WPEP\Core;
+use Wiredot\WPEP\Activator;
+use Wiredot\WPEP\Deactivator;
 
 function wpep() {
 	return Core::run();
 }
 
 wpep();
+
+register_activation_hook( __FILE__, 'wpep_activate' );
+register_deactivation_hook( __FILE__, 'wpep_deactivate' );
+
+function wpep_activate() {
+	Activator::activate();
+}
+
+function wpep_deactivate() {
+	Deactivator::deactivate();
+}
