@@ -15,6 +15,29 @@ class DB_Registration extends Db {
 		$this->version     = '1.0';
 	}
 
+	public function get_columns() {
+		return array(
+			'ID' => '%d',
+			'participant_id' => '%d',
+			'event_id' => '%d',
+			'first_name' => '%s',
+			'last_name' => '%s',
+			'email' => '%s',
+			'date_created' => '%s',
+		);
+	}
+
+	public function get_column_defaults() {
+		return array(
+			'participant_id' => 0,
+			'event_id' => 0,
+			'first_name' => '',
+			'last_name' => '',
+			'email' => '',
+			'date_created' => date( 'Y-m-d H:i:s' ),
+		);
+	}
+
 	public function create_table() {
 		global $wpdb;
 
