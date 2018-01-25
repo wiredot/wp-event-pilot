@@ -2,7 +2,7 @@
 
 namespace Wiredot\WPEP\DB;
 
-class DB_Registration extends Db {
+class DB_Registration extends DB {
 
 	private $table_name;
 	private $primary_key;

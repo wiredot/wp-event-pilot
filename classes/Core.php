@@ -22,6 +22,8 @@ class Core {
 			new Registration_List();
 			new Welcome();
 		}
+		
+		new Participant();
 	}
 
 	public static function run() {

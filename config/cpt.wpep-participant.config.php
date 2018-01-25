@@ -108,3 +108,11 @@ $config['meta_box']['post']['wpep-participant-address'] = array(
 		),
 	),
 );
+
+$config['admin_custom_columns']['participant'] = array(
+	'post_type' => 'wpep-participant',
+	'columns' => array(
+		'title',
+		'date',
+	),
+);
