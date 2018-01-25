@@ -23,6 +23,7 @@ class Core {
 			new Welcome();
 		}
 		
+		new User_Fields();
 		new Participant();
 	}
 
