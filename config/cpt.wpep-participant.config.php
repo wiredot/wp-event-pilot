@@ -60,7 +60,7 @@ $config['custom_post_type']['wpep-participant'] = array(
 
 $config['meta_box']['post']['wpep-participant-details'] = array(
 	'active' => true,
-	'name' => __( 'Details', 'wpep' ),
+	'name' => __( 'Personal Details', 'wpep' ),
 	'post_type' => array( 'wpep-participant' ),
 	'context' => 'normal', // normal | advanced | side
 	'priority' => 'high', // high | core | default | low
@@ -72,6 +72,11 @@ $config['meta_box']['post']['wpep-participant-details'] = array(
 		'last-name' => array(
 			'type' => 'text',
 			'label' => __( 'Last Name', 'wpep' ),
+			'size' => 'regular',
+		),
+		'email' => array(
+			'type' => 'email',
+			'label' => __( 'E-mail', 'wpep' ),
 			'size' => 'regular',
 		),
 	),
