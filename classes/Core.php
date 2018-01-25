@@ -4,6 +4,7 @@ namespace Wiredot\WPEP;
 
 use Wiredot\Preamp\Core as Preamp;
 use Wiredot\WPEP\Registrations\Registration_List;
+use Wiredot\WPEP\Forms\Form_Factory;
 use Wiredot\WPEP\Admin\Admin;
 
 class Core {
@@ -22,9 +23,10 @@ class Core {
 			new Registration_List();
 			new Welcome();
 		}
-		
+
 		new User_Fields();
 		new Participant();
+		new Form_Factory();
 	}
 
 	public static function run() {
