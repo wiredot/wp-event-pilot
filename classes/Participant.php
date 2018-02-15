@@ -12,7 +12,16 @@ class Participant {
 		global $wpdb;
 
 		if ( 'wpep-participant' == $post->post_type ) {
-			$post_title = $_POST['first-name'] . ' ' . $_POST['last-name'];
+			$post_title = '';
+
+			$main_fields = User_Fields::get_main_fields();
+
+			foreach ( $main_fields as $field ) {
+				if ( isset( $_POST[ $field ] ) ) {
+					$post_title .= $_POST[ $field ] . ' ';
+				}
+			}
+
 			$wpdb->update(
 				$wpdb->posts,
 				array(

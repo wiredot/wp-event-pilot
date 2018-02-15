@@ -58,62 +58,6 @@ $config['custom_post_type']['wpep-participant'] = array(
 	'custom_menu_icon' => 'assets/images/wpep.svg',
 );
 
-$config['meta_box']['post']['wpep-participant-details'] = array(
-	'active' => true,
-	'name' => __( 'Personal Details', 'wpep' ),
-	'post_type' => array( 'wpep-participant' ),
-	'context' => 'normal', // normal | advanced | side
-	'priority' => 'high', // high | core | default | low
-	'fields' => array(
-		'first-name' => array(
-			'type' => 'text',
-			'label' => __( 'First Name', 'wpep' ),
-		),
-		'last-name' => array(
-			'type' => 'text',
-			'label' => __( 'Last Name', 'wpep' ),
-			'size' => 'regular',
-		),
-		'email' => array(
-			'type' => 'email',
-			'label' => __( 'E-mail', 'wpep' ),
-			'size' => 'regular',
-		),
-	),
-);
-
-$config['meta_box']['post']['wpep-participant-address'] = array(
-	'active' => true,
-	'name' => __( 'Address', 'wpep' ),
-	'post_type' => array( 'wpep-participant' ),
-	'context' => 'normal', // normal | advanced | side
-	'priority' => 'high', // high | core | default | low
-	'fields' => array(
-		'address' => array(
-			'type' => 'text',
-			'label' => __( 'Address', 'wpep' ),
-			'size' => 'regular',
-		),
-		'addressb' => array(
-			'type' => 'text',
-			'label' => __( 'Address line 2', 'wpep' ),
-			'size' => 'regular',
-		),
-		'city' => array(
-			'type' => 'text',
-			'label' => __( 'City', 'wpep' ),
-		),
-		'zip' => array(
-			'type' => 'text',
-			'label' => __( 'Postal Code / Zip', 'wpep' ),
-		),
-		'country' => array(
-			'type' => 'text',
-			'label' => __( 'Country', 'wpep' ),
-		),
-	),
-);
-
 $config['admin_custom_columns']['participant'] = array(
 	'post_type' => 'wpep-participant',
 	'columns' => array(

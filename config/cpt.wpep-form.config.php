@@ -69,34 +69,51 @@ $config['meta_box']['post']['wpep-form-fields'] = array(
 			'type' => 'group',
 			'label' => __( 'Fields', 'wpep' ),
 			'fields' => array(
-				'type' => array(
-					'type' => 'select',
-					'label' => __( 'Type', 'wpep' ),
-					'options' => array(
-						'text' => __( 'Text', 'wpep' ),
-						'email' => __( 'Email', 'wpep' ),
-						'textarea' => __( 'Textarea', 'wpep' ),
-						'checkbox' => __( 'Checkboxes', 'wpep' ),
-					),
-				),
-				'id' => array(
+				'name' => array(
 					'type' => 'text',
-					'label' => __( 'ID', 'wpep' ),
+					'label' => __( 'Name', 'wpep' ),
 				),
-				'label' => array(
-					'type' => 'text',
-					'label' => __( 'Label', 'wpep' ),
-				),
-				'options' => array(
+				'fields' => array(
 					'type' => 'group',
-					'label' => __( 'Options', 'wpep' ),
-					'condition' => array(
-						'type' => 'checkbox',
-					),
+					'label' => __( 'Fields', 'wpep' ),
 					'fields' => array(
+						'type' => array(
+							'type' => 'select',
+							'label' => __( 'Type', 'wpep' ),
+							'options' => array(
+								'text' => __( 'Text', 'wpep' ),
+								'email' => __( 'E-Mail', 'wpep' ),
+								'date' => __( 'Date', 'wpep' ),
+								'textarea' => __( 'Textarea', 'wpep' ),
+								'checkbox' => __( 'Checkboxes', 'wpep' ),
+							),
+						),
 						'id' => array(
 							'type' => 'text',
 							'label' => __( 'ID', 'wpep' ),
+							'condition' => array(
+								'type' => array( 'text', 'email', 'date', 'textarea', 'checkbox' ),
+							),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
+							'condition' => array(
+								'type' => array( 'text', 'email', 'date', 'textarea', 'checkbox' ),
+							),
+						),
+						'options' => array(
+							'type' => 'group',
+							'label' => __( 'Options', 'wpep' ),
+							'condition' => array(
+								'type' => 'checkbox',
+							),
+							'fields' => array(
+								'id' => array(
+									'type' => 'text',
+									'label' => __( 'ID', 'wpep' ),
+								),
+							),
 						),
 					),
 				),
