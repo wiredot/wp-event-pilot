@@ -57,3 +57,50 @@ $config['custom_post_type']['wpep-form'] = array(
 	'delete_with_user' => true,
 	'custom_menu_icon' => 'assets/images/wpep.svg',
 );
+
+$config['meta_box']['post']['wpep-form-fields'] = array(
+	'active' => true,
+	'name' => __( 'Form Fields', 'wpep' ),
+	'post_type' => array( 'wpep-form' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'fields' => array(
+		'fields' => array(
+			'type' => 'group',
+			'label' => __( 'Fields', 'wpep' ),
+			'fields' => array(
+				'type' => array(
+					'type' => 'select',
+					'label' => __( 'Type', 'wpep' ),
+					'options' => array(
+						'text' => __( 'Text', 'wpep' ),
+						'email' => __( 'Email', 'wpep' ),
+						'textarea' => __( 'Textarea', 'wpep' ),
+						'checkbox' => __( 'Checkboxes', 'wpep' ),
+					),
+				),
+				'id' => array(
+					'type' => 'text',
+					'label' => __( 'ID', 'wpep' ),
+				),
+				'label' => array(
+					'type' => 'text',
+					'label' => __( 'Label', 'wpep' ),
+				),
+				'options' => array(
+					'type' => 'group',
+					'label' => __( 'Options', 'wpep' ),
+					'condition' => array(
+						'type' => 'checkbox',
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+					),
+				),
+			),
+		),
+	),
+);
