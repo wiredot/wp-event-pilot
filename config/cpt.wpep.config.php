@@ -98,18 +98,12 @@ $config['meta_box']['post']['wpep-details'] = array(
 				'event-type' => 2,
 			),
 		),
-		'form' => array(
-			'type' => 'post',
-			'label' => __( 'Form', 'wpep' ),
-			'arguments' => array(
-				'post_type' => 'wpep-form',
-			),
-		),
 		'options' => array(
 			'type' => 'checkbox',
 			'label' => __( 'Options', 'wpep' ),
 			'options' => array(
 				'location' => __( 'Location', 'wpep' ),
+				'tickets' => __( 'Tickets', 'wpep' ),
 				'accommodation' => __( 'Accommodation', 'wpep' ),
 				'additional' => __( 'Additional Options', 'wpep' ),
 			),
@@ -152,6 +146,23 @@ $config['meta_box']['post']['wpep-location'] = array(
 		'location-country' => array(
 			'type' => 'text',
 			'label' => __( 'Country', 'wpep' ),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-tickets'] = array(
+	'active' => true,
+	'name' => __( 'Tickets', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'tickets',
+	),
+	'fields' => array(
+		'tickets-price' => array(
+			'type' => 'number',
+			'label' => __( 'Price', 'wpep' ),
 		),
 	),
 );
@@ -213,20 +224,6 @@ $config['meta_box']['post']['wpep-additional'] = array(
 					'label' => __( 'Cost', 'wpep' ),
 				),
 			),
-		),
-	),
-);
-
-$config['meta_box']['post']['wpep-tickets'] = array(
-	'active' => true,
-	'name' => __( 'Tickets', 'wpep' ),
-	'post_type' => array( 'wpep' ),
-	'context' => 'normal', // normal | advanced | side
-	'priority' => 'high', // high | core | default | low
-	'fields' => array(
-		'tickets-price' => array(
-			'type' => 'number',
-			'label' => __( 'Price', 'wpep' ),
 		),
 	),
 );
