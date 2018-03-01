@@ -78,7 +78,7 @@ $config['settings']['section']['user_field_section'] = array(
 			'fields' => array(
 				'name' => array(
 					'type' => 'text',
-					'label' => __( 'Name', 'wpep' ),
+					'label' => __( 'Title', 'wpep' ),
 				),
 				'fields' => array(
 					'type' => 'group',
@@ -102,10 +102,6 @@ $config['settings']['section']['user_field_section'] = array(
 						'label' => array(
 							'type' => 'text',
 							'label' => __( 'Label', 'wpep' ),
-						),
-						'main' => array(
-							'type' => 'checkbox',
-							'label' => __( 'Main Field', 'wpep' ),
 						),
 						'options' => array(
 							'type' => 'group',

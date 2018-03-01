@@ -1,5 +1,5 @@
 <div id="wpep-register">
-	{% if wpep_is_logged_in() %}
+	{% if is_user_logged_in() %}
 		<div class="ui attached message">
 			<div class="header">
 				{{ __('Welcome back!', 'wpep') }}
@@ -21,10 +21,10 @@
 				<label>{{ __('Name', 'wpep') }}</label>
 				<div class="two fields">
 					<div class="field">
-						<input type="text" name="first-name" placeholder="{{ __('First Name', 'wpep') }}">
+						<input type="text" name="first_name" placeholder="{{ __('First Name', 'wpep') }}" required="required">
 					</div>
 					<div class="field">
-						<input type="text" name="last-name" placeholder="{{ __('Last Name', 'wpep') }}">
+						<input type="text" name="last_name" placeholder="{{ __('Last Name', 'wpep') }}" required="required">
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,6 @@
 namespace Wiredot\WPEP\Templates;
 
 use Wiredot\Preamp\Twig;
-use Wiredot\WPEP\Session;
 
 class Login {
 
@@ -12,6 +11,10 @@ class Login {
 
 		add_action( 'wp_ajax_wpep-login', array( $this, 'log_in' ) );
 		add_action( 'wp_ajax_nopriv_wpep-login', array( $this, 'log_in' ) );
+
+		if ( isset( $_GET['wpep-logout'] ) ) {
+			add_action( 'init', array( $this, 'log_out' ) );
+		}
 	}
 
 	public function login_form() {
@@ -42,10 +45,11 @@ class Login {
 		// if there are no errors so far
 		if ( empty( $form_errors ) ) {
 
-			$user_id = Session::check_login( $email, $password );
+			// get user with the provided email address
+			$user = get_user_by( 'email', $email );
 
 			// check if the user exists and if the password matches
-			if ( ! $user_id ) {
+			if ( ! $user || ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
 
 				// if the password is incorrect for the specified user
 				$form_errors['user_login'] = ( 'Your E-Mail or Password is not correct' );
@@ -56,7 +60,7 @@ class Login {
 		if ( empty( $form_errors ) ) {
 
 			// authenticate user
-			Session::log_in( $email, $password );
+			$this->log_user_in( $email, $password );
 
 			// response alert
 			$response = array(
@@ -95,6 +99,24 @@ class Login {
 		$response_json = json_encode( $response );
 		header( 'Content-Type: application/json' );
 		echo $response_json;
+		exit;
+	}
+
+	public function log_user_in( $email, $password ) {
+		$user = wp_authenticate( $email, $password );
+		wp_set_auth_cookie( $user->ID, true );
+		wp_set_current_user( $user->ID, $user->user_login );
+		do_action( 'wp_login', $user->user_login, $user );
+	}
+
+	public function log_out() {
+		wp_logout();
+
+		$login_page = get_option( 'wpep_settings_login_page' );
+
+		$location = get_permalink( $login_page );
+
+		wp_redirect( $location );
 		exit;
 	}
 }

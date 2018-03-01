@@ -17,8 +17,6 @@ class Core {
 	private function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
-		include_once( WPEP_DIR . '/functions/functions.php' );
-
 		Preamp::run( WPEP_URL, WPEP_DIR );
 
 		if ( is_admin() ) {

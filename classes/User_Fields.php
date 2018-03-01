@@ -47,23 +47,6 @@ class User_Fields {
 		return $config;
 	}
 
-	public static function get_main_fields() {
-		$wpep_settings_fields = self::get_user_fields();
-
-		$main_fields = array();
-
-		foreach ( $wpep_settings_fields as $key => $mb ) {
-
-			foreach ( $mb['fields'] as $fkey => $field ) {
-				if ( isset( $field['main'] ) ) {
-					$main_fields[] = $field['id'];
-				}
-			}
-		}
-
-		return $main_fields;
-	}
-
 	public static function get_user_fields() {
 		return get_option( 'wpep_settings_fields' );
 	}
