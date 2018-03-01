@@ -93,6 +93,8 @@ $config['settings']['section']['user_field_section'] = array(
 								'date' => __( 'Date', 'wpep' ),
 								'textarea' => __( 'Textarea', 'wpep' ),
 								'checkbox' => __( 'Checkboxes', 'wpep' ),
+								'radio' => __( 'Radio', 'wpep' ),
+								'select' => __( 'Select Box', 'wpep' ),
 							),
 						),
 						'id' => array(
@@ -107,12 +109,16 @@ $config['settings']['section']['user_field_section'] = array(
 							'type' => 'group',
 							'label' => __( 'Options', 'wpep' ),
 							'condition' => array(
-								'type' => 'checkbox',
+								'type' => array( 'checkbox', 'select', 'radio' ),
 							),
 							'fields' => array(
 								'id' => array(
 									'type' => 'text',
 									'label' => __( 'ID', 'wpep' ),
+								),
+								'label' => array(
+									'type' => 'text',
+									'label' => __( 'Label', 'wpep' ),
 								),
 							),
 						),

@@ -40,11 +40,26 @@ class User_Fields {
 	public function add_user_fields( $config ) {
 		if ( is_array( $this->user_fields ) ) {
 			foreach ( $this->user_fields as $group => $fields ) {
+				$fields['fields'] = $this->fix_options( $fields['fields'] );
 				$config['meta_box']['user'][ $group ] = $fields;
 			}
 		}
 
 		return $config;
+	}
+
+	public function fix_options( $fields ) {
+		foreach ( $fields as $key => $field ) {
+			if ( isset( $field['options'] ) ) {
+				$options = $field['options'];
+				$fields[ $key ]['options'] = array();
+				foreach ( $options as $option ) {
+					$fields[ $key ]['options'][ $option['id'] ] = $option['label'];
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 	public static function get_user_fields() {

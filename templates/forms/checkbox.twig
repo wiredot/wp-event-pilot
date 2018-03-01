@@ -1,0 +1,18 @@
+{% if field.options %}
+	<label>{{ field.label }}</label>
+	{% for option in field.options %}
+		<div class="field">
+			<div class="ui checkbox">
+				<input type="checkbox" class="hidden" id="{{ field.id }}_{{ option.id }}" name="{{ field.id }}[]" value="{{ option.id }}"{% if option.id in value %} checked="checked"{% endif %}>
+				<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label>
+			</div>
+		</div>
+    {% endfor %}
+{% else %}
+	<div class="field">
+		<div class="ui checkbox">
+			<input type="checkbox" class="hidden" id="{{ field.id }}" name="{{ field.id }}" value="1"{% if value %} checked="checked"{% endif %}>
+			<label for="{{ field.id }}">{{ field.label }}</label>
+		</div>
+	</div>
+{% endif %}

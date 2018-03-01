@@ -1,0 +1,8 @@
+<div class="field">
+	<label>{{ field.label }}</label>
+	<select name="{{ field.id }}" id="{{ field.id }}" class="ui dropdown">
+		{% for option in field.options %}
+			<option value="{{ option.id }}"{% if value is defined and value == option.id %} selected="selected"{% endif %}>{{ option.label }}</option>
+    	{% endfor %}
+	</select>
+</div>
