@@ -40,7 +40,7 @@ class User_Fields {
 	public function add_user_fields( $config ) {
 		if ( is_array( $this->user_fields ) ) {
 			foreach ( $this->user_fields as $group => $fields ) {
-				$config['meta_box']['post'][ $group ] = $fields;
+				$config['meta_box']['user'][ $group ] = $fields;
 			}
 		}
 
@@ -49,5 +49,17 @@ class User_Fields {
 
 	public static function get_user_fields() {
 		return get_option( 'wpep_settings_fields' );
+	}
+
+	public static function get_user_fields_list() {
+		$fields = self::get_user_fields();
+
+		$field_list = array();
+
+		foreach ( $fields as $group ) {
+			$field_list = array_merge( $field_list, $group['fields'] );
+		}
+
+		return $field_list;
 	}
 }

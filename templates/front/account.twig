@@ -22,21 +22,11 @@
 			<p>{{ __('Make changes to your details and save the form', 'wpep') }}</p>
 		</div>
 		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-account-save" class="ui form attached segment wd-form">
-			 <div class="field">
-				<label>{{ __('Name', 'wpep') }}</label>
-				<div class="two fields">
-					<div class="field">
-						<input type="text" name="first_name" placeholder="{{ __('First Name', 'wpep') }}" value="{{ get_user_meta( get_current_user_id(), 'first_name', true ) }}" required="required">
-					</div>
-					<div class="field">
-						<input type="text" name="last_name" placeholder="{{ __('Last Name', 'wpep') }}" value="{{ get_user_meta( get_current_user_id(), 'last_name', true ) }}" required="required">
-					</div>
-				</div>
-			</div>
 			<div class="field">
 				<label>{{ __('E-mail', 'wpep') }}</label>
 				<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required" value="{{ get_user_email( get_current_user_id() ) }}" required="required">
 			</div>
+			{{ additional_fields|raw }}
 			<button class="ui button" type="submit">{{ __('Save', 'wpep') }}</button>
 		</form>
 	{% endif %}

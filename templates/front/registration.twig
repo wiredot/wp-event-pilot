@@ -17,17 +17,6 @@
 			<p>{{ __('Fill out the form below to sign-up for a new account', 'wpep') }}</p>
 		</div>
 		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-register" class="ui form attached segment wd-form">
-			 <div class="field">
-				<label>{{ __('Name', 'wpep') }}</label>
-				<div class="two fields">
-					<div class="field">
-						<input type="text" name="first_name" placeholder="{{ __('First Name', 'wpep') }}" required="required">
-					</div>
-					<div class="field">
-						<input type="text" name="last_name" placeholder="{{ __('Last Name', 'wpep') }}" required="required">
-					</div>
-				</div>
-			</div>
 			<div class="field">
 				<label>{{ __('E-mail', 'wpep') }}</label>
 				<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
@@ -36,6 +25,7 @@
 				<label>{{ __('Password', 'wpep') }}</label>
 				<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
 			</div>
+			{{ additional_fields|raw }}
 			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
 		</form>
 		{% if ( get_option( 'wpep_settings_login_page' ) ) %}

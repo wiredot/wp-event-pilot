@@ -28,7 +28,6 @@ class Core {
 		}
 
 		new User_Fields();
-		new Participant();
 		new Form_Factory();
 		new Login();
 		new Registration();

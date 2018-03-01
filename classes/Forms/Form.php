@@ -15,8 +15,6 @@ class Form {
 
 		$wpep_settings_fields = User_Fields::get_user_fields();
 
-		// print_r( $wpep_settings_fields );
-
 		foreach ( $wpep_settings_fields as $key => $mb ) {
 
 			foreach ( $mb['fields'] as $fkey => $field ) {

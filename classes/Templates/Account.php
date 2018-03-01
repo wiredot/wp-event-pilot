@@ -3,6 +3,7 @@
 namespace Wiredot\WPEP\Templates;
 
 use Wiredot\Preamp\Twig;
+use Wiredot\WPEP\User_Fields;
 
 class Account {
 
@@ -16,7 +17,56 @@ class Account {
 	public function account_page() {
 		$Twig = new Twig();
 		echo $Twig->twig->render(
-			'front/account.twig', array()
+			'front/account.twig', array(
+				'additional_fields' => $this->get_user_fields(),
+			)
+		);
+	}
+
+	public function get_user_fields() {
+		$additional_fields = User_Fields::get_user_fields();
+
+		$user_fields = '';
+
+		foreach ( $additional_fields as $group ) {
+			$user_fields .= $this->get_user_group( $group );
+		}
+
+		return $user_fields;
+	}
+
+	public function get_user_group( $group ) {
+		$group_text = '';
+
+		$Twig = new Twig();
+		$group_text .= $Twig->twig->render(
+			'forms/header.twig', array(
+				'header' => $group['name'],
+			)
+		);
+
+		$group_text .= $this->get_user_group_fields( $group['fields'] );
+
+		return $group_text;
+	}
+
+	public function get_user_group_fields( $fields ) {
+		$fields_text = '';
+
+		foreach ( $fields as $key => $field ) {
+			$fields_text .= $this->get_user_group_field( $field );
+		}
+
+		return $fields_text;
+	}
+
+	public function get_user_group_field( $field ) {
+		$Twig = new Twig();
+		return $Twig->twig->render(
+			'forms/' . $field['type'] . '.twig', array(
+				'field' => $field,
+				'value' => get_user_meta( get_current_user_id(), $field['id'], true ),
+			)
 		);
 	}
 
@@ -34,23 +84,27 @@ class Account {
 			$form_errors['email'] = __( 'The E-mail field is empty', 'wpep' );
 		}
 
-		// check if first_name is not empty and valid
-		if ( empty( $first_name ) ) {
-			$form_errors['first_name'] = __( 'The First Name field is empty', 'wpep' );
-		}
+		$additional_fields = User_Fields::get_user_fields_list();
 
-		// check if last_name is not empty and valid
-		if ( empty( $last_name ) ) {
-			$form_errors['last_name'] = __( 'The Last Name field is empty', 'wpep' );
+		foreach ( $additional_fields as $field ) {
+			switch ( $field['type'] ) {
+				case 'text':
+				case 'date':
+				default:
+					if ( empty( $_POST[ $field['id'] ] ) ) {
+						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+					}
+					break;
+			}
 		}
 
 		// only log the user in if there are no errors
 		if ( empty( $form_errors ) ) {
+			$participant_id = get_current_user_id();
 
-			$user_id = get_current_user_id();
-
-			update_user_meta( $user_id, 'first_name', $first_name );
-			update_user_meta( $user_id, 'last_name', $last_name );
+			foreach ( $additional_fields as $field ) {
+				update_user_meta( $participant_id, $field['id'], $_POST[ $field['id'] ] );
+			}
 
 			// response alert
 			$response = array(

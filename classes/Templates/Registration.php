@@ -3,7 +3,7 @@
 namespace Wiredot\WPEP\Templates;
 
 use Wiredot\Preamp\Twig;
-use Wiredot\WPEP\Session;
+use Wiredot\WPEP\User_Fields;
 
 class Registration {
 
@@ -18,7 +18,55 @@ class Registration {
 		$Twig = new Twig();
 
 		echo $Twig->twig->render(
-			'front/registration.twig', array()
+			'front/registration.twig', array(
+				'additional_fields' => $this->get_user_fields(),
+			)
+		);
+	}
+
+	public function get_user_fields() {
+		$additional_fields = User_Fields::get_user_fields();
+
+		$user_fields = '';
+
+		foreach ( $additional_fields as $group ) {
+			$user_fields .= $this->get_user_group( $group );
+		}
+
+		return $user_fields;
+	}
+
+	public function get_user_group( $group ) {
+		$group_text = '';
+
+		$Twig = new Twig();
+		$group_text .= $Twig->twig->render(
+			'forms/header.twig', array(
+				'header' => $group['name'],
+			)
+		);
+
+		$group_text .= $this->get_user_group_fields( $group['fields'] );
+
+		return $group_text;
+	}
+
+	public function get_user_group_fields( $fields ) {
+		$fields_text = '';
+
+		foreach ( $fields as $key => $field ) {
+			$fields_text .= $this->get_user_group_field( $field );
+		}
+
+		return $fields_text;
+	}
+
+	public function get_user_group_field( $field ) {
+		$Twig = new Twig();
+		return $Twig->twig->render(
+			'forms/' . $field['type'] . '.twig', array(
+				'field' => $field,
+			)
 		);
 	}
 
@@ -28,17 +76,29 @@ class Registration {
 		// those have to be protected against bad entries - SQL Injection etc...
 		$email = sanitize_text_field( trim( $_POST['email'] ) );
 		$password = sanitize_text_field( trim( $_POST['password'] ) );
-		$first_name = sanitize_text_field( trim( $_POST['first_name'] ) );
-		$last_name = sanitize_text_field( trim( $_POST['last_name'] ) );
 
 		// check if email is not empty and valid
 		if ( empty( $email ) ) {
-			$form_errors['email'] = __cp( 'The E-mail field is empty', 'wpep' );
+			$form_errors['email'] = __( 'The E-mail field is empty', 'wpep' );
 		}
 
 		// check if password is not empty
 		if ( empty( $password ) ) {
-			$form_errors['password'] = __cp( 'The password field is empty', 'wpep' );
+			$form_errors['password'] = __( 'The password field is empty', 'wpep' );
+		}
+
+		$additional_fields = User_Fields::get_user_fields_list();
+
+		foreach ( $additional_fields as $field ) {
+			switch ( $field['type'] ) {
+				case 'text':
+				case 'date':
+				default:
+					if ( empty( $_POST[ $field['id'] ] ) ) {
+						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+					}
+					break;
+			}
 		}
 
 		if ( empty( $form_errors ) ) {
@@ -47,8 +107,6 @@ class Registration {
 				'user_login' => $email,
 				'user_email' => $email,
 				'user_pass' => $password,
-				'first_name' => $first_name,
-				'last_name' => $last_name,
 				'role' => 'subscriber',
 			);
 
@@ -56,11 +114,16 @@ class Registration {
 
 			// Validate inserted user
 			if ( is_wp_error( $user_id ) ) {
-				$form_errors['password'] = __cp( 'There was a problem, please try again.', 'wpep' );
+				$form_errors['password'] = __( 'There was a problem, please try again.', 'wpep' );
 			}
 		}
 
 		if ( empty( $form_errors ) ) {
+
+			foreach ( $additional_fields as $field ) {
+				update_user_meta( $participant_id, $field['id'], $_POST[ $field['id'] ] );
+			}
+
 			$this->log_user_in( $email, $password );
 
 			// response alert
