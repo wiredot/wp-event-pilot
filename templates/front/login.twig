@@ -1,25 +1,36 @@
 <div id="wpep-login">
-	<div class="ui attached message">
-		<div class="header">
-			{{ __('Welcome back!', 'wpep') }}
+	{% if wpep_is_logged_in() %}
+		<div class="ui attached message">
+			<div class="header">
+				{{ __('Welcome back!', 'wpep') }}
+			</div>
+			<p>{{ __('You are already logged in.', 'wpep') }}</p>
 		</div>
-		<p>{{ __('Fill out the form below to log-in to your account', 'wpep') }}</p>
-	</div>
-	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
-		<div class="field">
-			<label>{{ __('E-mail', 'wpep') }}</label>
-			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
+		<div class="ui bottom attached warning message">
+			<a href="{{ get_permalink() }}?wpep-logout=1">Log-out here</a>
 		</div>
-		<div class="field">
-			<label>{{ __('Password', 'wpep') }}</label>
-			<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
+	{% else %}
+		<div class="ui attached message">
+			<div class="header">
+				{{ __('Welcome back!', 'wpep') }}
+			</div>
+			<p>{{ __('Fill out the form below to log-in to your account', 'wpep') }}</p>
 		</div>
-		<button class="ui button" type="submit">{{ __('Log-in', 'wpep') }}</button>
-	</form>
-	{% if ( get_option( 'wpep_settings_register_page' ) ) %}
-	<div class="ui bottom attached warning message">
-		<i class="icon help"></i>
-		No account yet? <a href="{{ get_permalink( get_option( 'wpep_settings_register_page' ) ) }}">Register here</a> instead.
-	</div>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
+			<div class="field">
+				<label>{{ __('E-mail', 'wpep') }}</label>
+				<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
+			</div>
+			<div class="field">
+				<label>{{ __('Password', 'wpep') }}</label>
+				<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
+			</div>
+			<button class="ui button" type="submit">{{ __('Log-in', 'wpep') }}</button>
+		</form>
+		{% if ( get_option( 'wpep_settings_register_page' ) ) %}
+		<div class="ui bottom attached warning message">
+			No account yet? <a href="{{ get_permalink( get_option( 'wpep_settings_register_page' ) ) }}">Register here</a> instead.
+		</div>
+		{% endif %}
 	{% endif %}
 </div>

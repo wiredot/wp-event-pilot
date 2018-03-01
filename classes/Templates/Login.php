@@ -3,6 +3,7 @@
 namespace Wiredot\WPEP\Templates;
 
 use Wiredot\Preamp\Twig;
+use Wiredot\WPEP\Session;
 
 class Login {
 
@@ -41,11 +42,10 @@ class Login {
 		// if there are no errors so far
 		if ( empty( $form_errors ) ) {
 
-			// get user with the provided email address
-			$user = get_user_by( 'email', $email );
+			$user_id = Session::check_login( $email, $password );
 
 			// check if the user exists and if the password matches
-			if ( ! $user || ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
+			if ( ! $user_id ) {
 
 				// if the password is incorrect for the specified user
 				$form_errors['user_login'] = ( 'Your E-Mail or Password is not correct' );
@@ -56,7 +56,7 @@ class Login {
 		if ( empty( $form_errors ) ) {
 
 			// authenticate user
-			$this->log_user_in( $email, $password );
+			Session::log_in( $email, $password );
 
 			// response alert
 			$response = array(
@@ -96,12 +96,5 @@ class Login {
 		header( 'Content-Type: application/json' );
 		echo $response_json;
 		exit;
-	}
-
-	public function log_user_in( $email, $password ) {
-		$user = wp_authenticate( $email, $password );
-		wp_set_auth_cookie( $user->ID, true );
-		wp_set_current_user( $user->ID, $user->user_login );
-		do_action( 'wp_login', $user->user_login, $user );
 	}
 }

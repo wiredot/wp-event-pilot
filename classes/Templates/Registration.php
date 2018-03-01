@@ -12,8 +12,10 @@ class Registration {
 
 	public function registration_form() {
 		$Twig = new Twig();
+
 		echo $Twig->twig->render(
 			'front/registration.twig', array()
 		);
 	}
 }
+

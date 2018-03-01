@@ -1,36 +1,47 @@
 <div id="wpep-register">
-	<div class="ui attached message">
-		<div class="header">
-			{{ __('Welcome to our site!', 'wpep') }}
+	{% if wpep_is_logged_in() %}
+		<div class="ui attached message">
+			<div class="header">
+				{{ __('Welcome back!', 'wpep') }}
+			</div>
+			<p>{{ __('You are already registered and logged in.', 'wpep') }}</p>
 		</div>
-		<p>{{ __('Fill out the form below to sign-up for a new account', 'wpep') }}</p>
-	</div>
-	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-register" class="ui form attached segment wd-form">
-		 <div class="field">
-			<label>{{ __('Name', 'wpep') }}</label>
-			<div class="two fields">
-				<div class="field">
-					<input type="text" name="first-name" placeholder="{{ __('First Name', 'wpep') }}">
-				</div>
-				<div class="field">
-					<input type="text" name="last-name" placeholder="{{ __('Last Name', 'wpep') }}">
+		<div class="ui bottom attached warning message">
+			<a href="{{ get_permalink() }}?wpep-logout=1">Log-out here</a>
+		</div>
+	{% else %}
+		<div class="ui attached message">
+			<div class="header">
+				{{ __('Welcome to our site!', 'wpep') }}
+			</div>
+			<p>{{ __('Fill out the form below to sign-up for a new account', 'wpep') }}</p>
+		</div>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-register" class="ui form attached segment wd-form">
+			 <div class="field">
+				<label>{{ __('Name', 'wpep') }}</label>
+				<div class="two fields">
+					<div class="field">
+						<input type="text" name="first-name" placeholder="{{ __('First Name', 'wpep') }}">
+					</div>
+					<div class="field">
+						<input type="text" name="last-name" placeholder="{{ __('Last Name', 'wpep') }}">
+					</div>
 				</div>
 			</div>
+			<div class="field">
+				<label>{{ __('E-mail', 'wpep') }}</label>
+				<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
+			</div>
+			<div class="field">
+				<label>{{ __('Password', 'wpep') }}</label>
+				<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
+			</div>
+			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
+		</form>
+		{% if ( get_option( 'wpep_settings_login_page' ) ) %}
+		<div class="ui bottom attached warning message">
+			Already signed up? <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">Login here</a> instead.
 		</div>
-		<div class="field">
-			<label>{{ __('E-mail', 'wpep') }}</label>
-			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
-		</div>
-		<div class="field">
-			<label>{{ __('Password', 'wpep') }}</label>
-			<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
-		</div>
-		<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
-	</form>
-	{% if ( get_option( 'wpep_settings_login_page' ) ) %}
-	<div class="ui bottom attached warning message">
-		<i class="icon help"></i>
-		Already signed up? <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">Login here</a> instead.
-	</div>
+		{% endif %}
 	{% endif %}
 </div>
