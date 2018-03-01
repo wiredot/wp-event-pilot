@@ -8,6 +8,7 @@ use Wiredot\WPEP\Forms\Form_Factory;
 use Wiredot\WPEP\Admin\Admin;
 use Wiredot\WPEP\Templates\Login;
 use Wiredot\WPEP\Templates\Registration;
+use Wiredot\WPEP\Templates\Account;
 
 class Core {
 
@@ -31,6 +32,7 @@ class Core {
 		new Form_Factory();
 		new Login();
 		new Registration();
+		new Account();
 	}
 
 	public static function run() {

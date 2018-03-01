@@ -11,7 +11,6 @@ class Login {
 
 		add_action( 'wp_ajax_wpep-login', array( $this, 'log_in' ) );
 		add_action( 'wp_ajax_nopriv_wpep-login', array( $this, 'log_in' ) );
-
 	}
 
 	public function login_form() {
