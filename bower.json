@@ -1,6 +1,7 @@
 {
     "name":  "wp-event-pilot",
     "dependencies": {
-        "semantic-ui": "2.x"
+        "semantic-ui": "2.x",
+		"wd-scripts": "latest"
     }
 }

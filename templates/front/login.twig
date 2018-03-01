@@ -1,5 +1,11 @@
 <div id="wpep-login">
-	<form action="" class="ui form">
+	<div class="ui attached message">
+		<div class="header">
+			Welcome back!
+		</div>
+		<p>Fill out the form below to log-in to your account</p>
+	</div>
+	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
 		<div class="field">
 			<label>{{ __('E-mail', 'wpep') }}</label>
 			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
@@ -10,4 +16,9 @@
 		</div>
 		<button class="ui button" type="submit">{{ __('Log-in', 'wpep') }}</button>
 	</form>
+	<div class="ui bottom attached warning message">
+		<i class="icon help"></i>
+		No account yet? <a href="#">Register here</a> instead.
+	</div>
+
 </div>
