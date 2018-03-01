@@ -6,6 +6,8 @@ use Wiredot\Preamp\Core as Preamp;
 use Wiredot\WPEP\Registrations\Registration_List;
 use Wiredot\WPEP\Forms\Form_Factory;
 use Wiredot\WPEP\Admin\Admin;
+use Wiredot\WPEP\Templates\Login;
+use Wiredot\WPEP\Templates\Registration;
 
 class Core {
 
@@ -27,6 +29,8 @@ class Core {
 		new User_Fields();
 		new Participant();
 		new Form_Factory();
+		new Login();
+		new Registration();
 	}
 
 	public static function run() {
