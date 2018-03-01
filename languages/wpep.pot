@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-08 01:31+0000\n"
+"POT-Creation-Date: 2018-03-01 11:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -120,44 +120,6 @@ msgstr ""
 msgid "Description."
 msgstr ""
 
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:63
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:63
-msgid "Details"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:70
-msgid "First Name"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:74
-msgid "Last Name"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:82
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:89
-msgid "Address"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:94
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:141
-msgid "Address line 2"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:99
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:146
-msgid "City"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:103
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:150
-msgid "Postal Code / Zip"
-msgstr ""
-
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-participant.config.php:107
-#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:154
-msgid "Country"
-msgstr ""
-
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:8
 msgctxt "admin menu"
 msgid "WP Event Pilot"
@@ -250,6 +212,10 @@ msgstr ""
 msgid "Event draft updated."
 msgstr ""
 
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:63
+msgid "Details"
+msgstr ""
+
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:70
 #: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:32
 #: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:40
@@ -291,6 +257,8 @@ msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:110
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:204
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:107
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:100
 msgid "Options"
 msgstr ""
 
@@ -313,12 +281,31 @@ msgstr ""
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:132
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:175
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:208
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:74
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:69
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Registrations/Registration_List_Table.php:91
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/registration.twig:4
 msgid "Name"
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:136
 msgid "Address line 1"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:141
+msgid "Address line 2"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:146
+msgid "City"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:150
+msgid "Postal Code / Zip"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:154
+msgid "Country"
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep.config.php:180
@@ -435,6 +422,59 @@ msgstr ""
 msgid "Form draft updated."
 msgstr ""
 
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:63
+msgid "Form Fields"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:70
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:78
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:65
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:73
+msgid "Fields"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:82
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:77
+msgid "Type"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:84
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:79
+msgid "Text"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:85
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:80
+msgid "E-Mail"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:86
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:81
+msgid "Date"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:87
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:82
+msgid "Textarea"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:88
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:83
+msgid "Checkboxes"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:93
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:114
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:88
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:107
+msgid "ID"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/cpt.wpep-form.config.php:100
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:92
+msgid "Label"
+msgstr ""
+
 #: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:6
 msgid "WP Event Pilot Settings"
 msgstr ""
@@ -456,11 +496,20 @@ msgid "General Settings"
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:28
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:61
 msgid "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:49
 msgid "Text Type"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:60
+msgid "User Field Settings"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/config/settings.config.php:96
+msgid "Main Field"
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Addons.php:14
@@ -705,6 +754,18 @@ msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/templates/welcome.twig:134
 msgid "Parts of WP Gallery have been inspired by"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/registration.twig:15
+msgid "E-mail"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/registration.twig:19
+msgid "Password"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/registration.twig:22
+msgid "Register"
 msgstr ""
 
 #. Name of the plugin

@@ -1,24 +1,24 @@
 <div id="wpep-register">
 	<form action="" class="ui form">
 		 <div class="field">
-			<label>Name</label>
+			<label>{{ __('Name', 'wpep') }}</label>
 			<div class="two fields">
 				<div class="field">
-					<input type="text" name="shipping[first-name]" placeholder="First Name">
+					<input type="text" name="first-name" placeholder="{{ __('First Name', 'wpep') }}">
 				</div>
 				<div class="field">
-					<input type="text" name="shipping[last-name]" placeholder="Last Name">
+					<input type="text" name="last-name" placeholder="{{ __('Last Name', 'wpep') }}">
 				</div>
 			</div>
 		</div>
 		<div class="field">
-			<label>E-mail</label>
-			<input type="email" name="email" placeholder="E-mail" required="required">
+			<label>{{ __('E-mail', 'wpep') }}</label>
+			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
 		</div>
 		<div class="field">
-			<label>Password</label>
-			<input type="password" name="password" placeholder="Password" required="required">
+			<label>{{ __('Password', 'wpep') }}</label>
+			<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
 		</div>
-		<button class="ui button" type="submit">Register</button>
+		<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
 	</form>
 </div>

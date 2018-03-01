@@ -5,3 +5,4 @@
 /.idea
 *.po~
 /assets/bower
+*.pot~
