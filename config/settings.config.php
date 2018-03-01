@@ -27,6 +27,18 @@ $config['settings']['section']['general_section'] = array(
 	'name' => __( 'General Settings', 'wpep' ),
 	'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'wpep' ),
 	'fields' => array(
+		'login_page' => array(
+			'type' => 'text',
+			'label' => __( 'Log-in page', 'wpep' ),
+		),
+		'register_page' => array(
+			'type' => 'text',
+			'label' => __( 'Registration page', 'wpep' ),
+		),
+		'account_page' => array(
+			'type' => 'text',
+			'label' => __( 'Account page', 'wpep' ),
+		),
 		'event-type' => array(
 			'type' => 'select',
 			'label' => __( 'Event Type', 'wpep' ),

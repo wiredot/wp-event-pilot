@@ -23,6 +23,7 @@ class Login {
 
 	public function log_in() {
 		$form_errors = array();
+		$remember = true;
 
 		// those have to be protected against bad entries - SQL Injection etc...
 		$email = sanitize_text_field( trim( $_POST['email'] ) );
@@ -30,19 +31,12 @@ class Login {
 
 		// check if email is not empty and valid
 		if ( empty( $email ) ) {
-			$form_errors['email'] = __cp( 'The username field is empty', 'user' );
+			$form_errors['email'] = __cp( 'The E-mail field is empty', 'wpep' );
 		}
 
 		// check if password is not empty
 		if ( empty( $password ) ) {
-			$form_errors['password'] = __cp( 'The password field is empty' );
-		}
-
-		$remember = false;
-
-		// remember for 2 weeks checkbox
-		if ( ! empty( $_POST['remember'] ) ) {
-			$remember = true;
+			$form_errors['password'] = __cp( 'The password field is empty', 'wpep' );
 		}
 
 		// if there are no errors so far
@@ -55,7 +49,7 @@ class Login {
 			if ( ! $user || ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
 
 				// if the password is incorrect for the specified user
-				$form_errors['user_login'] = ( 'Your password is incorrect' );
+				$form_errors['user_login'] = ( 'Your E-Mail or Password is not correct' );
 			}
 		}
 
@@ -65,15 +59,6 @@ class Login {
 			// authenticate user
 			$this->log_user_in( $email, $password );
 
-			global $CP_Membership;
-
-			$user_status = $CP_Membership->get_user_status();
-			if ( $user_status == 1 ) {
-				$page_id = 151;
-			} else {
-				$page_id = 21;
-			}
-
 			// response alert
 			$response = array(
 				'alert' => array(
@@ -82,20 +67,24 @@ class Login {
 					'message' => ( 'You are logged in' ),
 					'container' => '#wpep-login form',
 					'animationIn' => 'dissolve',
-					'hideAfter' => 1000,
-				),
-				'redirect' => array(
-					'url' => get_permalink( $page_id ),
-					'delay' => 1000,
 				),
 			);
+
+			$account_page = get_option( 'wpep_settings_account_page' );
+
+			if ( $account_page ) {
+				$response['redirect'] = array(
+					'url' => get_permalink( $account_page ),
+					'delay' => 2000,
+				);
+			}
 		} // if there are errors
 		else {
 			$response = array(
 				'alert' => array(
 					'type' => 'error',
-					'title' => ( 'Ups!' ),
-					'message' => ( 'Something went wrong:' ),
+					'title' => __( 'Ups!', 'wpep' ),
+					'message' => __( 'Something went wrong:', 'wpep' ),
 					'list' => $form_errors,
 					'container' => '#wpep-login form',
 					'animationIn' => 'dissolve',
@@ -108,5 +97,12 @@ class Login {
 		header( 'Content-Type: application/json' );
 		echo $response_json;
 		exit;
+	}
+
+	public function log_user_in( $email, $password ) {
+		$user = wp_authenticate( $email, $password );
+		wp_set_auth_cookie( $user->ID, true );
+		wp_set_current_user( $user->ID, $user->user_login );
+		do_action( 'wp_login', $user->user_login, $user );
 	}
 }

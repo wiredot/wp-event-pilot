@@ -1,9 +1,9 @@
 <div id="wpep-login">
 	<div class="ui attached message">
 		<div class="header">
-			Welcome back!
+			{{ __('Welcome back!', 'wpep') }}
 		</div>
-		<p>Fill out the form below to log-in to your account</p>
+		<p>{{ __('Fill out the form below to log-in to your account', 'wpep') }}</p>
 	</div>
 	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
 		<div class="field">
@@ -16,9 +16,10 @@
 		</div>
 		<button class="ui button" type="submit">{{ __('Log-in', 'wpep') }}</button>
 	</form>
+	{% if ( get_option( 'wpep_settings_register_page' ) ) %}
 	<div class="ui bottom attached warning message">
 		<i class="icon help"></i>
-		No account yet? <a href="#">Register here</a> instead.
+		No account yet? <a href="{{ get_permalink( get_option( 'wpep_settings_register_page' ) ) }}">Register here</a> instead.
 	</div>
-
+	{% endif %}
 </div>
