@@ -65,7 +65,7 @@ $config['meta_box']['post']['wpep-details'] = array(
 	'context' => 'normal', // normal | advanced | side
 	'priority' => 'high', // high | core | default | low
 	'fields' => array(
-		'event-type' => array(
+		'event_type' => array(
 			'type' => 'select',
 			'label' => __( 'Event Type', 'wpep' ),
 			'options' => array(
@@ -73,29 +73,29 @@ $config['meta_box']['post']['wpep-details'] = array(
 				2 => __( 'Multi-day event', 'wpep' ),
 			),
 		),
-		'start-date' => array(
+		'start_date' => array(
 			'type' => 'date',
 			'label' => __( 'Start Date', 'wpep' ),
 		),
-		'start-time' => array(
+		'start_time' => array(
 			'type' => 'text',
 			'label' => __( 'Start Time', 'wpep' ),
 			'condition' => array(
-				'event-type' => 1,
+				'event_type' => 1,
 			),
 		),
-		'end-time' => array(
+		'end_time' => array(
 			'type' => 'text',
 			'label' => __( 'End Time', 'wpep' ),
 			'condition' => array(
-				'event-type' => 1,
+				'event_type' => 1,
 			),
 		),
-		'end-date' => array(
+		'end_date' => array(
 			'type' => 'date',
 			'label' => __( 'End Date', 'wpep' ),
 			'condition' => array(
-				'event-type' => 2,
+				'event_type' => 2,
 			),
 		),
 		'options' => array(
@@ -233,6 +233,8 @@ $config['admin_custom_columns']['gallery'] = array(
 	'columns' => array(
 		'featured_image',
 		'title',
+		'start_date',
+		'end_date',
 		'date',
 	),
 );

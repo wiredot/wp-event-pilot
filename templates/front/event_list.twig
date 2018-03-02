@@ -1,0 +1,5 @@
+<ul>
+	{% loop { 'post_type' : 'wpep' } %}
+		<li><a href="{{ get_permalink() }}">{{ the_title() }}</a></li>
+	{% endloop %}
+</ul>

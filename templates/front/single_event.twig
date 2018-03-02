@@ -1,0 +1,5 @@
+<h2>Location</h2>
+<p>{{ get_post_meta( the_id(), 'start_date', true) }} - {{ get_post_meta( the_id(), 'end_date', true) }}</p>
+{{ content|raw }}
+
+<a href="{{ get_permalink() }}?register=1">rejestracja</a>

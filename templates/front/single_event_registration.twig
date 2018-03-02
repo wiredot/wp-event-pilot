@@ -1,0 +1,27 @@
+<div id="wpep-event-registration">
+	{% if not is_user_logged_in() %}
+		<div class="ui attached warning message">
+			<p>{{ __('If you already have an account,', 'wpep') }} <a href="">log-in here</a></p>
+		</div>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
+			<div class="field">
+				<label>{{ __('E-mail', 'wpep') }}</label>
+				<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required">
+			</div>
+			{{ additional_fields|raw }}
+			<button class="ui button" type="submit">{{ __('Continue', 'wpep') }}</button>
+		</form>
+	{% else %}
+		<div class="ui attached message">
+			<div class="header">
+				{{ __('Registration', 'wpep') }}
+			</div>
+			<p>{{ __('You\'re logged in, so we can use your information.', 'wpep') }}</p>
+		</div>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-login" class="ui form attached segment wd-form">
+			{{ additional_fields|raw }}
+			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
+		</form>
+	{% endif %}
+	
+</div>

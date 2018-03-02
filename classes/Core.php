@@ -9,6 +9,8 @@ use Wiredot\WPEP\Admin\Admin;
 use Wiredot\WPEP\Templates\Login;
 use Wiredot\WPEP\Templates\Registration;
 use Wiredot\WPEP\Templates\Account;
+use Wiredot\WPEP\Templates\Event_List;
+use Wiredot\WPEP\Templates\Single_Event;
 
 class Core {
 
@@ -32,6 +34,8 @@ class Core {
 		new Login();
 		new Registration();
 		new Account();
+		new Event_List();
+		new Single_Event();
 	}
 
 	public static function run() {
