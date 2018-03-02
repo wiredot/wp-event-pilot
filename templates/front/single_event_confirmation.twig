@@ -22,6 +22,7 @@
 					</tr>
 				</tbody>
 			</table>
+			{{ user_fields|raw }}
 			{{ additional_fields|raw }}
 			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
 			<input type="hidden" name="event_id" value="{{ the_id() }}">

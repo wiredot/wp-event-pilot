@@ -120,6 +120,7 @@ $config['meta_box']['post']['wpep-details'] = array(
 				'tickets' => __( 'Tickets', 'wpep' ),
 				'accommodation' => __( 'Accommodation', 'wpep' ),
 				'additional' => __( 'Additional Options', 'wpep' ),
+				'additional_fields' => __( 'Additional Form Fields', 'wpep' ),
 			),
 		),
 	),
@@ -285,6 +286,71 @@ $config['meta_box']['post']['wpep-additional'] = array(
 				'cost' => array(
 					'type' => 'text',
 					'label' => __( 'Cost', 'wpep' ),
+				),
+			),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-additional_fields'] = array(
+	'active' => true,
+	'name' => __( 'Additional Form Fields', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'additional_fields',
+	),
+	'fields' => array(
+		'additional_fields_label' => array(
+			'type' => 'text',
+			'label' => __( 'Label', 'wpep' ),
+		),
+		'additional_fields' => array(
+			'type' => 'group',
+			'label' => __( 'Additional Fields', 'wpep' ),
+			'fields' => array(
+				'type' => array(
+					'type' => 'select',
+					'label' => __( 'Type', 'wpep' ),
+					'options' => array(
+						'text' => __( 'Text', 'wpep' ),
+						'email' => __( 'E-Mail', 'wpep' ),
+						'date' => __( 'Date', 'wpep' ),
+						'textarea' => __( 'Textarea', 'wpep' ),
+						'checkbox' => __( 'Checkboxes', 'wpep' ),
+						'radio' => __( 'Radio', 'wpep' ),
+						'select' => __( 'Select Box', 'wpep' ),
+					),
+				),
+				'id' => array(
+					'type' => 'text',
+					'label' => __( 'ID', 'wpep' ),
+				),
+				'label' => array(
+					'type' => 'text',
+					'label' => __( 'Label', 'wpep' ),
+				),
+				'required' => array(
+					'type' => 'checkbox',
+					'label' => __( 'Required Field', 'wpep' ),
+				),
+				'options' => array(
+					'type' => 'group',
+					'label' => __( 'Options', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'checkbox', 'select', 'radio' ),
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
+						),
+					),
 				),
 			),
 		),

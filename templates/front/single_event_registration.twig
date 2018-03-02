@@ -9,6 +9,7 @@
 			<label>{{ __('E-mail', 'wpep') }}</label>
 			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required" value="{{ email }}">
 		</div>
+		{{ user_fields|raw }}
 		{{ additional_fields|raw }}
 		<button class="ui button" type="submit">{{ __('Continue', 'wpep') }}</button>
 		<input type="hidden" name="event_id" value="{{ the_id() }}">

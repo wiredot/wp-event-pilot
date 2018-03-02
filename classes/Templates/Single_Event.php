@@ -4,6 +4,7 @@ namespace Wiredot\WPEP\Templates;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\WPEP\User_Fields;
+use Wiredot\WPEP\Additional_Fields;
 
 class Single_Event {
 
@@ -21,7 +22,6 @@ class Single_Event {
 
 			$email = '';
 
-
 			if ( isset( $_GET['register'] ) ) {
 				if ( get_current_user_id() ) {
 					$user = get_userdata( get_current_user_id() );
@@ -30,7 +30,8 @@ class Single_Event {
 
 				$content = $Twig->twig->render(
 					'front/single_event_registration.twig', array(
-						'additional_fields' => $this->get_user_fields( $event_id, 'registration' ),
+						'user_fields' => $this->get_user_fields( $event_id, 'registration' ),
+						'additional_fields' => Additional_Fields::get_additional_fields_form( $event_id ),
 						'email' => $email,
 					)
 				);
@@ -40,7 +41,7 @@ class Single_Event {
 				}
 				$content = $Twig->twig->render(
 					'front/single_event_confirmation.twig', array(
-						'additional_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
+						'user_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
 						'email' => $email,
 					)
 				);
@@ -57,15 +58,15 @@ class Single_Event {
 	}
 
 	public function get_user_fields( $event_id = null, $mode = 'registration' ) {
-		$additional_fields = User_Fields::get_user_fields();
+		$user_fields = User_Fields::get_user_fields();
 
-		$user_fields = '';
+		$user_fields_text = '';
 
-		foreach ( $additional_fields as $group ) {
-			$user_fields .= $this->get_user_group( $group, $event_id, $mode );
+		foreach ( $user_fields as $group ) {
+			$user_fields_text .= $this->get_user_group( $group, $event_id, $mode );
 		}
 
-		return $user_fields;
+		return $user_fields_text;
 	}
 
 	public function get_user_group( $group, $event_id = null, $mode = 'registration' ) {
