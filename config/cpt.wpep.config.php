@@ -115,8 +115,8 @@ $config['meta_box']['post']['wpep-details'] = array(
 			'label' => __( 'Options', 'wpep' ),
 			'options' => array(
 				'organizer' => __( 'Organizer', 'wpep' ),
-				'registration' => __( 'Event Registration', 'wpep' ),
 				'location' => __( 'Location', 'wpep' ),
+				'registration' => __( 'Event Registration', 'wpep' ),
 				'tickets' => __( 'Tickets', 'wpep' ),
 				'accommodation' => __( 'Accommodation', 'wpep' ),
 				'additional' => __( 'Additional Options', 'wpep' ),
@@ -154,6 +154,44 @@ $config['meta_box']['post']['wpep-organizer'] = array(
 	),
 );
 
+$config['meta_box']['post']['wpep-location'] = array(
+	'active' => true,
+	'name' => __( 'Location', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'location',
+	),
+	'fields' => array(
+		'location-name' => array(
+			'type' => 'text',
+			'label' => __( 'Location Name', 'wpep' ),
+		),
+		'location-address' => array(
+			'type' => 'text',
+			'label' => __( 'Address', 'wpep' ),
+			'size' => 'regular',
+		),
+		'location-city' => array(
+			'type' => 'text',
+			'label' => __( 'City', 'wpep' ),
+		),
+		'location-zip' => array(
+			'type' => 'text',
+			'label' => __( 'Postal Code / Zip', 'wpep' ),
+		),
+		'location-country' => array(
+			'type' => 'text',
+			'label' => __( 'Country', 'wpep' ),
+		),
+		'google_map' => array(
+			'type' => 'checkbox',
+			'label' => __( 'Show Google Map', 'wpep' ),
+		),
+	),
+);
+
 $config['meta_box']['post']['wpep-registration'] = array(
 	'active' => true,
 	'name' => __( 'Event Registration', 'wpep' ),
@@ -171,45 +209,6 @@ $config['meta_box']['post']['wpep-registration'] = array(
 		'registration-end' => array(
 			'type' => 'date',
 			'label' => __( 'Registration End Date', 'wpep' ),
-		),
-	),
-);
-
-$config['meta_box']['post']['wpep-location'] = array(
-	'active' => true,
-	'name' => __( 'Location', 'wpep' ),
-	'post_type' => array( 'wpep' ),
-	'context' => 'normal', // normal | advanced | side
-	'priority' => 'high', // high | core | default | low
-	'condition' => array(
-		'options' => 'location',
-	),
-	'fields' => array(
-		'location-name' => array(
-			'type' => 'text',
-			'label' => __( 'Location Name', 'wpep' ),
-		),
-		'location-address' => array(
-			'type' => 'text',
-			'label' => __( 'Address line 1', 'wpep' ),
-			'size' => 'regular',
-		),
-		'location-addressb' => array(
-			'type' => 'text',
-			'label' => __( 'Address line 2', 'wpep' ),
-			'size' => 'regular',
-		),
-		'location-city' => array(
-			'type' => 'text',
-			'label' => __( 'City', 'wpep' ),
-		),
-		'location-zip' => array(
-			'type' => 'text',
-			'label' => __( 'Postal Code / Zip', 'wpep' ),
-		),
-		'location-country' => array(
-			'type' => 'text',
-			'label' => __( 'Country', 'wpep' ),
 		),
 	),
 );

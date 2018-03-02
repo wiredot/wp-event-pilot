@@ -1,4 +1,4 @@
-<div class="field">
+<div class="field{% if field.required %} required{% endif %}">
 	<label>{{ field.label }}</label>
 	<select name="{{ field.id }}" id="{{ field.id }}" class="ui dropdown">
 		{% for option in field.options %}

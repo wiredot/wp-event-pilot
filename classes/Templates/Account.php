@@ -91,7 +91,7 @@ class Account {
 				case 'text':
 				case 'date':
 				default:
-					if ( empty( $_POST[ $field['id'] ] ) ) {
+					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
 						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
 					}
 					break;

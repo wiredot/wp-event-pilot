@@ -90,6 +90,10 @@ $config['settings']['section']['user_field_section'] = array(
 							'type' => 'text',
 							'label' => __( 'Label', 'wpep' ),
 						),
+						'required' => array(
+							'type' => 'checkbox',
+							'label' => __( 'Required Field', 'wpep' ),
+						),
 						'options' => array(
 							'type' => 'group',
 							'label' => __( 'Options', 'wpep' ),
