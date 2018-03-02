@@ -36,6 +36,7 @@ class Core {
 		new Account();
 		new Event_List();
 		new Single_Event();
+		new Event_Registration();
 	}
 
 	public static function run() {
