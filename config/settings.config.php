@@ -28,39 +28,24 @@ $config['settings']['section']['general_section'] = array(
 	'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'wpep' ),
 	'fields' => array(
 		'login_page' => array(
-			'type' => 'text',
+			'type' => 'post',
 			'label' => __( 'Log-in page', 'wpep' ),
+			'attributes' => array(
+				'post_type' => 'page',
+			),
 		),
 		'register_page' => array(
-			'type' => 'text',
+			'type' => 'post',
 			'label' => __( 'Registration page', 'wpep' ),
+			'attributes' => array(
+				'post_type' => 'page',
+			),
 		),
 		'account_page' => array(
-			'type' => 'text',
+			'type' => 'post',
 			'label' => __( 'Account page', 'wpep' ),
-		),
-		'event-type' => array(
-			'type' => 'select',
-			'label' => __( 'Event Type', 'wpep' ),
-			'options' => array(
-				1 => __( 'One day event', 'wpep' ),
-				2 => __( 'Multi-day event', 'wpep' ),
-			),
-		),
-		'event-box' => array(
-			'type' => 'checkbox',
-			'label' => __( 'Event Type', 'wpep' ),
-			'options' => array(
-				1 => __( 'One day event', 'wpep' ),
-				2 => __( 'Multi-day event', 'wpep' ),
-			),
-			'autoload' => true,
-		),
-		'third' => array(
-			'type' => 'text',
-			'label' => __( 'Text Type', 'wpep' ),
-			'condition' => array(
-				'event-type' => 2,
+			'attributes' => array(
+				'post_type' => 'page',
 			),
 		),
 	),
