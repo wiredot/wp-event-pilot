@@ -21,13 +21,16 @@ class User_Fields {
 			$meta_box = array(
 				'active' => true,
 				'name' => $mb['name'],
-				'post_type' => array( 'wpep-participant' ),
 				'context' => 'normal',
 				'priority' => 'high',
 				'fields' => array(),
 			);
 
 			foreach ( $mb['fields'] as $fkey => $field ) {
+
+				if ( isset( $field['options'] ) ) {
+					$field['options'] = $this->fix_options( $field['options'] );
+				}
 				$meta_box['fields'][ $field['id'] ] = $field;
 			}
 
@@ -40,26 +43,22 @@ class User_Fields {
 	public function add_user_fields( $config ) {
 		if ( is_array( $this->user_fields ) ) {
 			foreach ( $this->user_fields as $group => $fields ) {
-				$fields['fields'] = $this->fix_options( $fields['fields'] );
 				$config['meta_box']['user'][ $group ] = $fields;
+				$fields['post_type'] = 'wpep-registration';
+				$config['meta_box']['post'][ $group ] = $fields;
 			}
 		}
 
 		return $config;
 	}
 
-	public function fix_options( $fields ) {
-		foreach ( $fields as $key => $field ) {
-			if ( isset( $field['options'] ) ) {
-				$options = $field['options'];
-				$fields[ $key ]['options'] = array();
-				foreach ( $options as $option ) {
-					$fields[ $key ]['options'][ $option['id'] ] = $option['label'];
-				}
-			}
+	public function fix_options( $options ) {
+		$fixed_options = array();
+		foreach ( $options as $option ) {
+			$fixed_options[ $option['id'] ] = $option['label'];
 		}
 
-		return $fields;
+		return $fixed_options;
 	}
 
 	public static function get_user_fields() {

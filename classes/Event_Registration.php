@@ -9,6 +9,10 @@ class Event_Registration {
 	public function __construct() {
 		add_action( 'wp_ajax_wpep-event-registration', array( $this, 'event_registration' ) );
 		add_action( 'wp_ajax_nopriv_wpep-event-registration', array( $this, 'event_registration' ) );
+
+		if ( isset( $_GET['post'] ) && isset( $_GET['action'] ) && 'edit' == $_GET['action'] ) {
+			add_action( 'preamp_wpep_config', array( $this, 'add_user_fields' ) );
+		}
 	}
 
 	public function event_registration() {
@@ -81,5 +85,9 @@ class Event_Registration {
 
 	public function get_order_id() {
 		return md5( uniqid( rand(), true ) );
+	}
+
+	public function add_user_fields( $config ) {
+		return $config;
 	}
 }
