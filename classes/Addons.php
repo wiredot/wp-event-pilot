@@ -5,7 +5,7 @@ namespace Wiredot\WPEP;
 class Addons {
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_addons_menu' ) );
+		// add_action( 'admin_menu', array( $this, 'add_addons_menu' ) );
 	}
 
 	public function add_addons_menu() {

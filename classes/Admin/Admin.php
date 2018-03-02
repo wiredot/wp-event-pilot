@@ -5,7 +5,7 @@ namespace Wiredot\WPEP\Admin;
 class Admin {
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'remove_add_event_link' ) );
+		// add_action( 'admin_menu', array( $this, 'remove_add_event_link' ) );
 	}
 
 	public function remove_add_event_link() {

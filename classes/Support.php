@@ -5,7 +5,7 @@ namespace Wiredot\WPEP;
 class Support {
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_support_menu' ) );
+		// add_action( 'admin_menu', array( $this, 'add_support_menu' ) );
 	}
 
 	public function add_support_menu() {

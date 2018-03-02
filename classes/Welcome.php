@@ -7,7 +7,7 @@ use Wiredot\Preamp\Twig;
 class Welcome {
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_admin_menus' ) );
+		// add_action( 'admin_menu', array( $this, 'add_admin_menus' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'add_row_meta' ), 10, 2 );
 	}
 
