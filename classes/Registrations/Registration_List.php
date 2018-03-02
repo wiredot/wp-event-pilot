@@ -7,7 +7,7 @@ use Wiredot\Preamp\Twig;
 class Registration_List {
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_submenu_page' ) );
+		// add_action( 'admin_menu', array( $this, 'add_submenu_page' ) );
 	}
 
 	public function add_submenu_page() {

@@ -123,7 +123,7 @@ $config['meta_box']['post']['wpep-location'] = array(
 	'fields' => array(
 		'location-name' => array(
 			'type' => 'text',
-			'label' => __( 'Name', 'wpep' ),
+			'label' => __( 'Location Name', 'wpep' ),
 		),
 		'location-address' => array(
 			'type' => 'text',
