@@ -29,9 +29,9 @@
 			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
 		</form>
 		{% if ( get_option( 'wpep_settings_login_page' ) ) %}
-		<div class="ui bottom attached warning message">
-			Already signed up? <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">Login here</a> instead.
-		</div>
+			<div class="ui bottom attached warning message">
+				Already signed up? <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">Login here</a> instead.
+			</div>
 		{% endif %}
 	{% endif %}
 </div>

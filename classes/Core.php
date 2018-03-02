@@ -17,6 +17,10 @@ class Core {
 	private static $instance = null;
 
 	private function __construct() {
+		if ( ! session_id() ) {
+			session_start();
+		}
+
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 		Preamp::run( WPEP_URL, WPEP_DIR );

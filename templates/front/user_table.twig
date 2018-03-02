@@ -1,25 +1,25 @@
 <table class="ui celled striped table">
-  <thead>
-    <tr><th colspan="3">
-      {{ header }}
-    </th>
-  </tr></thead>
-  <tbody>
-  	{% for field in fields %}
-  	    <tr>
-  	    	<td>{{ field.label }}</td>
-  	    	{% if field.options %}
+	<thead>
+		<tr><th colspan="3">
+			{{ header }}
+		</th>
+	</tr></thead>
+	<tbody>
+		{% for field in fields %}
+				<tr>
+					<td>{{ field.label }}</td>
+					{% if field.options %}
 			<td>
 				{% for option in field.options %}
-				    {% if option.id in get_user_meta( get_current_user_id(), field.id, true ) %}
-				    <p>{{ option.label }}</p>
+						{% if option.id in values[field.id] %}
+						<p>{{ option.label }}</p>
 					{% endif %}
 				{% endfor %}
 			</td>
-  	    	{% else %}
-  	    	<td>{{ get_user_meta( get_current_user_id(), field.id, true ) }}</td>
-  	    	{% endif %}
-  	    </tr>
-  	{% endfor %}
-  </tbody>
+					{% else %}
+					<td>{{ values[field.id] }}</td>
+					{% endif %}
+				</tr>
+		{% endfor %}
+	</tbody>
 </table>
