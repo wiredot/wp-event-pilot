@@ -73,6 +73,14 @@ $config['meta_box']['post']['wpep-details'] = array(
 				2 => __( 'Multi-day event', 'wpep' ),
 			),
 		),
+		'full_day' => array(
+			'type' => 'select',
+			'label' => __( 'All Day Event', 'wpep' ),
+			'options' => array(
+				0 => __( 'no', 'wpep' ),
+				1 => __( 'yes', 'wpep' ),
+			),
+		),
 		'start_date' => array(
 			'type' => 'date',
 			'label' => __( 'Start Date', 'wpep' ),
@@ -81,14 +89,7 @@ $config['meta_box']['post']['wpep-details'] = array(
 			'type' => 'text',
 			'label' => __( 'Start Time', 'wpep' ),
 			'condition' => array(
-				'event_type' => 1,
-			),
-		),
-		'end_time' => array(
-			'type' => 'text',
-			'label' => __( 'End Time', 'wpep' ),
-			'condition' => array(
-				'event_type' => 1,
+				'full_day' => 0,
 			),
 		),
 		'end_date' => array(
@@ -98,10 +99,22 @@ $config['meta_box']['post']['wpep-details'] = array(
 				'event_type' => 2,
 			),
 		),
+		'end_time' => array(
+			'type' => 'text',
+			'label' => __( 'End Time', 'wpep' ),
+			'condition' => array(
+				'full_day' => 0,
+			),
+		),
+		'website' => array(
+			'type' => 'url',
+			'label' => __( 'Website', 'wpep' ),
+		),
 		'options' => array(
 			'type' => 'checkbox',
 			'label' => __( 'Options', 'wpep' ),
 			'options' => array(
+				'registration' => __( 'Event Registration', 'wpep' ),
 				'location' => __( 'Location', 'wpep' ),
 				'tickets' => __( 'Tickets', 'wpep' ),
 				'accommodation' => __( 'Accommodation', 'wpep' ),
@@ -110,6 +123,28 @@ $config['meta_box']['post']['wpep-details'] = array(
 		),
 	),
 );
+
+$config['meta_box']['post']['wpep-registration'] = array(
+	'active' => true,
+	'name' => __( 'Event Registration', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'registration',
+	),
+	'fields' => array(
+		'registration-start' => array(
+			'type' => 'date',
+			'label' => __( 'Registration Start Date', 'wpep' ),
+		),
+		'registration-end' => array(
+			'type' => 'date',
+			'label' => __( 'Registration End Date', 'wpep' ),
+		),
+	),
+);
+
 
 $config['meta_box']['post']['wpep-location'] = array(
 	'active' => true,
