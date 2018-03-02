@@ -114,12 +114,42 @@ $config['meta_box']['post']['wpep-details'] = array(
 			'type' => 'checkbox',
 			'label' => __( 'Options', 'wpep' ),
 			'options' => array(
+				'organizer' => __( 'Organizer', 'wpep' ),
 				'registration' => __( 'Event Registration', 'wpep' ),
 				'location' => __( 'Location', 'wpep' ),
 				'tickets' => __( 'Tickets', 'wpep' ),
 				'accommodation' => __( 'Accommodation', 'wpep' ),
 				'additional' => __( 'Additional Options', 'wpep' ),
 			),
+		),
+	),
+);
+
+$config['meta_box']['post']['wpep-organizer'] = array(
+	'active' => true,
+	'name' => __( 'Organizer', 'wpep' ),
+	'post_type' => array( 'wpep' ),
+	'context' => 'normal', // normal | advanced | side
+	'priority' => 'high', // high | core | default | low
+	'condition' => array(
+		'options' => 'organizer',
+	),
+	'fields' => array(
+		'organizer_name' => array(
+			'type' => 'text',
+			'label' => __( 'Organizer Name', 'wpep' ),
+		),
+		'organizer_telephone' => array(
+			'type' => 'text',
+			'label' => __( 'Telephone', 'wpep' ),
+		),
+		'organizer_email' => array(
+			'type' => 'email',
+			'label' => __( 'E-mail', 'wpep' ),
+		),
+		'organizer_website' => array(
+			'type' => 'url',
+			'label' => __( 'Website', 'wpep' ),
 		),
 	),
 );
@@ -144,7 +174,6 @@ $config['meta_box']['post']['wpep-registration'] = array(
 		),
 	),
 );
-
 
 $config['meta_box']['post']['wpep-location'] = array(
 	'active' => true,
