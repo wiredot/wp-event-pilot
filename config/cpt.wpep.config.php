@@ -110,6 +110,21 @@ $config['meta_box']['post']['wpep-details'] = array(
 			'type' => 'url',
 			'label' => __( 'Website', 'wpep' ),
 		),
+		'event_fields' => array(),
+		'additional_details' => array(
+			'type' => 'group',
+			'label' => __( 'Additional Details', 'wpep' ),
+			'fields' => array(
+				'label' => array(
+					'type' => 'text',
+					'label' => __( 'Label', 'wpep' ),
+				),
+				'value' => array(
+					'type' => 'text',
+					'label' => __( 'Value', 'wpep' ),
+				),
+			),
+		),
 		'options' => array(
 			'type' => 'checkbox',
 			'label' => __( 'Options', 'wpep' ),

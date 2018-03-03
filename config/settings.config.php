@@ -21,6 +21,12 @@ $config['settings']['tab']['user_field_tab'] = array(
 	'name' => __( 'User Fields', 'wpep' ),
 );
 
+$config['settings']['tab']['event_field_tab'] = array(
+	'page' => 'wpep_settings',
+	'active' => true,
+	'name' => __( 'Event Fields', 'wpep' ),
+);
+
 $config['settings']['section']['general_section'] = array(
 	'tab' => 'general_tab',
 	'active' => true,
@@ -110,6 +116,59 @@ $config['settings']['section']['user_field_section'] = array(
 									'label' => __( 'Label', 'wpep' ),
 								),
 							),
+						),
+					),
+				),
+			),
+		),
+	),
+);
+
+$config['settings']['section']['event_field_section'] = array(
+	'tab' => 'event_field_tab',
+	'active' => true,
+	'name' => __( 'Event Fields Settings', 'wpep' ),
+	'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'wpep' ),
+	'fields' => array(
+		'event_fields' => array(
+			'type' => 'group',
+			'label' => __( 'Fields', 'wpep' ),
+			'fields' => array(
+				'type' => array(
+					'type' => 'select',
+					'label' => __( 'Type', 'wpep' ),
+					'options' => array(
+						'text' => __( 'Text', 'wpep' ),
+						'email' => __( 'E-Mail', 'wpep' ),
+						'date' => __( 'Date', 'wpep' ),
+						'textarea' => __( 'Textarea', 'wpep' ),
+						'checkbox' => __( 'Checkboxes', 'wpep' ),
+						'radio' => __( 'Radio', 'wpep' ),
+						'select' => __( 'Select Box', 'wpep' ),
+					),
+				),
+				'id' => array(
+					'type' => 'text',
+					'label' => __( 'ID', 'wpep' ),
+				),
+				'label' => array(
+					'type' => 'text',
+					'label' => __( 'Label', 'wpep' ),
+				),
+				'options' => array(
+					'type' => 'group',
+					'label' => __( 'Options', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'checkbox', 'select', 'radio' ),
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
 						),
 					),
 				),

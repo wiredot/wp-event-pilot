@@ -42,6 +42,7 @@ class Core {
 		new Single_Event();
 		new Event_Registration();
 		new Additional_Fields();
+		new Event();
 	}
 
 	public static function run() {
