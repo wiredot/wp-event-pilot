@@ -15,10 +15,19 @@ class Additional_Fields {
 				add_action( 'preamp_wpep_config', array( $this, 'add_additional_fields' ) );
 			}
 		}
+
+		if ( isset( $_POST['action'] ) && 'editpost' == $_POST['action'] && isset( $_POST['post_type'] ) && 'wpep-registration' == $_POST['post_type'] ) {
+			add_action( 'preamp_wpep_config', array( $this, 'add_additional_fields' ) );
+		}
 	}
 
 	public function add_additional_fields( $config ) {
-		$event_id = get_post_meta( $_GET['post'], 'event_id', true );
+		if ( isset( $_GET['post'] ) ) {
+			$post = $_GET['post'];
+		} else if ( isset( $_POST['post_ID'] ) ) {
+			$post = $_POST['post_ID'];
+		}
+		$event_id = get_post_meta( $post, 'event_id', true );
 
 		$additional_fields = self::get_additional_fields( $event_id );
 		$label = self::get_additional_fields_label( $event_id );
@@ -34,10 +43,27 @@ class Additional_Fields {
 			'context' => 'normal',
 			'priority' => 'high',
 			'post_type' => 'wpep-registration',
-			'fields' => $fields,
+			'fields' => array(),
 		);
 
+		foreach ( $fields as $fkey => $field ) {
+
+			if ( isset( $field['options'] ) ) {
+				$field['options'] = $this->fix_options( $field['options'] );
+			}
+			$meta_box['fields'][ $field['id'] ] = $field;
+		}
+
 		return $meta_box;
+	}
+
+	public function fix_options( $options ) {
+		$fixed_options = array();
+		foreach ( $options as $option ) {
+			$fixed_options[ $option['id'] ] = $option['label'];
+		}
+
+		return $fixed_options;
 	}
 
 	public static function get_additional_fields( $event_id ) {
