@@ -3,6 +3,7 @@
 namespace Wiredot\WPEP;
 
 use Wiredot\WPEP\User_Fields;
+use Wiredot\WPEP\Additional_Fields;
 
 class Event_Registration {
 
@@ -30,7 +31,21 @@ class Event_Registration {
 			$form_errors['event_id'] = __( 'Something went wrong, please try again.', 'wpep' );
 		}
 
-		$additional_fields = User_Fields::get_user_fields_list();
+		$user_fields = User_Fields::get_user_fields_list();
+
+		foreach ( $user_fields as $field ) {
+			switch ( $field['type'] ) {
+				case 'text':
+				case 'date':
+				default:
+					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
+						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+					}
+					break;
+			}
+		}
+
+		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
 
 		foreach ( $additional_fields as $field ) {
 			switch ( $field['type'] ) {
@@ -46,6 +61,10 @@ class Event_Registration {
 
 		if ( empty( $form_errors ) ) {
 			$_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ] = $email;
+
+			foreach ( $user_fields as $field ) {
+				$_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] = $_POST[ $field['id'] ];
+			}
 
 			foreach ( $additional_fields as $field ) {
 				$_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] = $_POST[ $field['id'] ];
@@ -108,7 +127,14 @@ class Event_Registration {
 
 			update_post_meta( $registration_id, 'event_id', $event_id );
 
-			$additional_fields = User_Fields::get_user_fields_list();
+			$user_fields = User_Fields::get_user_fields_list();
+
+			foreach ( $user_fields as $field ) {
+				update_post_meta( $registration_id, $field['id'], $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] );
+				unset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] );
+			}
+
+			$additional_fields = Additional_Fields::get_additional_fields( $event_id );
 
 			foreach ( $additional_fields as $field ) {
 				update_post_meta( $registration_id, $field['id'], $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] );
@@ -167,9 +193,9 @@ class Event_Registration {
 
 		$participant_id = wp_insert_user( $participant );
 
-		$additional_fields = User_Fields::get_user_fields_list();
+		$user_fields = User_Fields::get_user_fields_list();
 
-		foreach ( $additional_fields as $field ) {
+		foreach ( $user_fields as $field ) {
 			update_user_meta( $participant_id, $field['id'], $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] );
 		}
 

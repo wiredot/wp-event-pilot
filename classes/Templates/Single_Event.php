@@ -42,6 +42,7 @@ class Single_Event {
 				$content = $Twig->twig->render(
 					'front/single_event_confirmation.twig', array(
 						'user_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
+						'additional_fields' => Additional_Fields::get_additional_fields_table( $event_id ),
 						'email' => $email,
 					)
 				);
