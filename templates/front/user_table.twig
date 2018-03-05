@@ -1,25 +1,32 @@
 <table class="ui celled striped table">
-	<thead>
+	{% if header %}<thead>
 		<tr><th colspan="3">
 			{{ header }}
 		</th>
-	</tr></thead>
+	</tr></thead>{% endif %}
 	<tbody>
 		{% for field in fields %}
-				<tr>
-					<td>{{ field.label }}</td>
-					{% if field.options %}
-			<td>
-				{% for option in field.options %}
-						{% if option.id in values[field.id] %}
-						<p>{{ option.label }}</p>
-					{% endif %}
-				{% endfor %}
-			</td>
-					{% else %}
+			{% if field.type == 'header' %}
+						<tr><td colspan="3">
+							<strong>{{ field.label }}</strong>
+						</td>
+					</tr>
+			{% else %}
+			<tr>
+				<td>{{ field.label }}</td>
+				{% if field.options %}
+					<td>
+						{% for option in field.options %}
+								{% if option.id in values[field.id] %}
+								<p>{{ option.label }}</p>
+							{% endif %}
+						{% endfor %}
+					</td>
+				{% else %}
 					<td>{{ values[field.id] }}</td>
-					{% endif %}
-				</tr>
+				{% endif %}
+			</tr>
+			{% endif %}
 		{% endfor %}
 	</tbody>
 </table>

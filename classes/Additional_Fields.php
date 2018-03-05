@@ -86,21 +86,23 @@ class Additional_Fields {
 
 		$fields_form = '';
 
-		$fields_form .= $Twig->twig->render(
-			'forms/header.twig', array(
-				'header' => $additional_fields_label,
-			)
-		);
-
 		foreach ( $additional_fields as $key => $field ) {
 			$value = '';
 
-			$fields_form .= $Twig->twig->render(
-				'forms/' . $field['type'] . '.twig', array(
-					'field' => $field,
-					'value' => $value,
-				)
-			);
+			if ( 'header' == $field['type'] ) {
+				$fields_form .= $Twig->twig->render(
+					'forms/header.twig', array(
+						'header' => $field['label'],
+					)
+				);
+			} else {
+				$fields_form .= $Twig->twig->render(
+					'forms/' . $field['type'] . '.twig', array(
+						'field' => $field,
+						'value' => $value,
+					)
+				);
+			}
 		}
 
 		return $fields_form;
@@ -123,7 +125,6 @@ class Additional_Fields {
 
 		$fields_table .= $Twig->twig->render(
 			'front/user_table.twig', array(
-				'header' => $additional_fields_label,
 				'fields' => $additional_fields,
 				'values' => $values,
 			)
