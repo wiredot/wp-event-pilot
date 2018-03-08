@@ -69,16 +69,42 @@
 				</tr>
 			{% else %}
 			<tr>
-				<td>{{ field.label }}</td>
-				{% if field.options %}
+				{% if field.type == 'checkbox' %}
+					{% if field.options %}
+						<td colspan="2">
+							<p>{{ field.label }}</p>
+							<table class="ui compact celled table">
+								<tbody>
+									{% for option in field.options %}
+										<tr>
+											<td>{{ option.label }}</td>
+											<td>
+												{% if option.id in values[field.id] %}
+													{{ __( 'yes', 'wpep' ) }}
+												{% else %}
+													{{ __( 'no', 'wpep' ) }}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</td>
+					{% else %}
+					<td>{{ field.label }}</td>
+					<td>{% if values[field.id] %}{{ __( 'yes', 'wpep' ) }}{% else %}{{ __( 'no', 'wpep' ) }}{% endif %}</td>
+					{% endif %}
+				{% elseif field.options %}
+					<td>{{ field.label }}</td>
 					<td>
 						{% for option in field.options %}
-								{% if option.id in values[field.id] %}
+							{% if option.id in values[field.id] %}
 								<p>{{ option.label }}</p>
 							{% endif %}
 						{% endfor %}
 					</td>
 				{% else %}
+					<td>{{ field.label }}</td>
 					<td>{{ values[field.id] }}</td>
 				{% endif %}
 			</tr>
