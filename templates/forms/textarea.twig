@@ -1,4 +1,4 @@
 <div class="field{% if field.required %} required{% endif %}">
 	<label>{{ field.label }}</label>
-	<textarea name="{{ field.id }}" placeholder="{{ field.label }}"{% if field.required %} required="required"{% endif %}>{% if value is defined %}{{ value }}{% endif %}</textarea>
+	<textarea name="{{ field.id }}" placeholder="{{ field.label }}"{% if field.required %} required="required"{% endif %}>{% if value is defined %}{{ nl2br(value) }}{% endif %}</textarea>
 </div>

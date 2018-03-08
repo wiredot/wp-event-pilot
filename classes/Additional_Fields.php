@@ -86,8 +86,16 @@ class Additional_Fields {
 
 		$fields_form = '';
 
+		if ( ! is_array( $additional_fields ) ) {
+			return;
+		}
+
 		foreach ( $additional_fields as $key => $field ) {
 			$value = '';
+
+			if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] ) ) {
+				$value = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
+			}
 
 			if ( 'header' == $field['type'] ) {
 				$fields_form .= $Twig->twig->render(

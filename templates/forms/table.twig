@@ -1,0 +1,38 @@
+<div class="field">
+	<label>{{ field.label }}</label>
+	<table class="ui compact celled definition table">
+		<thead>
+			<tr>
+				<th></th>
+				{% for col in field.cols %}
+					<th>{{ col.label }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in field.rows %}
+				<tr>
+					<td>{{ row.label }}</td>
+					{% for col in field.cols %}
+						<td>
+							{% if field.table_type == 'text' %}
+								<input type="text" name="{{ field.id }}[{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ value[row.id][col.id] }}"{% endif %}{% if field.required %} required="required"{% endif %}>
+							{% elseif field.table_type == 'checkbox' %}
+								<div class="ui checkbox"><input type="checkbox" name="{{ field.id }}[{{ row.id }}][{{ col.id }}]" value="1"{% if value[row.id][col.id] %} checked="checked"{% endif %}{% if field.required %} required="required"{% endif %}><label></label></div>
+							{% elseif field.table_type == 'radio' %}
+								<div class="ui radio"><input type="radio" name="{{ field.id }}[{{ row.id }}]" value="{{ col.id }}"{% if value[row.id] == col.id %} checked="checked"{% endif %}{% if field.required %} required="required"{% endif %}><label></label></div>
+							{% elseif field.table_type == 'select' %}
+								<select name="{{ field.id }}[{{ row.id }}][{{ col.id }}]"{% if field.required %} required="required"{% endif %} class="ui dropdown">
+										<option value="">-- select --</option>
+									{% for option in field.options %}
+										<option value="{{ option.id }}"{% if value[row.id][col.id] is defined and value[row.id][col.id] == option.id %} selected="selected"{% endif %}>{{ option.label }}</option>
+									{% endfor %}
+								</select>
+							{% endif %}
+						</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

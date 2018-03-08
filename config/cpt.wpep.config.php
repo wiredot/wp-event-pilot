@@ -326,31 +326,55 @@ $config['meta_box']['post']['wpep-additional_fields'] = array(
 					'label' => __( 'Type', 'wpep' ),
 					'options' => array(
 						'header' => __( 'Header', 'wpep' ),
-						'text' => __( 'Text', 'wpep' ),
-						'email' => __( 'E-Mail', 'wpep' ),
-						'date' => __( 'Date', 'wpep' ),
+						'p' => __( 'Paragraph Text', 'wpep' ),
+						'text' => __( 'Text Field', 'wpep' ),
+						'email' => __( 'E-Mail Field', 'wpep' ),
+						'date' => __( 'Date Field', 'wpep' ),
+						'datetime' => __( 'Date & Time Field', 'wpep' ),
+						'time' => __( ' Time Field', 'wpep' ),
 						'textarea' => __( 'Textarea', 'wpep' ),
-						'checkbox' => __( 'Checkboxes', 'wpep' ),
-						'radio' => __( 'Radio', 'wpep' ),
+						'checkbox' => __( 'Checkbox Fields', 'wpep' ),
+						'radio' => __( 'Radio Fields', 'wpep' ),
 						'select' => __( 'Select Box', 'wpep' ),
+						'table' => __( 'Table', 'wpep' ),
 					),
 				),
 				'id' => array(
 					'type' => 'text',
 					'label' => __( 'ID', 'wpep' ),
 					'condition' => array(
-						'type' => array( 'text', 'email', 'date', 'textarea', 'checkbox', 'radio', 'select' ),
+						'type' => array( 'text', 'email', 'date', 'datetime', 'time', 'textarea', 'checkbox', 'radio', 'select', 'table' ),
 					),
 				),
 				'label' => array(
 					'type' => 'text',
 					'label' => __( 'Label', 'wpep' ),
 				),
+				'text' => array(
+					'type' => 'textarea',
+					'label' => __( 'Paragraph Text', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'p' ),
+					),
+				),
 				'required' => array(
 					'type' => 'checkbox',
 					'label' => __( 'Required Field', 'wpep' ),
 					'condition' => array(
-						'type' => array( 'text', 'email', 'date', 'textarea', 'checkbox', 'radio', 'select' ),
+						'type' => array( 'text', 'email', 'date', 'datetime', 'time', 'textarea', 'checkbox', 'radio', 'select', 'table' ),
+					),
+				),
+				'table_type' => array(
+					'type' => 'select',
+					'label' => __( 'Field Type', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'table' ),
+					),
+					'options' => array(
+						'text' => __( 'Text Field', 'wpep' ),
+						'checkbox' => __( 'Checkbox Fields', 'wpep' ),
+						'radio' => __( 'Radio Fields', 'wpep' ),
+						'select' => __( 'Select Box', 'wpep' ),
 					),
 				),
 				'options' => array(
@@ -358,6 +382,41 @@ $config['meta_box']['post']['wpep-additional_fields'] = array(
 					'label' => __( 'Options', 'wpep' ),
 					'condition' => array(
 						'type' => array( 'checkbox', 'select', 'radio' ),
+						'table_type' => array( 'select' ),
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
+						),
+					),
+				),
+				'rows' => array(
+					'type' => 'group',
+					'label' => __( 'Rows', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'table' ),
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
+						),
+					),
+				),
+				'cols' => array(
+					'type' => 'group',
+					'label' => __( 'Columns', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'table' ),
 					),
 					'fields' => array(
 						'id' => array(

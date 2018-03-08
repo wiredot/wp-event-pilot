@@ -7,10 +7,66 @@
 	<tbody>
 		{% for field in fields %}
 			{% if field.type == 'header' %}
-						<tr><td colspan="3">
-							<strong>{{ field.label }}</strong>
-						</td>
-					</tr>
+				<tr>
+					<td colspan="2">
+						<strong>{{ field.label }}</strong>
+					</td>
+				</tr>
+			{% elseif field.type == 'p' %}
+			{% elseif field.type == 'table' %}
+				<tr>
+					<td colspan="2">
+						<p>{{ field.label }}</p>
+						{% if field.table_type == 'radio' %}
+							<table class="ui compact celled definition table">
+								<tbody>
+									{% for row in field.rows %}
+										<tr>
+											<td>{{ row.label }}</td>
+											<td>
+												{% for col in field.cols %}
+													{% if values[field.id][row.id] == col.id %}{{ col.label }}{% endif %}
+												{% endfor %}
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						{% else %}
+							<table class="ui compact celled definition table">
+								<thead>
+									<tr>
+										<th></th>
+										{% for col in field.cols %}
+											<th>{{ col.label }}</th>
+										{% endfor %}
+									</tr>
+								</thead>
+								<tbody>
+									{% for row in field.rows %}
+										<tr>
+											<td>{{ row.label }}</td>
+											{% for col in field.cols %}
+												<td>
+													{% if field.table_type == 'text' %}
+														{% if values[field.id][row.id][col.id] is defined %}{{ values[field.id][row.id][col.id] }}{% endif %}
+													{% elseif field.table_type == 'checkbox' %}
+														{% if values[field.id][row.id][col.id] %}{{ __( 'yes', 'wpep' ) }}{% else %}{{ __( 'no', 'wpep' ) }}{% endif %}
+													{% elseif field.table_type == 'select' %}
+															{% for option in field.options %}
+																{% if values[field.id][row.id][col.id] is defined and values[field.id][row.id][col.id] == option.id %}{{ option.label }}{% endif %}
+															{% endfor %}
+														</select>
+													{% endif %}
+												</td>
+											{% endfor %}
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						{% endif %}
+					</td>
+				</tr>
 			{% else %}
 			<tr>
 				<td>{{ field.label }}</td>
