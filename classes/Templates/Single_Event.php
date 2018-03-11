@@ -77,10 +77,20 @@ class Single_Event {
 			$email = $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ];
 		}
 
+		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
+
+		$values = array();
+
+		foreach ( $additional_fields as $field ) {
+			if ( $field['id'] ) {
+				$values[ $field['id'] ] = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
+			}
+		}
+
 		$content = $Twig->twig->render(
 			'front/single_event_confirmation.twig', array(
 				'user_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
-				'additional_fields' => Additional_Fields::get_additional_fields_table( $event_id ),
+				'additional_fields' => Additional_Fields::get_additional_fields_table( $event_id, $values ),
 				'email' => $email,
 				'event_id' => $event_id,
 			)

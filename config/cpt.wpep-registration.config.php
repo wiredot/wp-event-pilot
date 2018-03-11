@@ -81,6 +81,10 @@ $config['meta_box']['post']['wpep-registration-details'] = array(
 			),
 			'label' => __( 'Event', 'wpep' ),
 		),
+		'email' => array(
+			'type' => 'email',
+			'label' => __( 'E-Mail', 'wpep' ),
+		),
 	),
 );
 

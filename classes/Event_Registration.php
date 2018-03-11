@@ -101,6 +101,7 @@ class Event_Registration {
 		$form_errors = array();
 
 		$event_id = intval( $_POST['event_id'] );
+		$email = $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ];
 
 		if ( empty( $event_id ) ) {
 			$form_errors['event_id'] = __( 'Something went wrong, please try again.', 'wpep' );
@@ -126,6 +127,7 @@ class Event_Registration {
 			$registration_id = wp_insert_post( $event );
 
 			update_post_meta( $registration_id, 'event_id', $event_id );
+			update_post_meta( $registration_id, 'email', $email );
 
 			$user_fields = User_Fields::get_user_fields_list();
 

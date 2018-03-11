@@ -11,6 +11,7 @@ use Wiredot\WPEP\Templates\Registration;
 use Wiredot\WPEP\Templates\Account;
 use Wiredot\WPEP\Templates\Event_List;
 use Wiredot\WPEP\Templates\Single_Event;
+use Wiredot\WPEP\Templates\Single_Event_Registration;
 
 class Core {
 
@@ -44,6 +45,7 @@ class Core {
 		new Additional_Fields();
 		new Event();
 		new Shortcode();
+		new Single_Event_Registration();
 	}
 
 	public static function run() {

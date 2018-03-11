@@ -122,20 +122,19 @@ class Additional_Fields {
 		return $fields_form;
 	}
 
-	public static function get_additional_fields_table( $event_id ) {
-		$additional_fields_label = self::get_additional_fields_label( $event_id );
+	public static function get_additional_fields_table( $event_id, $values = array() ) {
 		$additional_fields = self::get_additional_fields( $event_id );
 
 		$Twig = new Twig();
 
 		$fields_table = '';
-		$values = array();
+		// $values = array();
 
-		foreach ( $additional_fields as $key => $field ) {
-			if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] ) ) {
-				$values[ $field['id'] ] = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
-			}
-		}
+		// foreach ( $additional_fields as $key => $field ) {
+		// 	if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] ) ) {
+		// 		$values[ $field['id'] ] = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
+		// 	}
+		// }
 
 		$fields_table .= $Twig->twig->render(
 			'front/user_table.twig', array(
