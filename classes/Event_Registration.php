@@ -119,7 +119,7 @@ class Event_Registration {
 				'post_type' => 'wpep-registration',
 				'post_status' => 'publish',
 				'post_name' => $order_id,
-				'post_title' => $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ],
+				'post_title' => $this->get_invoice_nr(),
 				'post_author' => $user_id,
 			);
 
@@ -204,5 +204,13 @@ class Event_Registration {
 
 	public function get_order_id() {
 		return md5( uniqid( rand(), true ) );
+	}
+
+	public function get_invoice_nr() {
+		global $wpdb;
+
+		$invoices = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->posts . " WHERE post_date >= CURRENT_DATE() AND post_type = 'wpep-registration'" );
+
+		return '#wpep-' . date( 'Y-m-d-' ) . ( $invoices + 1 );
 	}
 }

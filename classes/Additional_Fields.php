@@ -63,7 +63,7 @@ class Additional_Fields {
 		if ( ! is_array( $options ) ) {
 			return array();
 		}
-		
+
 		foreach ( $options as $option ) {
 			$fixed_options[ $option['id'] ] = $option['label'];
 		}
