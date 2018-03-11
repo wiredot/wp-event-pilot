@@ -30,16 +30,16 @@ class Additional_Fields {
 		$event_id = get_post_meta( $post, 'event_id', true );
 
 		$additional_fields = self::get_additional_fields( $event_id );
-		$label = self::get_additional_fields_label( $event_id );
-		$config['meta_box']['post']['additional_fields'] = $this->get_meta_box( $label, $additional_fields );
+		// print_r($additional_fields);
+		$config['meta_box']['post']['registration_additional_fields'] = $this->get_meta_box( $additional_fields );
 
 		return $config;
 	}
 
-	public function get_meta_box( $label, $fields ) {
+	public function get_meta_box( $fields ) {
 		$meta_box = array(
 			'active' => true,
-			'name' => $label,
+			'name' => __( 'Additional Fields', 'wpep' ),
 			'context' => 'normal',
 			'priority' => 'high',
 			'post_type' => 'wpep-registration',
@@ -51,6 +51,7 @@ class Additional_Fields {
 			if ( isset( $field['options'] ) ) {
 				$field['options'] = $this->fix_options( $field['options'] );
 			}
+
 			$meta_box['fields'][ $field['id'] ] = $field;
 		}
 
