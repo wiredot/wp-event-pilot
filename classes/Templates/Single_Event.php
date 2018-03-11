@@ -23,29 +23,9 @@ class Single_Event {
 			$email = '';
 
 			if ( isset( $_GET['register'] ) ) {
-				if ( get_current_user_id() ) {
-					$user = get_userdata( get_current_user_id() );
-					$email = $user->user_email;
-				}
-
-				$content = $Twig->twig->render(
-					'front/single_event_registration.twig', array(
-						'user_fields' => $this->get_user_fields( $event_id, 'registration' ),
-						'additional_fields' => Additional_Fields::get_additional_fields_form( $event_id ),
-						'email' => $email,
-					)
-				);
+				$content = $this->show_event_registration_form( $event_id );
 			} else if ( isset( $_GET['confirm'] ) ) {
-				if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ] ) ) {
-					$email = $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ];
-				}
-				$content = $Twig->twig->render(
-					'front/single_event_confirmation.twig', array(
-						'user_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
-						'additional_fields' => Additional_Fields::get_additional_fields_table( $event_id ),
-						'email' => $email,
-					)
-				);
+				$content = $this->show_event_registration_confirmation( $event_id );
 			} else {
 				$content = $Twig->twig->render(
 					'front/single_event.twig', array(
@@ -54,6 +34,57 @@ class Single_Event {
 				);
 			}
 		}
+
+		return $content;
+	}
+
+	public function show_event_registration( $event_id ) {
+		if ( isset( $_GET['confirm'] ) ) {
+			$content = $this->show_event_registration_confirmation( $event_id );
+		} else {
+			$content = $this->show_event_registration_form( $event_id );
+		}
+
+		return $content;
+	}
+
+	public function show_event_registration_form( $event_id ) {
+		if ( get_current_user_id() ) {
+			$user = get_userdata( get_current_user_id() );
+			$email = $user->user_email;
+		}
+
+		$Twig = new Twig();
+
+		$content = $Twig->twig->render(
+			'front/single_event_registration.twig', array(
+				'user_fields' => $this->get_user_fields( $event_id, 'registration' ),
+				'additional_fields' => Additional_Fields::get_additional_fields_form( $event_id ),
+				'email' => $email,
+				'event_id' => $event_id,
+			)
+		);
+
+		return $content;
+	}
+
+	public function show_event_registration_confirmation( $event_id ) {
+		$Twig = new Twig();
+
+		$email = '';
+
+		if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ] ) ) {
+			$email = $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ];
+		}
+
+		$content = $Twig->twig->render(
+			'front/single_event_confirmation.twig', array(
+				'user_fields' => $this->get_user_fields( $event_id, 'confirmation' ),
+				'additional_fields' => Additional_Fields::get_additional_fields_table( $event_id ),
+				'email' => $email,
+				'event_id' => $event_id,
+			)
+		);
 
 		return $content;
 	}

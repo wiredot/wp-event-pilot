@@ -43,6 +43,7 @@ class Core {
 		new Event_Registration();
 		new Additional_Fields();
 		new Event();
+		new Shortcode();
 	}
 
 	public static function run() {

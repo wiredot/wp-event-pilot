@@ -16,7 +16,7 @@
 			{% elseif field.type == 'table' %}
 				<tr>
 					<td colspan="2">
-						<p>{{ field.label }}</p>
+						<span>{{ field.label }}</span>
 						{% if field.table_type == 'radio' %}
 							<table class="ui compact celled definition table">
 								<tbody>
@@ -72,7 +72,7 @@
 				{% if field.type == 'checkbox' %}
 					{% if field.options %}
 						<td colspan="2">
-							<p>{{ field.label }}</p>
+							<span>{{ field.label }}</span>
 							<table class="ui compact celled table">
 								<tbody>
 									{% for option in field.options %}
@@ -99,7 +99,7 @@
 					<td>
 						{% for option in field.options %}
 							{% if option.id in values[field.id] %}
-								<p>{{ option.label }}</p>
+								<span>{{ option.label }}</span>
 							{% endif %}
 						{% endfor %}
 					</td>

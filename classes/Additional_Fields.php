@@ -59,6 +59,11 @@ class Additional_Fields {
 
 	public function fix_options( $options ) {
 		$fixed_options = array();
+
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+		
 		foreach ( $options as $option ) {
 			$fixed_options[ $option['id'] ] = $option['label'];
 		}
