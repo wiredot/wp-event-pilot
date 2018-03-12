@@ -56,4 +56,23 @@ class Event {
 
 		return $fixed_options;
 	}
+
+	public static function get_events() {
+		global $wpdb;
+
+		$events = $wpdb->get_results( "
+			SELECT * 
+			FROM $wpdb->posts 
+			WHERE post_type = 'wpep'
+			ORDER BY (SELECT meta_value FROM $wpdb->postmeta WHERE ID = post_id AND meta_key = 'start_date')
+		" );
+		return $events;
+		$args = array(
+			'posts_per_page'   => -1,
+			'post_type'        => 'wpep',
+		);
+		$events = get_posts( $args );
+
+		return $events;
+	}
 }

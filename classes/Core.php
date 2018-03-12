@@ -6,6 +6,7 @@ use Wiredot\Preamp\Core as Preamp;
 use Wiredot\WPEP\Registrations\Registration_List;
 use Wiredot\WPEP\Forms\Form_Factory;
 use Wiredot\WPEP\Admin\Admin;
+use Wiredot\WPEP\Backend;
 use Wiredot\WPEP\Templates\Login;
 use Wiredot\WPEP\Templates\Registration;
 use Wiredot\WPEP\Templates\Account;
@@ -46,6 +47,7 @@ class Core {
 		new Event();
 		new Shortcode();
 		new Single_Event_Registration();
+		new Backend();
 	}
 
 	public static function run() {
