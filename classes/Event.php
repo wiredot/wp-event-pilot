@@ -64,6 +64,7 @@ class Event {
 			SELECT * 
 			FROM $wpdb->posts 
 			WHERE post_type = 'wpep'
+				AND post_status = 'publish'
 			ORDER BY (SELECT meta_value FROM $wpdb->postmeta WHERE ID = post_id AND meta_key = 'start_date')
 		" );
 		return $events;

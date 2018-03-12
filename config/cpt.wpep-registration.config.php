@@ -92,7 +92,7 @@ $config['admin_custom_columns']['wpep-registration'] = array(
 	'post_type' => 'wpep-registration',
 	'columns' => array(
 		'title',
+		'event_id',
 		'paid',
-		'date',
 	),
 );

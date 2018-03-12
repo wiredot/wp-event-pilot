@@ -1,5 +1,6 @@
-	<select name="{{ id }}[]" id="{{ id }}" multiple="" class="ui dropdown" size="2">
-		{% for option in options %}
-			<option value="{{ option.ID }}"{% if values is defined and in_array(option.ID, values) %} selected="selected"{% endif %}>{{ option.post_title }}</option>
-    	{% endfor %}
-	</select>
+<input type="hidden" name="{{ id }}[]" value="-1">
+<select name="{{ id }}[]" id="{{ id }}" multiple="" class="ui dropdown" size="2">
+	{% for option in options %}
+		<option value="{{ option.ID }}"{% if values is defined and in_array(option.ID, values) %} selected="selected"{% endif %}>{{ option.post_title }}</option>
+	{% endfor %}
+</select>
