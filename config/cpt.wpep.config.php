@@ -395,6 +395,23 @@ $config['meta_box']['post']['wpep-additional_fields'] = array(
 						),
 					),
 				),
+				'cols' => array(
+					'type' => 'group',
+					'label' => __( 'Columns', 'wpep' ),
+					'condition' => array(
+						'type' => array( 'table' ),
+					),
+					'fields' => array(
+						'id' => array(
+							'type' => 'text',
+							'label' => __( 'ID', 'wpep' ),
+						),
+						'label' => array(
+							'type' => 'text',
+							'label' => __( 'Label', 'wpep' ),
+						),
+					),
+				),
 				'rows' => array(
 					'type' => 'group',
 					'label' => __( 'Rows', 'wpep' ),
@@ -412,20 +429,20 @@ $config['meta_box']['post']['wpep-additional_fields'] = array(
 						),
 					),
 				),
-				'cols' => array(
+				'table_disabled' => array(
 					'type' => 'group',
-					'label' => __( 'Columns', 'wpep' ),
+					'label' => __( 'Disabled in Table', 'wpep' ),
 					'condition' => array(
 						'type' => array( 'table' ),
 					),
 					'fields' => array(
-						'id' => array(
+						'col' => array(
 							'type' => 'text',
-							'label' => __( 'ID', 'wpep' ),
+							'label' => __( 'Column ID', 'wpep' ),
 						),
-						'label' => array(
+						'row' => array(
 							'type' => 'text',
-							'label' => __( 'Label', 'wpep' ),
+							'label' => __( 'Row ID', 'wpep' ),
 						),
 					),
 				),

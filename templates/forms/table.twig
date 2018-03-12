@@ -15,7 +15,14 @@
 					<td>{{ row.label }}</td>
 					{% for col in field.cols %}
 						<td>
-							{% if field.table_type == 'text' %}
+							{% set disabled = 0 %}
+							{% for dis in field.table_disabled %}
+							    {% if col.id == dis.col and row.id == dis.row %}
+									{% set disabled = 1 %}
+							    {% endif %}
+							{% endfor %}
+							{% if disabled %}
+							{% elseif field.table_type == 'text' %}
 								<input type="text" name="{{ field.id }}[{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ value[row.id][col.id] }}"{% endif %}{% if field.required %} required="required"{% endif %}>
 							{% elseif field.table_type == 'checkbox' %}
 								<div class="ui checkbox"><input type="checkbox" name="{{ field.id }}[{{ row.id }}][{{ col.id }}]" value="1"{% if value[row.id][col.id] %} checked="checked"{% endif %}{% if field.required %} required="required"{% endif %}><label></label></div>
