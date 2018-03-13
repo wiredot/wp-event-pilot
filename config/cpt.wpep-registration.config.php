@@ -83,7 +83,7 @@ $config['meta_box']['post']['wpep-registration-details'] = array(
 		),
 		'email' => array(
 			'type' => 'email',
-			'label' => __( 'E-Mail', 'wpep' ),
+			'label' => __( 'E-mail', 'wpep' ),
 		),
 	),
 );

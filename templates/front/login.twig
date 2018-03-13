@@ -7,7 +7,7 @@
 			<p>{{ __('You are already logged in.', 'wpep') }}</p>
 		</div>
 		<div class="ui bottom attached warning message">
-			<a href="{{ get_permalink() }}?wpep-logout=1">Log-out here</a>
+			<a href="{{ get_permalink() }}?wpep-logout=1">{{ __('Log-out here', 'wpep') }}</a>
 		</div>
 	{% else %}
 		<div class="ui attached message">
@@ -28,9 +28,9 @@
 			<button class="ui button" type="submit">{{ __('Log-in', 'wpep') }}</button>
 		</form>
 		{% if ( get_option( 'wpep_settings_register_page' ) ) %}
-		<div class="ui bottom attached warning message">
-			No account yet? <a href="{{ get_permalink( get_option( 'wpep_settings_register_page' ) ) }}">Register here</a> instead.
-		</div>
+			<div class="ui bottom attached warning message">
+				{{ sprintf( __('No account yet? %1$sRegister here%2$s instead.', 'wpep'), '<a href="' ~ get_permalink( get_option( 'wpep_settings_register_page' ) )  ~ '">', '</a>') }}
+			</div>
 		{% endif %}
 	{% endif %}
 </div>

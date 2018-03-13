@@ -7,7 +7,7 @@
 			<p>{{ __('You are already registered and logged in.', 'wpep') }}</p>
 		</div>
 		<div class="ui bottom attached warning message">
-			<a href="{{ get_permalink() }}?wpep-logout=1">Log-out here</a>
+			<a href="{{ get_permalink() }}?wpep-logout=1">{{ __('Log-out here', 'wpep') }}</a>
 		</div>
 	{% else %}
 		<div class="ui attached message">
@@ -26,11 +26,11 @@
 				<input type="password" name="password" placeholder="{{ __('Password', 'wpep') }}" required="required">
 			</div>
 			{{ additional_fields|raw }}
-			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
+			<button class="ui button" type="submit">{{ _x('Register', 'form button', 'wpep') }}</button>
 		</form>
 		{% if ( get_option( 'wpep_settings_login_page' ) ) %}
 			<div class="ui bottom attached warning message">
-				Already signed up? <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">Login here</a> instead.
+				{{ sprintf( __('Already signed up? %1$sLogin here%2$s instead.', 'wpep'), '<a href="' ~ get_permalink( get_option( 'wpep_settings_login_page' ) )  ~ '">', '</a>') }}
 			</div>
 		{% endif %}
 	{% endif %}

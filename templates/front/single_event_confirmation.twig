@@ -4,14 +4,14 @@
 			<div class="header">
 				{{ __('Event Registration', 'wpep') }}
 			</div>
-			<p>{{ __("Please fill the registration form first. ", 'wpep') }} <a href="{{ get_permalink( the_id() ) }}?register=1">Form</a></p>
+			<p>{{ sprintf( __('Fill out the registration %1$sform first%2$s', 'wpep'), '<a href="' ~ get_permalink( the_id() )  ~ '?register=1">', '</a>' ) }}</p>
 		</div>
 	{% else %}
 		<div class="ui attached message">
 			<div class="header">
 				{{ __('Event Registration', 'wpep') }}
 			</div>
-			<p>{{ __("You're logged in, so we can use your information.", 'wpep') }}</p>
+			<p>{{ __('Verify your details and register', 'wpep') }}</p>
 		</div>
 		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-event-confirmation" class="ui form attached segment wd-form">
 			<table class="ui celled striped table">
@@ -24,7 +24,7 @@
 			</table>
 			{{ user_fields|raw }}
 			{{ additional_fields|raw }}
-			<button class="ui button" type="submit">{{ __('Register', 'wpep') }}</button>
+			<button class="ui button" type="submit">{{ _x('Register', 'form button', 'wpep') }}</button>
 			<input type="hidden" name="event_id" value="{{ event_id }}">
 		</form>
 	{% endif %}

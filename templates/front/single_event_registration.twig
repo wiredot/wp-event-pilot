@@ -1,7 +1,7 @@
 <div id="wpep-event-registration">
 	{% if not is_user_logged_in() and ( get_option( 'wpep_settings_login_page' ) ) %}
 		<div class="ui attached warning message">
-			<p>{{ __('If you already have an account,', 'wpep') }} <a href="{{ get_permalink( get_option( 'wpep_settings_login_page' ) ) }}">log-in here</a></p>
+			<p>{{ sprintf( __('If you already have an account, %1$slog-in here%2$s', 'wpep'), '<a href="' ~ get_permalink( get_option( 'wpep_settings_login_page' ) )  ~ '">', '</a>') }}</p>
 		</div>
 	{% endif %}
 	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-event-registration" class="ui form attached segment wd-form">

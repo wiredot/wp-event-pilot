@@ -52,6 +52,8 @@ class Single_Event {
 		if ( get_current_user_id() ) {
 			$user = get_userdata( get_current_user_id() );
 			$email = $user->user_email;
+		} else {
+			$email = '';
 		}
 
 		$Twig = new Twig();
@@ -83,7 +85,9 @@ class Single_Event {
 
 		foreach ( $additional_fields as $field ) {
 			if ( $field['id'] ) {
-				$values[ $field['id'] ] = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
+				if ( isset( $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ] ) ) {
+					$values[ $field['id'] ] = $_SESSION[ 'wpep_event_registration_' . $event_id . '_' . $field['id'] ];
+				}
 			}
 		}
 
