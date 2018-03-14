@@ -351,7 +351,7 @@ $config['meta_box']['post']['wpep-additional_fields'] = array(
 					'label' => __( 'Label', 'wpep' ),
 				),
 				'text' => array(
-					'type' => 'textarea',
+					'type' => 'editor',
 					'label' => __( 'Paragraph Text', 'wpep' ),
 					'condition' => array(
 						'type' => array( 'p' ),
