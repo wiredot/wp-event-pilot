@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Event Pilot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 14:15+0000\n"
-"PO-Revision-Date: 2018-03-13 14:17+0000\n"
+"POT-Creation-Date: 2018-04-16 15:15+0000\n"
+"PO-Revision-Date: 2018-04-16 15:16+0000\n"
 "Last-Translator: Piotr Soluch <admin@wiredot.com>\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -624,39 +624,44 @@ msgid "The E-mail field is empty"
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:31
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:107
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:119
 msgid "Something went wrong, please try again."
 msgstr ""
 
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:42
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:56
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:54
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:68
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Account.php:95
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Registration.php:98
-msgid " field is empty"
-msgstr ""
+msgid "field is empty"
+msgstr "jest putse"
 
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:84
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:166
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:59
+msgid "has to have at least one selection in each row"
+msgstr "musi mieć wybraną przynajmniej jedną opcję w każdym wierszu"
+
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:96
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:178
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Login.php:89
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Account.php:126
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Registration.php:152
 msgid "Ups!"
 msgstr ""
 
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:85
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:167
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:97
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:179
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Login.php:90
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Account.php:127
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Registration.php:153
 msgid "Something went wrong:"
 msgstr ""
 
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:152
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:164
 #: ../../../../../_labs/plugins/wp-event-pilot/classes/Templates/Registration.php:133
 msgid "Success"
 msgstr ""
 
-#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:153
+#: ../../../../../_labs/plugins/wp-event-pilot/classes/Event_Registration.php:165
 msgid "You have been registered for the event"
 msgstr "Zostałeś zarejestrowany"
 
@@ -954,10 +959,14 @@ msgid "Already signed up? %1$sLogin here%2$s instead."
 msgstr "Masz już konto? %1$sZaloguj się tu%2$s."
 
 #: ../../../../../_labs/plugins/wp-event-pilot/templates/front/single_event_confirmation.twig:7
+#, php-format
+msgid "Fill out the registration %1$sform first%2$s"
+msgstr ""
+
+#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/single_event_confirmation.twig:14
 msgid "Verify your details and register"
 msgstr "Sprawdź poprawność danych i zarejestruj się"
 
-#: ../../../../../_labs/plugins/wp-event-pilot/templates/front/single_event_confirmation.twig:14
 #: ../../../../../_labs/plugins/wp-event-pilot/templates/front/single_registration.twig:6
 msgid "You're logged in, so we can use your information."
 msgstr ""

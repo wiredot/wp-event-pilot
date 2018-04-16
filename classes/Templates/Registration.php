@@ -95,7 +95,7 @@ class Registration {
 				case 'date':
 				default:
 					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
-						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+						$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'field is empty', 'wpep' );
 					}
 					break;
 			}

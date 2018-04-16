@@ -39,7 +39,7 @@ class Event_Registration {
 				case 'date':
 				default:
 					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
-						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+						$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'field is empty', 'wpep' );
 					}
 					break;
 			}
@@ -49,11 +49,23 @@ class Event_Registration {
 
 		foreach ( $additional_fields as $field ) {
 			switch ( $field['type'] ) {
+				case 'table':
+					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
+						$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'field is empty', 'wpep' );
+					} else if ( $field['required'] ) {
+						$values = $_POST[ $field['id'] ];
+						foreach ( $field['rows'] as $row ) {
+							if ( isset( $values[ $row['id'] ] ) ) {
+								$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'has to have at least one selection in each row', 'wpep' );
+							}
+						}
+					}
+					break;
 				case 'text':
 				case 'date':
 				default:
 					if ( $field['required'] && empty( $_POST[ $field['id'] ] ) ) {
-						$form_errors[ $field['id'] ] = $field['label'] . __( ' field is empty', 'wpep' );
+						$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'field is empty', 'wpep' );
 					}
 					break;
 			}
