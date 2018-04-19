@@ -1,6 +1,7 @@
 {
     "require": {
-        "wiredot/preamp": "dev-master"
+        "wiredot/preamp": "dev-master",
+        "phpoffice/phpspreadsheet": "1.2.*"
     },
     "autoload": {
 		"psr-4": {

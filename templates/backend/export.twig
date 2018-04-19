@@ -1,0 +1,13 @@
+<div class="wrap">
+	<h2>{{ __('Export to Excel', 'bookings') }}</h2>
+	<div class="tablenav top">
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-excel-export" method="POST">
+			<select name="event_id">
+				{% for event in events %}
+				    <option value="{{ event.ID }}">{{ event.post_title }}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="{{ __('export', 'wpep') }}" class="button">
+		</form>
+	</div>
+</div>

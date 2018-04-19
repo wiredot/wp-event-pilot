@@ -7,7 +7,7 @@
 	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-event-registration" class="ui form attached segment wd-form">
 		<div class="field{% if is_user_logged_in() %} disabled{% endif %}">
 			<label>{{ __('E-mail', 'wpep') }}</label>
-			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" required="required" value="{{ email }}">
+			<input type="email" name="email" placeholder="{{ __('E-mail', 'wpep') }}" value="{{ email }}">
 		</div>
 		{{ user_fields|raw }}
 		{{ additional_fields|raw }}

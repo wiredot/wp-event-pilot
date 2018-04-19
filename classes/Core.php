@@ -7,6 +7,7 @@ use Wiredot\WPEP\Registrations\Registration_List;
 use Wiredot\WPEP\Forms\Form_Factory;
 use Wiredot\WPEP\Admin\Admin;
 use Wiredot\WPEP\Backend;
+use Wiredot\WPEP\Export;
 use Wiredot\WPEP\Templates\Login;
 use Wiredot\WPEP\Templates\Registration;
 use Wiredot\WPEP\Templates\Account;
@@ -33,6 +34,7 @@ class Core {
 			new Addons();
 			new Registration_List();
 			new Welcome();
+			new Export();
 		}
 
 		new User_Fields();

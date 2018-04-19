@@ -20,11 +20,6 @@ class Event_Registration {
 
 		$email = sanitize_text_field( trim( $_POST['email'] ) );
 
-		// check if email is not empty and valid
-		if ( empty( $email ) ) {
-			$form_errors['email'] = __( 'The E-mail field is empty', 'wpep' );
-		}
-
 		$event_id = intval( $_POST['event_id'] );
 
 		if ( empty( $event_id ) ) {
@@ -54,8 +49,9 @@ class Event_Registration {
 						$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'field is empty', 'wpep' );
 					} else if ( $field['required'] ) {
 						$values = $_POST[ $field['id'] ];
+
 						foreach ( $field['rows'] as $row ) {
-							if ( isset( $values[ $row['id'] ] ) ) {
+							if ( ! isset( $values[ $row['id'] ] ) ) {
 								$form_errors[ $field['id'] ] = $field['label'] . ' ' . __( 'has to have at least one selection in each row', 'wpep' );
 							}
 						}
@@ -193,6 +189,10 @@ class Event_Registration {
 
 	public function create_user( $event_id ) {
 		$email = $_SESSION[ 'wpep_event_registration_' . $event_id . '_email' ];
+
+		if ( ! $email ) {
+			return 0;
+		}
 
 		$user = get_user_by_email( $email );
 		if ( $user ) {
