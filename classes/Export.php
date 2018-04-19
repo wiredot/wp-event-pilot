@@ -4,6 +4,7 @@ namespace Wiredot\WPEP;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\WPEP\User_Fields;
+use Wiredot\WPEP\Additional_Fields;
 use Wiredot\WPEP\Event;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -40,20 +41,56 @@ class Export {
 		$columns = array(
 			'email' => 'Email',
 			'registration_date' => 'Date',
+			'paid' => 'Paid',
+			'paid_date' => 'Paid Date',
 		);
 
 		$user_fields_sql = '';
 
 		$user_fields = User_Fields::get_user_fields_list();
+		
 		foreach ( $user_fields as $user_field ) {
 			$columns[ $user_field['id'] ] = $user_field['label'];
 			$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $user_field['id'] . "' AND post_id = ID) " . $user_field['id'] . ',';
 		}
 
+		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
+
+
+		foreach ( $additional_fields as $additional_field ) {
+			switch ( $additional_field['type'] ) {
+				case 'text':
+				case 'datetime':
+				case 'date':
+				case 'time':
+				case 'email':
+				case 'textarea':
+				case 'radio':
+				case 'select':
+					$columns[ $additional_field['id'] ] = $additional_field['label'];
+					$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) " . $additional_field['id'] . ',';
+					break;
+				case 'checkbox':
+					if ( ! is_array( $additional_field['options'] ) ) {
+						$columns[ $additional_field['id'] ] = $additional_field['label'];
+						$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) " . $additional_field['id'] . ',';
+					} else {
+						foreach ( $additional_field['options'] as $option ) {
+							$columns[ $additional_field['id'] . '_' . $option['id'] ] = $option['label'];
+						}
+					}
+					break;
+			}
+		}
+		// print_r($additional_fields);
+		// exit;
+
 		$registrations = $wpdb->get_results(
 			'
 			SELECT ID, 
 				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = 'email' AND post_id = ID) email,
+				(SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'paid' AND post_id = ID) paid,
+				(SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'paid_date' AND post_id = ID) paid_date,
 				" . $user_fields_sql . '
 				post_date registration_date 
 			FROM ' . $wpdb->posts . "
@@ -63,6 +100,21 @@ class Export {
 			ORDER BY post_date DESC
 			", ARRAY_A
 		);
+
+		foreach ( $registrations as $key => $reg ) {
+			foreach ( $additional_fields as $additional_field ) {
+				switch ( $additional_field['type'] ) {
+					case 'checkbox':
+						if ( is_array( $additional_field['options'] ) ) {
+							$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
+							foreach ( $values as $value ) {
+								$registrations[$key][$additional_field['id'] . '_' . $value] = 1;
+							}
+						}
+						break;
+				}
+			}
+		}
 
 		$post = get_post( $event_id );
 		$excel_name = $post->post_name . '_' . date( 'Y-m-d' );
