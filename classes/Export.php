@@ -82,7 +82,7 @@ class Export {
 				case 'table':
 					foreach ( $additional_field['rows'] as $row ) {
 						foreach ( $additional_field['cols'] as $col ) {
-							$columns[ $additional_field['id'] . '_' . $row['id'] . '_' . $col['id'] ] = $row['label'] . ' ' . $col['label'];
+							$columns[ $additional_field['id'] . '_' . $row['id'] . '_' . $col['id'] ] = $additional_field['id'] . ' ' . $row['id'] . ' ' . $col['id'];
 						}
 					}
 					break;
