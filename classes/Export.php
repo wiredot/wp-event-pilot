@@ -48,14 +48,13 @@ class Export {
 		$user_fields_sql = '';
 
 		$user_fields = User_Fields::get_user_fields_list();
-		
+
 		foreach ( $user_fields as $user_field ) {
 			$columns[ $user_field['id'] ] = $user_field['label'];
 			$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $user_field['id'] . "' AND post_id = ID) " . $user_field['id'] . ',';
 		}
 
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
-
 
 		foreach ( $additional_fields as $additional_field ) {
 			switch ( $additional_field['type'] ) {
@@ -80,10 +79,17 @@ class Export {
 						}
 					}
 					break;
+				case 'table':
+					foreach ( $additional_field['rows'] as $row ) {
+						foreach ( $additional_field['cols'] as $col ) {
+							$columns[ $additional_field['id'] . '_' . $row['id'] . '_' . $col['id'] ] = $row['label'] . ' ' . $col['label'];
+						}
+					}
+					break;
 			}
 		}
-		// print_r($additional_fields);
-		// exit;
+		// print_r( $additional_fields );
+		// print_r( $columns );
 
 		$registrations = $wpdb->get_results(
 			'
@@ -108,9 +114,22 @@ class Export {
 						if ( is_array( $additional_field['options'] ) ) {
 							$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
 							foreach ( $values as $value ) {
-								$registrations[$key][$additional_field['id'] . '_' . $value] = 1;
+								$registrations[ $key ][ $additional_field['id'] . '_' . $value ] = 1;
 							}
 						}
+						break;
+					case 'table':
+						$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
+						foreach ( $values as $row => $cols ) {
+							foreach ( $cols as $col => $value ) {
+								$registrations[ $key ][ $additional_field['id'] . '_' . $row . '_' . $col ] = $value;
+							}
+						}
+						// foreach ( $additional_field['rows'] as $row ) {
+						// 	foreach ( $additional_field['cols'] as $col ) {
+						// 		$columns[ $additional_field['id'] . '_' . $row['id'] . '_' . $col['id'] ] = $row['label'] . ' ' . $col['label'];
+						// 	}
+						// }
 						break;
 				}
 			}
