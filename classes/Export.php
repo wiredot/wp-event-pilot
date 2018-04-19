@@ -2,8 +2,9 @@
 
 namespace Wiredot\WPEP;
 
-use Wiredot\WPEP\Event;
 use Wiredot\Preamp\Twig;
+use Wiredot\WPEP\User_Fields;
+use Wiredot\WPEP\Event;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -41,14 +42,24 @@ class Export {
 			'registration_date' => 'Date',
 		);
 
+		$user_fields_sql = '';
+
+		$user_fields = User_Fields::get_user_fields_list();
+		foreach ( $user_fields as $user_field ) {
+			$columns[ $user_field['id'] ] = $user_field['label'];
+			$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $user_field['id'] . "' AND post_id = ID) " . $user_field['id'] . ',';
+		}
+
 		$registrations = $wpdb->get_results(
 			'
 			SELECT ID, 
 				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = 'email' AND post_id = ID) email,
+				" . $user_fields_sql . '
 				post_date registration_date 
-			FROM " . $wpdb->posts . "
+			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
+				AND post_status = 'publish'
 			ORDER BY post_date DESC
 			", ARRAY_A
 		);
