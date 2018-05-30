@@ -16,10 +16,10 @@
 			<input type="submit" value="{{ __('filter', 'wpep') }}" class="button">
 		</form>
 	</div>
-	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-id_card-export" method="POST">
+	<form action="{{ admin_url('admin-ajax.php?action=wpep-id-export') }}" method="POST">
 		<div class="tablenav top">
-				<select name="action">
-					<option value="save">{{ __('Save PDF', 'wpep') }}</option>
+				<select name="mode">
+					<option value="export">{{ __('Save PDF', 'wpep') }}</option>
 				</select>
 				<input type="submit" value="{{ __('Apply', 'wpep') }}" class="button">
 		</div>

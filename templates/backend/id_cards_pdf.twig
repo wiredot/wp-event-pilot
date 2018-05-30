@@ -1,0 +1,42 @@
+<html>
+	<style>
+		html, body, table, td {
+			margin: 0;
+			padding: 0;
+		}
+
+		td {
+			text-align: center;
+			background: #ccc;
+			margin: 0;
+			padding: 0;
+		}
+		
+		h3 {
+			margin-top: 10mm;
+		}
+	</style>
+	<body>
+		<table>
+			{% set i = 1 %}
+			{% for post in posts %}
+				{% if i == 1 %}<tr>{% endif %}
+				<td width="74mm" height="104.5mm">
+					<h1>{{ get_post_meta(post, 'first_name', 1) }}</h1>
+					<h2>{{ get_post_meta(post, 'last_name', 1) }}</h2>
+				{{ post }}</td>
+				<td width="74mm" height="104.5mm">
+					{{ get_post_meta(post, 'id_card_uid', 1) }}
+				</td>
+				{% set i = i + 1 %}
+				{% if i == 3 %}
+					</tr>
+					{% set i = 1 %}
+				{% endif %}
+			{% endfor %}
+			{% if i == 2 %}
+				</tr>
+			{% endif %}
+		</table>
+	</body>
+</html>

@@ -1,7 +1,8 @@
 {
     "require": {
         "wiredot/preamp": "dev-master",
-        "phpoffice/phpspreadsheet": "1.2.*"
+        "phpoffice/phpspreadsheet": "1.2.*",
+        "mpdf/mpdf": "^7.1"
     },
     "autoload": {
 		"psr-4": {

@@ -11,9 +11,8 @@ class Id {
 
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'id_admin_menu' ) );
-
-		add_action( 'wp_ajax_wpep-id_card-export', array( $this, 'id_card_export' ) );
-		add_action( 'wp_ajax_nopriv_wpep-id_card-export', array( $this, 'id_card_export' ) );
+		add_action( 'wp_ajax_wpep-id-export', array( $this, 'id_card_export' ) );
+		add_action( 'wp_ajax_nopriv_wpep-id-export', array( $this, 'id_card_export' ) );
 	}
 
 	public function id_admin_menu() {
@@ -98,8 +97,35 @@ class Id {
 	}
 
 	public function id_card_export() {
-		print_r( $_POST );
-		echo 'pdf';
+		$Twig = new Twig();
+
+		$posts = $_POST['post'];
+
+		$pdf = $Twig->twig->render(
+			'backend/id_cards_pdf.twig', array(
+				'posts' => $posts,
+			)
+		);
+
+		if ( is_array( $posts ) ) {
+			foreach ( $posts as $post ) {
+				$this->update_unique_id( $post );
+				$this->mark_as_printed( $post );
+			}
+		}
+
+		// echo $pdf;
+		$mpdf = new \Mpdf\Mpdf([
+			'mode' => 'utf-8',
+			'format' => 'A4',
+			'orientation' => 'L',
+			'margin_left' => 0,
+			'margin_right' => 0,
+			'margin_top' => 0,
+			'margin_bottom' => 0,
+		]);
+		$mpdf->WriteHTML( $pdf );
+		$mpdf->Output();
 		exit;
 	}
 
@@ -124,5 +150,36 @@ class Id {
 				AND post_status = 'publish'
 			" . $sql
 		);
+	}
+
+	public function mark_as_printed( $registration_id ) {
+		update_post_meta( $registration_id, 'printed', 1 );
+	}
+
+	public function update_unique_id( $registration_id ) {
+		$uid = get_post_meta( $registration_id, 'id_card_uid', true );
+
+		if ( ! $uid ) {
+			update_post_meta( $registration_id, 'id_card_uid', $this->generate_unique_id() );
+		}
+	}
+
+	public function generate_unique_id() {
+		global $wpdb;
+
+		$id = rand( 1000000000000, 9999999999999 );
+
+		$count = $wpdb->get_var( $wpdb->prepare( '
+			SELECT count(*)
+			FROM ' . $wpdb->postmeta . '
+			WHERE meta_key = %s
+				AND meta_value = %d
+		', 'id_card_uid', $id ) );
+
+		if ( $count ) {
+			$id = $this->generate_unique_id();
+		}
+
+		return $id;
 	}
 }
