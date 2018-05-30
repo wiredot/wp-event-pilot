@@ -17,6 +17,10 @@ class User_Fields {
 
 		$wpep_settings_fields = self::get_user_fields();
 
+		if ( ! is_array( $wpep_settings_fields ) ) {
+			return array();
+		}
+
 		foreach ( $wpep_settings_fields as $key => $mb ) {
 			$meta_box = array(
 				'active' => true,
@@ -69,6 +73,10 @@ class User_Fields {
 		$fields = self::get_user_fields();
 
 		$field_list = array();
+
+		if ( ! is_array( $fields ) ) {
+			return $field_list;
+		}
 
 		foreach ( $fields as $group ) {
 			$field_list = array_merge( $field_list, $group['fields'] );

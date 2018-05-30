@@ -46,6 +46,10 @@ class Additional_Fields {
 			'fields' => array(),
 		);
 
+		if ( ! $fields ) {
+			return $meta_box;
+		}
+
 		foreach ( $fields as $fkey => $field ) {
 
 			if ( isset( $field['options'] ) ) {

@@ -35,6 +35,7 @@ class Core {
 			new Registration_List();
 			new Welcome();
 			new Export();
+			new Id();
 		}
 
 		new User_Fields();

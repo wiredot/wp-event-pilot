@@ -67,12 +67,12 @@ class Export {
 				case 'radio':
 				case 'select':
 					$columns[ $additional_field['id'] ] = $additional_field['label'];
-					$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) " . $additional_field['id'] . ',';
+					$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) '" . $additional_field['id'] . "', ";
 					break;
 				case 'checkbox':
 					if ( ! is_array( $additional_field['options'] ) ) {
 						$columns[ $additional_field['id'] ] = $additional_field['label'];
-						$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) " . $additional_field['id'] . ',';
+						$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) '" . $additional_field['id'] . "', ";
 					} else {
 						foreach ( $additional_field['options'] as $option ) {
 							$columns[ $additional_field['id'] . '_' . $option['id'] ] = $option['label'];

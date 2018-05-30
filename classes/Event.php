@@ -17,6 +17,10 @@ class Event {
 
 		$wpep_event_fields = self::get_event_fields();
 
+		if ( ! is_array( $wpep_event_fields ) ) {
+			return array();
+		}
+
 		foreach ( $wpep_event_fields as $fkey => $field ) {
 
 			if ( isset( $field['options'] ) ) {
