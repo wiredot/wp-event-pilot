@@ -1,0 +1,97 @@
+<div class="wrap">
+	<h2>{{ __('Filters', 'bookings') }}</h2>
+	<ul class="subsubsub">
+		<li class="all"><a href="edit.php?post_type=wpep&amp;page=filters"{% if mode == 'all' %} class="current"{% endif %} aria-current="page">All <span class="count">({{ count_all }})</span></a> |</li>
+		<li class="mine"><a href="edit.php?post_type=wpep&amp;page=filters&amp;paid=1"{% if mode == 'paid' %} class="current"{% endif %}>Paid <span class="count">({{ count_paid }})</span></a> |</li>
+		<li class="publish"><a href="edit.php?post_type=wpep&amp;page=filters&amp;paid=0"{% if mode == 'notpaid' %} class="current"{% endif %}>Not Paid <span class="count">({{ count_notpaid }})</span></a></li>
+	</ul>
+	<div class="tablenav top" style="height: auto;">
+		<form action="edit.php?post_type=wpep&page=filters" method="POST">
+			<table class="form-table">
+				<tr>
+					<th scope="row"><label for="event_id">Event</label></th>
+					<td>
+						<select name="event_id">
+							<option value="0">-- {{ __('select event', 'wpep') }} --</option>
+							{% for event in events %}
+								<option value="{{ event.ID }}"{% if event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				{% for field in user_fields %}
+					<tr>
+						<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
+						<td>
+							{% if field.type == 'text' %}
+								<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<input type="submit" value="{{ __('filter', 'wpep') }}" class="button">
+			<br>
+			<br>
+		</form>
+	</div>
+	<form action="{{ admin_url('admin-ajax.php?action=wpep-id-export') }}" method="POST">
+		{#<div class="tablenav top">
+				<select name="mode">
+					<option value="export">{{ __('Save PDF', 'wpep') }}</option>
+				</select>
+				<input type="submit" value="{{ __('Apply', 'wpep') }}" class="button">
+		</div>#}
+		<table class="wp-list-table widefat fixed striped posts" style="width: {{ count(user_fields) * 100 + count(additional_fields) * 100 + 500 }}px; min-width:100%;">
+			<thead>
+				<tr>
+					<td id="cb" class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-1">Wybierz wszystko</label><input id="cb-select-all-1" type="checkbox"></td>
+					<th scope="col" class="manage-column column-title"><span>Title</span></th>
+					<th scope="col" class="manage-column column-email">E-mail</th>
+					<th scope="col" class="manage-column column-paid">Paid</th>
+					{% for field in user_fields %}
+						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
+					{% endfor %}
+					{% for key, field in additional_fields %}
+						<th scope="col" id="{{ key }}" class="manage-column column-{{ key }}">{{ field }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody id="the-list">
+				{% for reg in registrations %}
+					<tr id="post-{{ reg.ID }}" class="iedit author-other level-0 post-{{ reg.ID }} type-wpep-registration status-publish hentry">
+						<th scope="row" class="check-column">
+							<label class="screen-reader-text" for="cb-select-{{ reg.ID }}">Wybierz {{ reg.title }}</label>
+							<input id="cb-select-{{ reg.ID }}" type="checkbox" name="post[]" value="{{ reg.ID }}">
+						</th>
+						<td class="title column-title has-row-actions column-primary page-title" data-colname="Title">
+							<strong><a class="row-title" href="{{ get_edit_post_link( reg.ID ) }}" aria-label="„{{ reg.title }}” (Edycja)">{{ reg.title }}</a></strong>
+						</td>
+						<td class="email column-email" data-colname="E-Mail">{{ reg.email }}</td>
+						<td class="paid column-paid" data-colname="Paid">{{ reg.paid }}</td>
+						{% for field in user_fields %}
+							<td class="{{ field.id }} column-{{ field.id }}" data-colname="{{ field.label }}">{{ reg[field.id] }}</td>
+						{% endfor %}
+						{% for key, field in additional_fields %}
+							<td class="{{ key }} column-{{ key }}" data-colname="{{ field }}">{{ reg[key] }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2">Wybierz wszystko</label><input id="cb-select-all-2" type="checkbox"></td>
+					<th scope="col" class="manage-column column-title"><span>Title</span></th>
+					<th scope="col" class="manage-column column-paid">Paid</th>
+					<th scope="col" class="manage-column column-email">E-mail</th>
+					{% for field in user_fields %}
+						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
+					{% endfor %}
+					{% for key, field in additional_fields %}
+						<th scope="col" id="{{ key }}" class="manage-column column-{{ key }}">{{ field }}</th>
+					{% endfor %}
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

@@ -88,9 +88,9 @@ class Id {
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'paid' AND post_id = ID) > 0
 				AND post_status = 'publish'
-				" . $sql . "
+				" . $sql . '
 			ORDER BY post_date DESC
-			", ARRAY_A
+			', ARRAY_A
 		);
 
 		return $registrations;
@@ -115,15 +115,17 @@ class Id {
 		}
 
 		// echo $pdf;
-		$mpdf = new \Mpdf\Mpdf([
-			'mode' => 'utf-8',
-			'format' => 'A4',
-			'orientation' => 'L',
-			'margin_left' => 0,
-			'margin_right' => 0,
-			'margin_top' => 0,
-			'margin_bottom' => 0,
-		]);
+		$mpdf = new \Mpdf\Mpdf(
+			[
+				'mode' => 'utf-8',
+				'format' => 'A4',
+				'orientation' => 'L',
+				'margin_left' => 0,
+				'margin_right' => 0,
+				'margin_top' => 0,
+				'margin_bottom' => 0,
+			]
+		);
 		$mpdf->WriteHTML( $pdf );
 		$mpdf->Output();
 		exit;
@@ -167,14 +169,31 @@ class Id {
 	public function generate_unique_id() {
 		global $wpdb;
 
-		$id = rand( 1000000000000, 9999999999999 );
+		$id = '';
 
-		$count = $wpdb->get_var( $wpdb->prepare( '
+		for ( $i = 0; $i < 12; $i++ ) {
+			$id .= rand( 0, 9 );
+		}
+
+		$weightflag = true;
+		$sum = 0;
+
+		for ( $i = strlen( $id ) - 1; $i >= 0; $i-- ) {
+			$sum += ( int )$id[$i] * ( $weightflag?3:1 );
+			$weightflag = ! $weightflag;
+		}
+		$id .= (10 - ( $sum % 10 ) ) % 10;
+
+		$count = $wpdb->get_var(
+			$wpdb->prepare(
+				'
 			SELECT count(*)
 			FROM ' . $wpdb->postmeta . '
 			WHERE meta_key = %s
 				AND meta_value = %d
-		', 'id_card_uid', $id ) );
+		', 'id_card_uid', $id
+			)
+		);
 
 		if ( $count ) {
 			$id = $this->generate_unique_id();

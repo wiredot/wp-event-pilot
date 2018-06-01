@@ -36,6 +36,7 @@ class Core {
 			new Welcome();
 			new Export();
 			new Id();
+			new Filters();
 		}
 
 		new User_Fields();
