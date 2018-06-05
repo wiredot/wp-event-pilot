@@ -100,18 +100,18 @@ class Id {
 
 		$posts = $_POST['post'];
 
-		$pdf = $Twig->twig->render(
-			'backend/id_cards_pdf.twig', array(
-				'posts' => $posts,
-			)
-		);
-
 		if ( is_array( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$this->update_unique_id( $post );
 				$this->mark_as_printed( $post );
 			}
 		}
+
+		$pdf = $Twig->twig->render(
+			'backend/id_cards_pdf.twig', array(
+				'posts' => $posts,
+			)
+		);
 
 		// echo $pdf;
 		$mpdf = new \Mpdf\Mpdf(
