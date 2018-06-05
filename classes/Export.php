@@ -120,9 +120,11 @@ class Export {
 						break;
 					case 'table':
 						$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
-						foreach ( $values as $row => $cols ) {
-							foreach ( $cols as $col => $value ) {
-								$registrations[ $key ][ $additional_field['id'] . '_' . $row . '_' . $col ] = $value;
+						if ( is_array( $values ) ) {
+							foreach ( $values as $row => $cols ) {
+								foreach ( $cols as $col => $value ) {
+									$registrations[ $key ][ $additional_field['id'] . '_' . $row . '_' . $col ] = $value;
+								}
 							}
 						}
 						// foreach ( $additional_field['rows'] as $row ) {

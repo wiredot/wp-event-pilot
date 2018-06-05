@@ -86,7 +86,6 @@ class Id {
 			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
-				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'paid' AND post_id = ID) > 0
 				AND post_status = 'publish'
 				" . $sql . '
 			ORDER BY post_date DESC
@@ -148,7 +147,6 @@ class Id {
 			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
-				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'paid' AND post_id = ID) > 0
 				AND post_status = 'publish'
 			" . $sql
 		);

@@ -29,6 +29,18 @@
 						</td>
 					</tr>
 				{% endfor %}
+				{% for field in additional_fields %}
+					{% if field.type == 'text' %}
+						<tr>
+							<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
+							<td>
+								{% if field.type == 'text' %}
+									<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+								{% endif %}
+							</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
 			</table>
 			<input type="submit" value="{{ __('filter', 'wpep') }}" class="button">
 			<br>
@@ -42,7 +54,7 @@
 				</select>
 				<input type="submit" value="{{ __('Apply', 'wpep') }}" class="button">
 		</div>#}
-		<table class="wp-list-table widefat fixed striped posts" style="width: {{ count(user_fields) * 100 + count(additional_fields) * 100 + 500 }}px; min-width:100%;">
+		<table class="wp-list-table widefat fixed striped posts" style="width: {{ count(user_fields) * 100 + count(additional_fields_columns) * 100 + 500 }}px; min-width:100%;">
 			<thead>
 				<tr>
 					<td id="cb" class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-1">Wybierz wszystko</label><input id="cb-select-all-1" type="checkbox"></td>
@@ -52,7 +64,7 @@
 					{% for field in user_fields %}
 						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
 					{% endfor %}
-					{% for key, field in additional_fields %}
+					{% for key, field in additional_fields_columns %}
 						<th scope="col" id="{{ key }}" class="manage-column column-{{ key }}">{{ field }}</th>
 					{% endfor %}
 				</tr>
@@ -72,7 +84,7 @@
 						{% for field in user_fields %}
 							<td class="{{ field.id }} column-{{ field.id }}" data-colname="{{ field.label }}">{{ reg[field.id] }}</td>
 						{% endfor %}
-						{% for key, field in additional_fields %}
+						{% for key, field in additional_fields_columns %}
 							<td class="{{ key }} column-{{ key }}" data-colname="{{ field }}">{{ reg[key] }}</td>
 						{% endfor %}
 					</tr>
@@ -87,7 +99,7 @@
 					{% for field in user_fields %}
 						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
 					{% endfor %}
-					{% for key, field in additional_fields %}
+					{% for key, field in additional_fields_columns %}
 						<th scope="col" id="{{ key }}" class="manage-column column-{{ key }}">{{ field }}</th>
 					{% endfor %}
 				</tr>

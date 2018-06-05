@@ -52,7 +52,8 @@ class Filters {
 			'backend/filters.twig', array(
 				'events' => $events,
 				'event_id' => $_SESSION['filters_event_id'],
-				'additional_fields' => $this->get_additional_fields_columns( $event_id ),
+				'additional_fields_columns' => $this->get_additional_fields_columns( $event_id ),
+				'additional_fields' => Additional_Fields::get_additional_fields( $event_id ),
 				'user_fields' => User_Fields::get_user_fields_list(),
 				'registrations' => $this->get_registrations( $event_id, $mode, $ufs ),
 				'count_all' => $this->count_registrations( $event_id, 'all', $ufs ),
@@ -159,6 +160,8 @@ class Filters {
 
 	public function get_additional_fields_columns( $event_id ) {
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
+
+		print_r( $additional_fields );
 
 		$columns = array();
 
