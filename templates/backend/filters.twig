@@ -30,12 +30,107 @@
 					</tr>
 				{% endfor %}
 				{% for field in additional_fields %}
-					{% if field.type == 'text' %}
+					{% if field.type == 'text' or field.type == 'header' or field.type == 'email' or field.type == 'date' or field.type == 'datetime' or field.type == 'time' or field.type == 'textarea' or field.type == 'checkbox' or field.type == 'radio' or field.type == 'select' or field.type == 'table' %}
 						<tr>
 							<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
 							<td>
 								{% if field.type == 'text' %}
 									<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+								{% elseif field.type == 'email' %}
+									<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+								{% elseif field.type == 'date' %}
+									<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
+									- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
+								{% elseif field.type == 'time' %}
+									<input type="time" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
+									- <input type="time" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
+								{% elseif field.type == 'datetime' %}
+									<input type="date" name="ufs[{{ field.id }}][datestart]" id="{{ field.id }}" value="{{ ufs[field.id].datestart }}">
+									<input type="time" name="ufs[{{ field.id }}][timestart]" id="{{ field.id }}" value="{{ ufs[field.id].timestart }}">
+									- <input type="date" name="ufs[{{ field.id }}][dateend]" id="{{ field.id }}" value="{{ ufs[field.id].dateend }}">
+									<input type="time" name="ufs[{{ field.id }}][timeend]" id="{{ field.id }}" value="{{ ufs[field.id].timeend }}">
+								{% elseif field.type == 'textarea' %}
+									<textarea name="ufs[{{ field.id }}]" id="{{ field.id }}">{{ ufs[field.id] }}</textarea>
+								{% elseif field.type == 'checkbox' %}
+									{% if field.options %}
+										{% for option in field.options %}
+											<div class="field">
+												<div class="ui checkbox">
+													<input type="checkbox" class="hidden" id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}][]" value="{{ option.id }}"{% if option.id in ufs[field.id] %} checked="checked"{% endif %}>
+													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label>
+												</div>
+											</div>
+										{% endfor %}
+									{% else %}
+										<input type="checkbox" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="1"{% if ufs[field.id] %} checked="checked" {% endif %}>
+									{% endif %}
+								{% elseif field.type == 'radio' %}
+									{% if field.options %}
+										{% for option in field.options %}
+											<div class="field">
+												<div class="ui checkbox">
+													<input type="radio" class="hidden" id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]" value="{{ option.id }}"{% if option.id == ufs[field.id] %} checked="checked"{% endif %}>
+													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label>
+												</div>
+											</div>
+										{% endfor %}
+									{% endif %}
+								{% elseif field.type == 'select' %}
+									{% if field.options %}
+										<select id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]">
+											{% for option in field.options %}
+												<option value="{{ option.id }}"{% if option.id == ufs[field.id] %} selected="selected"{% endif %}>{{ option.label }}</option>
+											{% endfor %}
+										</select>
+									{% endif %}
+								{% elseif field.type == 'table' %}
+									<table class="ui compact celled definition table">
+										<thead>
+											<tr>
+												<th></th>
+												{% for col in field.cols %}
+													<th>{{ col.label }}</th>
+												{% endfor %}
+											</tr>
+										</thead>
+										<tbody>
+											{% for row in field.rows %}
+												<tr>
+													<td>{{ row.label }}</td>
+													{% for col in field.cols %}
+														<td>
+															{% set disabled = 0 %}
+															{% for dis in field.disabled %}
+															    {% if col.id == dis.col and row.id == dis.row %}
+																	{% set disabled = 1 %}
+															    {% endif %}
+															{% endfor %}
+															{% if disabled %}
+															{% elseif field.table_type == 'text' %}
+																<input type="text" name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ ufs[field.id][row.id][col.id] }}"{% endif %}>
+															{% elseif field.table_type == 'checkbox' %}
+																<div class="ui checkbox">
+																	<select name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]">
+																		<option value="">-- select --</option>
+																		<option value="2"{% if ufs[field.id][row.id][col.id] == 2 %} selected="selected"{% endif %}>yes</option>
+																		<option value="1"{% if ufs[field.id][row.id][col.id] == 1 %} selected="selected"{% endif %}>no</option>
+																	</select>
+															{% elseif field.table_type == 'radio' %}
+																<div class="ui radio"><input type="radio" name="ufs[{{ field.id }}][{{ row.id }}]" value="{{ col.id }}"{% if ufs[field.id][row.id] == col.id %} checked="checked"{% endif %}><label></label></div>
+															{% elseif field.table_type == 'select' %}
+																<select name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]" class="ui dropdown">
+																		<option value="">-- select --</option>
+																	{% for option in options %}
+																		<option value="{{ option.id }}"{% if ufs[field.id][row.id][col.id] is defined and ufs[field.id][row.id][col.id] == option.id %} selected="selected"{% endif %}>{{ option.label }}</option>
+																	{% endfor %}
+																</select>
+															{% endif %}
+														</td>
+													{% endfor %}
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
 								{% endif %}
 							</td>
 						</tr>

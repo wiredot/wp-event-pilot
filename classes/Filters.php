@@ -136,8 +136,10 @@ class Filters {
 					case 'checkbox':
 						if ( is_array( $additional_field['options'] ) ) {
 							$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
-							foreach ( $values as $value ) {
-								$registrations[ $key ][ $additional_field['id'] . '_' . $value ] = 1;
+							if ( is_array( $values ) ) {
+								foreach ( $values as $value ) {
+									$registrations[ $key ][ $additional_field['id'] . '_' . $value ] = 1;
+								}
 							}
 						}
 						break;
@@ -160,8 +162,6 @@ class Filters {
 
 	public function get_additional_fields_columns( $event_id ) {
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
-
-		print_r( $additional_fields );
 
 		$columns = array();
 
