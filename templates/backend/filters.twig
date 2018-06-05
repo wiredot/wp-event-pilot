@@ -180,7 +180,7 @@
 							<td class="{{ field.id }} column-{{ field.id }}" data-colname="{{ field.label }}">{{ reg[field.id] }}</td>
 						{% endfor %}
 						{% for key, field in additional_fields_columns %}
-							<td class="{{ key }} column-{{ key }}" data-colname="{{ field }}">{{ reg[key] }}</td>
+							<td class="{{ key }} column-{{ key }}" data-colname="{{ field }}">{{ reg[key]|slice(0, 50) }}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
