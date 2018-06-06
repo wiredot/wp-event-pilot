@@ -83,8 +83,6 @@ class Filters {
 			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' AND meta_value = 1 AND post_id = ID) < 1";
 		}
 
-		echo $sql_search;
-
 		$user_fields_sql = '';
 
 		$user_fields = User_Fields::get_user_fields_list();
@@ -239,6 +237,19 @@ class Filters {
 			case 'text':
 			case 'email':
 				return ' AND (SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) LIKE '" . $search . "'";
+			break;
+			case 'textarea':
+				return ' AND (SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) LIKE '%" . $search . "%'";
+			break;
+			case 'date':
+				print_r( $search );
+				if ( $search['start'] && $search['end'] ) {
+					return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value >= '" . $search['start'] . "' AND meta_value <= '" . $search['end'] . "' AND post_id = ID) > 0";
+				} else if ( $search['start'] && ! $search['end'] ) {
+					return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value >= '" . $search['start'] . "' AND post_id = ID) > 0";
+				} else if ( ! $search['start'] && $search['end'] ) {
+					return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value <= '" . $search['end'] . "' AND post_id = ID) > 0";
+				}
 			break;
 			case 'checkbox':
 				if ( is_array( $field['options'] ) ) {
