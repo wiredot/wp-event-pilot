@@ -56,28 +56,35 @@
 										{% for option in field.options %}
 											<div class="field">
 												<div class="ui checkbox">
-													<input type="checkbox" class="hidden" id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}][]" value="{{ option.id }}"{% if option.id in ufs[field.id] %} checked="checked"{% endif %}>
-													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label>
+													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label> 
+													<select name="ufs[{{ field.id }}][{{ option.id }}]" id="{{ field.id }}_{{ option.id }}">
+														<option value="">-- select --</option>
+														<option value="2"{% if ufs[field.id][option.id] == 2 %} selected="selected"{% endif %}>yes</option>
+														<option value="1"{% if ufs[field.id][option.id] == 1 %} selected="selected"{% endif %}>no</option>
+													</select>
 												</div>
 											</div>
 										{% endfor %}
 									{% else %}
-										<input type="checkbox" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="1"{% if ufs[field.id] %} checked="checked" {% endif %}>
+										<select name="ufs[{{ field.id }}]">
+											<option value="">-- select --</option>
+											<option value="2"{% if ufs[field.id] == 2 %} selected="selected"{% endif %}>yes</option>
+											<option value="1"{% if ufs[field.id] == 1 %} selected="selected"{% endif %}>no</option>
+										</select>
 									{% endif %}
 								{% elseif field.type == 'radio' %}
 									{% if field.options %}
-										{% for option in field.options %}
-											<div class="field">
-												<div class="ui checkbox">
-													<input type="radio" class="hidden" id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]" value="{{ option.id }}"{% if option.id == ufs[field.id] %} checked="checked"{% endif %}>
-													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label>
-												</div>
-											</div>
-										{% endfor %}
+										<select name="ufs[{{ field.id }}]" id="{{ field.id }}">
+											<option value="">-- select --</option>
+											{% for option in field.options %}
+												<option value="{{ option.id }}"{% if option.id == ufs[field.id] %} selected="selected"{% endif %}>{{ option.label }}</option>
+											{% endfor %}
+										</select>
 									{% endif %}
 								{% elseif field.type == 'select' %}
 									{% if field.options %}
 										<select id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]">
+											<option value="">-- select --</option>
 											{% for option in field.options %}
 												<option value="{{ option.id }}"{% if option.id == ufs[field.id] %} selected="selected"{% endif %}>{{ option.label }}</option>
 											{% endfor %}

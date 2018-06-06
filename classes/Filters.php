@@ -47,6 +47,9 @@ class Filters {
 
 		$event_id = $_SESSION['filters_event_id'];
 
+		$sql_search = $this->get_user_field_search( $event_id, $ufs );
+		$sql_search .= $this->get_additional_field_search( $event_id, $ufs );
+
 		$Twig = new Twig();
 		echo $Twig->twig->render(
 			'backend/filters.twig', array(
@@ -55,17 +58,17 @@ class Filters {
 				'additional_fields_columns' => $this->get_additional_fields_columns( $event_id ),
 				'additional_fields' => Additional_Fields::get_additional_fields( $event_id ),
 				'user_fields' => User_Fields::get_user_fields_list(),
-				'registrations' => $this->get_registrations( $event_id, $mode, $ufs ),
-				'count_all' => $this->count_registrations( $event_id, 'all', $ufs ),
-				'count_paid' => $this->count_registrations( $event_id, 'paid', $ufs ),
-				'count_notpaid' => $this->count_registrations( $event_id, 'notpaid', $ufs ),
+				'registrations' => $this->get_registrations( $event_id, $mode, $sql_search ),
+				'count_all' => $this->count_registrations( $event_id, 'all', $sql_search ),
+				'count_paid' => $this->count_registrations( $event_id, 'paid', $sql_search ),
+				'count_notpaid' => $this->count_registrations( $event_id, 'notpaid', $sql_search ),
 				'mode' => $mode,
 				'ufs' => $ufs,
 			)
 		);
 	}
 
-	public function get_registrations( $event_id, $mode = 'all', $ufs = array() ) {
+	public function get_registrations( $event_id, $mode = 'all', $sql_search = '' ) {
 		global $wpdb;
 
 		if ( ! $event_id ) {
@@ -80,7 +83,7 @@ class Filters {
 			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' AND meta_value = 1 AND post_id = ID) < 1";
 		}
 
-		$sql_search = $this->get_user_field_search( $ufs );
+		echo $sql_search;
 
 		$user_fields_sql = '';
 
@@ -125,7 +128,7 @@ class Filters {
 			WHERE post_type = 'wpep-registration'
 				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
 				AND post_status = 'publish'
-				" . $sql . $sql_search .'
+				" . $sql . $sql_search . '
 			ORDER BY post_date DESC
 			', ARRAY_A
 		);
@@ -199,7 +202,7 @@ class Filters {
 		return $columns;
 	}
 
-	public function get_user_field_search( $ufs ) {
+	public function get_user_field_search( $event_id, $ufs ) {
 		global $wpdb;
 		$sql_search = '';
 
@@ -207,33 +210,190 @@ class Filters {
 
 		foreach ( $user_fields as $user_field ) {
 			if ( isset( $ufs[ $user_field['id'] ] ) && $ufs[ $user_field['id'] ] ) {
-				$sql_search .= ' AND (SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $user_field['id'] . "' AND post_id = ID) LIKE '%" . $ufs[ $user_field['id'] ] . "%'";
+				$sql_search .= $this->get_field_search( $user_field, $ufs[ $user_field['id'] ], $event_id );
 			}
 		}
 
 		return $sql_search;
 	}
 
-	public function count_registrations( $event_id, $mode = 'all', $ufs = array() ) {
+	public function get_additional_field_search( $event_id, $ufs ) {
+		global $wpdb;
+		$sql_search = '';
+
+		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
+
+		foreach ( $additional_fields as $additional_field ) {
+			if ( isset( $ufs[ $additional_field['id'] ] ) && $ufs[ $additional_field['id'] ] ) {
+				$sql_search .= $this->get_field_search( $additional_field, $ufs[ $additional_field['id'] ], $event_id );
+			}
+		}
+
+		return $sql_search;
+	}
+
+	public function get_field_search( $field, $search, $event_id ) {
+		global $wpdb;
+
+		switch ( $field['type'] ) {
+			case 'text':
+			case 'email':
+				return ' AND (SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) LIKE '" . $search . "'";
+			break;
+			case 'checkbox':
+				if ( is_array( $field['options'] ) ) {
+					return $this->get_registration_checkbox( $event_id, $field, $search );
+				} else {
+					if ( 1 == $search ) {
+						return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value = '1' AND post_id = ID) < 1";
+					} else if ( 2 == $search ) {
+						return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value = '1' AND post_id = ID) > 0";
+					}
+				}
+			break;
+			case 'radio':
+				return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value = '" . $search . "' AND post_id = ID) > 0";
+			break;
+			case 'table':
+				return $this->get_registrations_table( $event_id, $field, $search );
+				break;
+		}
+
+		return;
+	}
+
+	public function get_registrations_table( $event_id, $field, $search ) {
+		global $wpdb;
+
+		$registrations = $wpdb->get_results(
+			'
+			SELECT ID,
+				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) field
+			FROM " . $wpdb->posts . "
+			WHERE post_type = 'wpep-registration'
+				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
+				and post_status = 'publish'
+				" . '
+			', ARRAY_A
+		);
+
+		if ( ! $registrations ) {
+			return;
+		}
+
+		$good = array();
+
+		foreach ( $registrations as $key => $reg ) {
+			$ok = 1;
+
+			$field = maybe_unserialize( $reg['field'] );
+
+			foreach ( $search as $row => $cols ) {
+				foreach ( $cols as $col => $val ) {
+					if ( 1 == $val ) {
+						if ( isset( $field[ $row ][ $col ] ) && 1 == $field[ $row ][ $col ] ) {
+							$ok = 0;
+						}
+					} else if ( 2 == $val ) {
+						if ( ! isset( $field[ $row ][ $col ] ) || ! 1 == $field[ $row ][ $col ] ) {
+							$ok = 0;
+						}
+					}
+				}
+			}
+
+			if ( $ok ) {
+				$good[] = $reg['ID'];
+			}
+		}
+
+		$sql = ' AND ID IN ( 0';
+
+		if ( count( $good ) ) {
+			foreach ( $good as $id ) {
+				$sql .= ', ' . $id;
+			}
+		}
+
+		$sql .= ')';
+
+		return $sql;
+	}
+
+	public function get_registration_checkbox( $event_id, $field, $search ) {
+		global $wpdb;
+
+		$registrations = $wpdb->get_results(
+			'
+			SELECT ID,
+				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) field
+			FROM " . $wpdb->posts . "
+			WHERE post_type = 'wpep-registration'
+				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
+				and post_status = 'publish'
+				" . '
+			', ARRAY_A
+		);
+
+		if ( ! $registrations ) {
+			return;
+		}
+
+		$good = array();
+
+		foreach ( $registrations as $key => $reg ) {
+			$ok = 1;
+
+			$checkbox = maybe_unserialize( $reg['field'] );
+			foreach ( $search as $s => $val ) {
+				if ( 1 == $val ) {
+					if ( is_array( $checkbox ) && in_array( $s, $checkbox ) ) {
+						$ok = 0;
+					}
+				} else if ( 2 == $val ) {
+					if ( ! is_array( $checkbox ) || ! in_array( $s, $checkbox ) ) {
+						$ok = 0;
+					}
+				}
+			}
+
+			if ( $ok ) {
+				$good[] = $reg['ID'];
+			}
+		}
+
+		$sql = ' AND ID IN ( 0';
+
+		if ( count( $good ) ) {
+			foreach ( $good as $id ) {
+				$sql .= ', ' . $id;
+			}
+		}
+
+		$sql .= ')';
+
+		return $sql;
+	}
+
+	public function count_registrations( $event_id, $mode = 'all', $sql_search = '' ) {
 		global $wpdb;
 
 		$sql = '';
 
 		if ( 'paid' == $mode ) {
-			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' AND meta_value = 1 AND post_id = ID) > 0";
+			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID
+		) > 0";
 		} else if ( 'notpaid' == $mode ) {
-			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' AND meta_value = 1 AND post_id = ID) < 1";
+			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID) < 1";
 		}
-
-		$sql_search = $this->get_user_field_search( $ufs );
 
 		return $wpdb->get_var(
 			'
 			SELECT count(*)
 			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
-				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
-				AND post_status = 'publish'
+				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
+				and post_status = 'publish'
 			" . $sql . $sql_search
 		);
 	}
