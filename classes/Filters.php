@@ -242,7 +242,6 @@ class Filters {
 				return ' AND (SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) LIKE '%" . $search . "%'";
 			break;
 			case 'date':
-				print_r( $search );
 				if ( $search['start'] && $search['end'] ) {
 					return ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND meta_value >= '" . $search['start'] . "' AND meta_value <= '" . $search['end'] . "' AND post_id = ID) > 0";
 				} else if ( $search['start'] && ! $search['end'] ) {

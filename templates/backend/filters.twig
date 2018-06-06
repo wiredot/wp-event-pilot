@@ -25,6 +25,11 @@
 						<td>
 							{% if field.type == 'text' %}
 								<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+							{% elseif field.type == 'email' %}
+								<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+							{% elseif field.type == 'date' %}
+								<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
+								- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
 							{% endif %}
 						</td>
 					</tr>
