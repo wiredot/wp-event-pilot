@@ -94,5 +94,6 @@ $config['admin_custom_columns']['wpep-registration'] = array(
 		'title',
 		'event_id',
 		'paid',
+		'taxonomy:wpep-function',
 	),
 );

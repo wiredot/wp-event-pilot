@@ -24,6 +24,8 @@ class Filters {
 	}
 
 	public function filters_page() {
+		global $wpdb;
+
 		$events = Event::get_events();
 
 		if ( ! isset( $_GET['paid'] ) ) {
@@ -59,6 +61,12 @@ class Filters {
 
 		$sql_search = $this->get_user_field_search( $event_id, $ufs );
 		$sql_search .= $this->get_additional_field_search( $event_id, $ufs );
+
+		if ( isset( $ufs['function'] ) && $ufs['function'] ) {
+			foreach ( $ufs['function'] as $function => $value ) {
+				$sql_search .= ' AND (SELECT count(*) FROM ' . $wpdb->term_relationships . " WHERE object_id = ID AND term_taxonomy_id = '" . $function . "') > 0";
+			}
+		}
 
 		$Twig = new Twig();
 		echo $Twig->twig->render(

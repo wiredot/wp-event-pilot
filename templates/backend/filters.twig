@@ -19,6 +19,14 @@
 						</select>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row">Function</th>
+					<td>
+						{% for f in get_terms( 'wpep-function' ) %}
+							<label for="function{{ f.term_id }}"><input type="checkbox" name="ufs[function][{{ f.term_id }}]" value="1" id="function{{ f.term_id }}"{% if ufs.function[f.term_id] %} checked="checked" style="background: #FFFFaa;"{% endif %}>{{ f.name }}</label><br>
+						{% endfor %}
+					</td>
+				</tr>
 				{% for field in user_fields %}
 					<tr>
 						<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
@@ -184,6 +192,7 @@
 					<td id="cb" class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-1">Wybierz wszystko</label><input id="cb-select-all-1" type="checkbox"></td>
 					<th scope="col" class="manage-column column-title"><span>Title</span></th>
 					<th scope="col" class="manage-column column-email">E-mail</th>
+					<th scope="col" class="manage-column column-function">Function</th>
 					<th scope="col" class="manage-column column-paid">Paid</th>
 					{% for field in user_fields %}
 						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
@@ -204,6 +213,11 @@
 							<strong><a class="row-title" href="{{ get_edit_post_link( reg.ID ) }}" aria-label="„{{ reg.title }}” (Edycja)">{{ reg.title }}</a></strong>
 						</td>
 						<td class="email column-email" data-colname="E-Mail">{{ reg.email }}</td>
+						<td class="email column-email" data-colname="Function">
+							{% for t in get_the_terms( reg.ID, 'wpep-function' ) %}
+								{{ t.name }}{% if not loop.last %}, {% endif %}
+							{% endfor %}
+						</td>
 						<td class="paid column-paid" data-colname="Paid">{{ reg.paid }}</td>
 						{% for field in user_fields %}
 							<td class="{{ field.id }} column-{{ field.id }}" data-colname="{{ field.label }}">{{ reg[field.id] }}</td>
@@ -218,8 +232,9 @@
 				<tr>
 					<td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2">Wybierz wszystko</label><input id="cb-select-all-2" type="checkbox"></td>
 					<th scope="col" class="manage-column column-title"><span>Title</span></th>
-					<th scope="col" class="manage-column column-paid">Paid</th>
 					<th scope="col" class="manage-column column-email">E-mail</th>
+					<th scope="col" class="manage-column column-function">Function</th>
+					<th scope="col" class="manage-column column-paid">Paid</th>
 					{% for field in user_fields %}
 						<th scope="col" id="{{ field.id }}" class="manage-column column-{{ field.id }}">{{ field.label }}</th>
 					{% endfor %}
