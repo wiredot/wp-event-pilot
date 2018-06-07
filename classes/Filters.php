@@ -11,6 +11,12 @@ class Filters {
 
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'filters_admin_menu' ) );
+
+		add_action( 'wp_ajax_wpep-new-filter-save', array( $this, 'new_filter_save' ) );
+		add_action( 'wp_ajax_nopriv_wpep-new-filter-save', array( $this, 'new_filter_save' ) );
+
+		add_action( 'wp_ajax_wpep-filter-act', array( $this, 'filter_actions' ) );
+		add_action( 'wp_ajax_nopriv_wpep-filter-act', array( $this, 'filter_actions' ) );
 	}
 
 	public function filters_admin_menu() {
@@ -19,14 +25,6 @@ class Filters {
 
 	public function filters_page() {
 		$events = Event::get_events();
-
-		if ( isset( $_POST['event_id'] ) ) {
-			$_SESSION['filters_event_id'] = $_POST['event_id'];
-		}
-
-		if ( ! isset( $_SESSION['filters_event_id'] ) ) {
-			$_SESSION['filters_event_id'] = 0;
-		}
 
 		if ( ! isset( $_GET['paid'] ) ) {
 			$mode = 'all';
@@ -38,14 +36,26 @@ class Filters {
 
 		$ufs = array();
 
+		$filter_id = 0;
+
+		if ( isset( $_GET['filter_id'] ) ) {
+			$filter_id = $_GET['filter_id'];
+		}
+
 		if ( isset( $_POST['ufs'] ) ) {
 			$ufs = $_POST['ufs'];
 			$_SESSION['ufs'] = $ufs;
+		} else if ( $filter_id ) {
+			$ufs = get_post_meta( $filter_id, 'ufs', true );
 		} else if ( isset( $_SESSION['ufs'] ) ) {
 			$ufs = $_SESSION['ufs'];
 		}
 
-		$event_id = $_SESSION['filters_event_id'];
+		if ( isset( $ufs['event_id'] ) ) {
+			$event_id = $ufs['event_id'];
+		} else {
+			$event_id = 0;
+		}
 
 		$sql_search = $this->get_user_field_search( $event_id, $ufs );
 		$sql_search .= $this->get_additional_field_search( $event_id, $ufs );
@@ -64,6 +74,8 @@ class Filters {
 				'count_notpaid' => $this->count_registrations( $event_id, 'notpaid', $sql_search ),
 				'mode' => $mode,
 				'ufs' => $ufs,
+				'filter_id' => $filter_id,
+				'filters' => $this->get_filters(),
 			)
 		);
 	}
@@ -162,6 +174,10 @@ class Filters {
 	}
 
 	public function get_additional_fields_columns( $event_id ) {
+		if ( ! $event_id ) {
+			return;
+		}
+
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
 
 		$columns = array();
@@ -217,6 +233,11 @@ class Filters {
 
 	public function get_additional_field_search( $event_id, $ufs ) {
 		global $wpdb;
+
+		if ( ! $event_id ) {
+			return;
+		}
+
 		$sql_search = '';
 
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
@@ -406,5 +427,77 @@ class Filters {
 				and post_status = 'publish'
 			" . $sql . $sql_search
 		);
+	}
+
+	public function new_filter_save() {
+		$post = array(
+			'post_title' => $_POST['filter_name'],
+			'post_type' => 'wpep-filter',
+			'post_status' => 'publish',
+			'post_author' => get_current_user_id(),
+		);
+
+		$post_id = wp_insert_post( $post );
+
+		$response = array();
+
+		if ( $post_id ) {
+			add_post_meta( $post_id, 'ufs', $_POST['ufs'] );
+
+			$response = array(
+				'success' => 1,
+				'redirect' => 'edit.php?post_type=wpep&page=filters&filter_id=' . $post_id,
+			);
+		}
+
+		$response_json = json_encode( $response );
+		header( 'Content-Type: application/json' );
+		echo $response_json;
+		exit;
+	}
+
+	public function get_filters() {
+		global $wpdb;
+
+		$filters = $wpdb->get_results(
+			'
+			SELECT ID, post_title as title
+			FROM ' . $wpdb->posts . "
+			WHERE post_type = 'wpep-filter'
+				AND post_status = 'publish'
+			ORDER BY post_title
+			", ARRAY_A
+		);
+
+		return $filters;
+	}
+
+	public function filter_actions() {
+		$action = $_POST['a'];
+
+		$response = array();
+
+		if ( 'delete' == $action ) {
+			wp_delete_post( $_POST['filter_id'] );
+
+			$response = array(
+				'success' => 1,
+				'redirect' => 'edit.php?post_type=wpep&page=filters&filter_id=0',
+			);
+
+			unset( $_SESSION['ufs'] );
+		} else if ( 'save' == $action ) {
+			update_post_meta( $_POST['filter_id'], 'ufs', $_POST['ufs'] );
+
+			$response = array(
+				'success' => 1,
+				'redirect' => 'edit.php?post_type=wpep&page=filters&filter_id=' . $_POST['filter_id'],
+			);
+		}
+
+		$response_json = json_encode( $response );
+		header( 'Content-Type: application/json' );
+		echo $response_json;
+		exit;
 	}
 }

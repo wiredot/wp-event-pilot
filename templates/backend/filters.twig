@@ -6,15 +6,15 @@
 		<li class="publish"><a href="edit.php?post_type=wpep&amp;page=filters&amp;paid=0"{% if mode == 'notpaid' %} class="current"{% endif %}>Not Paid <span class="count">({{ count_notpaid }})</span></a></li>
 	</ul>
 	<div class="tablenav top" style="height: auto;">
-		<form action="edit.php?post_type=wpep&page=filters" method="POST">
+		<form action="edit.php?post_type=wpep&page=filters&filter_id={{ filter_id }}" method="POST" id="filters_form">
 			<table class="form-table">
 				<tr>
 					<th scope="row"><label for="event_id">Event</label></th>
 					<td>
-						<select name="event_id">
+						<select name="ufs[event_id]">
 							<option value="0">-- {{ __('select event', 'wpep') }} --</option>
 							{% for event in events %}
-								<option value="{{ event.ID }}"{% if event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
+								<option value="{{ event.ID }}"{% if ufs.event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
 							{% endfor %}
 						</select>
 					</td>
@@ -24,12 +24,12 @@
 						<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
 						<td>
 							{% if field.type == 'text' %}
-								<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+								<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 							{% elseif field.type == 'email' %}
-								<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+								<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 							{% elseif field.type == 'date' %}
-								<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
-								- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
+								<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}"{% if ufs[field.id].start %} style="background: #FFFFE5;"{% endif %}>
+								- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}"{% if ufs[field.id].end %} style="background: #FFFFE5;"{% endif %}>
 							{% endif %}
 						</td>
 					</tr>
@@ -40,12 +40,12 @@
 							<th scope="row"><label for="{{ field.id }}">{{ field.label }}</label></th>
 							<td>
 								{% if field.type == 'text' %}
-									<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+									<input type="text" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 								{% elseif field.type == 'email' %}
-									<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}">
+									<input type="email" name="ufs[{{ field.id }}]" id="{{ field.id }}" value="{{ ufs[field.id] }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 								{% elseif field.type == 'date' %}
-									<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
-									- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
+									<input type="date" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}"{% if ufs[field.id].start %} style="background: #FFFFE5;"{% endif %}>
+									- <input type="date" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}"{% if ufs[field.id].end %} style="background: #FFFFE5;"{% endif %}>
 								{% elseif field.type == 'time' %}
 									<input type="time" name="ufs[{{ field.id }}][start]" id="{{ field.id }}" value="{{ ufs[field.id].start }}">
 									- <input type="time" name="ufs[{{ field.id }}][end]" id="{{ field.id }}" value="{{ ufs[field.id].end }}">
@@ -55,14 +55,14 @@
 									- <input type="date" name="ufs[{{ field.id }}][dateend]" id="{{ field.id }}" value="{{ ufs[field.id].dateend }}">
 									<input type="time" name="ufs[{{ field.id }}][timeend]" id="{{ field.id }}" value="{{ ufs[field.id].timeend }}">
 								{% elseif field.type == 'textarea' %}
-									<textarea name="ufs[{{ field.id }}]" id="{{ field.id }}">{{ ufs[field.id] }}</textarea>
+									<textarea name="ufs[{{ field.id }}]" id="{{ field.id }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>{{ ufs[field.id] }}</textarea>
 								{% elseif field.type == 'checkbox' %}
 									{% if field.options %}
 										{% for option in field.options %}
 											<div class="field">
 												<div class="ui checkbox">
 													<label for="{{ field.id }}_{{ option.id }}">{{ option.label }}</label> 
-													<select name="ufs[{{ field.id }}][{{ option.id }}]" id="{{ field.id }}_{{ option.id }}">
+													<select name="ufs[{{ field.id }}][{{ option.id }}]" id="{{ field.id }}_{{ option.id }}"{% if ufs[field.id][option.id] %} style="background: #FFFFE5;"{% endif %}>
 														<option value="">-- select --</option>
 														<option value="2"{% if ufs[field.id][option.id] == 2 %} selected="selected"{% endif %}>yes</option>
 														<option value="1"{% if ufs[field.id][option.id] == 1 %} selected="selected"{% endif %}>no</option>
@@ -71,7 +71,7 @@
 											</div>
 										{% endfor %}
 									{% else %}
-										<select name="ufs[{{ field.id }}]">
+										<select name="ufs[{{ field.id }}]"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 											<option value="">-- select --</option>
 											<option value="2"{% if ufs[field.id] == 2 %} selected="selected"{% endif %}>yes</option>
 											<option value="1"{% if ufs[field.id] == 1 %} selected="selected"{% endif %}>no</option>
@@ -79,7 +79,7 @@
 									{% endif %}
 								{% elseif field.type == 'radio' %}
 									{% if field.options %}
-										<select name="ufs[{{ field.id }}]" id="{{ field.id }}">
+										<select name="ufs[{{ field.id }}]" id="{{ field.id }}"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 											<option value="">-- select --</option>
 											{% for option in field.options %}
 												<option value="{{ option.id }}"{% if option.id == ufs[field.id] %} selected="selected"{% endif %}>{{ option.label }}</option>
@@ -88,7 +88,7 @@
 									{% endif %}
 								{% elseif field.type == 'select' %}
 									{% if field.options %}
-										<select id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]">
+										<select id="{{ field.id }}_{{ option.id }}" name="ufs[{{ field.id }}]"{% if ufs[field.id] %} style="background: #FFFFE5;"{% endif %}>
 											<option value="">-- select --</option>
 											{% for option in field.options %}
 												<option value="{{ option.id }}"{% if option.id == ufs[field.id] %} selected="selected"{% endif %}>{{ option.label }}</option>
@@ -122,7 +122,7 @@
 																<input type="text" name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ ufs[field.id][row.id][col.id] }}"{% endif %}>
 															{% elseif field.table_type == 'checkbox' %}
 																<div class="ui checkbox">
-																	<select name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]">
+																	<select name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]"{% if ufs[field.id][row.id][col.id] %} style="background: #FFFFE5;"{% endif %}>
 																		<option value="">-- select --</option>
 																		<option value="2"{% if ufs[field.id][row.id][col.id] == 2 %} selected="selected"{% endif %}>yes</option>
 																		<option value="1"{% if ufs[field.id][row.id][col.id] == 1 %} selected="selected"{% endif %}>no</option>
@@ -153,6 +153,23 @@
 			<br>
 			<br>
 		</form>
+		<h3>Saved Filters</h3>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-filter-act" class="wd-form" id="filer_actions">
+			<select name="filter_id" id="filters_list">
+				<option value="">-- select --</option>
+				{% for f in filters %}
+					<option value="{{ f.ID }}"{% if filter_id == f.ID %} selected="selected"{% endif %}>{{ f.title }}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="load filter" id="load_filter" class="button">
+			<input type="submit" value="delete filter" id="delete_filter" class="button">
+			<input type="submit" value="save filter" id="save_filter" class="button">
+		</form>
+		<br>
+		<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-new-filter-save" id="save_new_filter_form">
+			<input type="text" name="filter_name"> <input type="submit" value="save new filter" class="button">
+		</form>
+		<br>
 	</div>
 	<form action="{{ admin_url('admin-ajax.php?action=wpep-id-export') }}" method="POST">
 		{#<div class="tablenav top">

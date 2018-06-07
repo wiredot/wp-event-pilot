@@ -13,3 +13,16 @@ $config['js']['wpep-front'] = array(
 	),
 	'dev_files' => array(),
 );
+
+$config['js']['wpep-admin'] = array(
+	'footer' => true,
+	'front' => false,
+	'admin' => true,
+	'dependencies' => array( 'jquery' ),
+	'files' => array(
+		'wd-alerts' => 'assets/bower/wd-scripts/dist/jquery.wd-alerts.js',
+		'wd-forms' => 'assets/bower/wd-scripts/dist/jquery.wd-forms.js',
+		'wpep-admin' => 'assets/js/wpep-admin.js',
+	),
+	'dev_files' => array(),
+);

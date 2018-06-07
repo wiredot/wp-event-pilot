@@ -19,7 +19,7 @@ gulp.task('js', function() {
 	return gulp.src( options.src + '/js/*.js')
 		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
 		.pipe(maps.init())
-		.pipe(concat('wpep.js'))
+		// .pipe(concat('wpep.js'))
 		.pipe(maps.write('./'))
 		.pipe(gulp.dest( options.assets + '/js'))
 		.pipe(notify({
