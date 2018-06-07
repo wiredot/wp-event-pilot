@@ -49,12 +49,12 @@ class Filters {
 			$_SESSION['ufs'] = $ufs;
 		} else if ( $filter_id ) {
 			$ufs = get_post_meta( $filter_id, 'ufs', true );
-		} else if ( isset( $_SESSION['ufs'] ) ) {
-			$ufs = $_SESSION['ufs'];
 		}
 
 		if ( isset( $ufs['event_id'] ) ) {
 			$event_id = $ufs['event_id'];
+		} else if ( isset( $_SESSION['ufs']['event_id'] ) ) {
+			$event_id = $_SESSION['ufs']['event_id'];
 		} else {
 			$event_id = 0;
 		}
@@ -82,6 +82,7 @@ class Filters {
 				'count_notpaid' => $this->count_registrations( $event_id, 'notpaid', $sql_search ),
 				'mode' => $mode,
 				'ufs' => $ufs,
+				'event_id' => $event_id,
 				'filter_id' => $filter_id,
 				'filters' => $this->get_filters(),
 			)
@@ -115,23 +116,26 @@ class Filters {
 
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
 
-		foreach ( $additional_fields as $additional_field ) {
-			switch ( $additional_field['type'] ) {
-				case 'text':
-				case 'datetime':
-				case 'date':
-				case 'time':
-				case 'email':
-				case 'textarea':
-				case 'radio':
-				case 'select':
-					$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) '" . $additional_field['id'] . "', ";
-					break;
-				case 'checkbox':
-					if ( ! is_array( $additional_field['options'] ) ) {
+		if ( $additional_fields ) {
+
+			foreach ( $additional_fields as $additional_field ) {
+				switch ( $additional_field['type'] ) {
+					case 'text':
+					case 'datetime':
+					case 'date':
+					case 'time':
+					case 'email':
+					case 'textarea':
+					case 'radio':
+					case 'select':
 						$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) '" . $additional_field['id'] . "', ";
-					}
-					break;
+						break;
+					case 'checkbox':
+						if ( ! is_array( $additional_field['options'] ) ) {
+							$user_fields_sql .= '(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $additional_field['id'] . "' AND post_id = ID) '" . $additional_field['id'] . "', ";
+						}
+						break;
+				}
 			}
 		}
 
@@ -152,28 +156,32 @@ class Filters {
 		);
 
 		foreach ( $registrations as $key => $reg ) {
-			foreach ( $additional_fields as $additional_field ) {
-				switch ( $additional_field['type'] ) {
-					case 'checkbox':
-						if ( is_array( $additional_field['options'] ) ) {
+
+			if ( $additional_fields ) {
+
+				foreach ( $additional_fields as $additional_field ) {
+					switch ( $additional_field['type'] ) {
+						case 'checkbox':
+							if ( is_array( $additional_field['options'] ) ) {
+								$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
+								if ( is_array( $values ) ) {
+									foreach ( $values as $value ) {
+										$registrations[ $key ][ $additional_field['id'] . '_' . $value ] = 1;
+									}
+								}
+							}
+							break;
+						case 'table':
 							$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
 							if ( is_array( $values ) ) {
-								foreach ( $values as $value ) {
-									$registrations[ $key ][ $additional_field['id'] . '_' . $value ] = 1;
+								foreach ( $values as $row => $cols ) {
+									foreach ( $cols as $col => $value ) {
+										$registrations[ $key ][ $additional_field['id'] . '_' . $row . '_' . $col ] = $value;
+									}
 								}
 							}
-						}
-						break;
-					case 'table':
-						$values = get_post_meta( $reg['ID'], $additional_field['id'], true );
-						if ( is_array( $values ) ) {
-							foreach ( $values as $row => $cols ) {
-								foreach ( $cols as $col => $value ) {
-									$registrations[ $key ][ $additional_field['id'] . '_' . $row . '_' . $col ] = $value;
-								}
-							}
-						}
-						break;
+							break;
+					}
 				}
 			}
 		}
@@ -189,6 +197,10 @@ class Filters {
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
 
 		$columns = array();
+
+		if ( ! $additional_fields ) {
+			return;
+		}
 
 		foreach ( $additional_fields as $additional_field ) {
 			switch ( $additional_field['type'] ) {
@@ -249,6 +261,10 @@ class Filters {
 		$sql_search = '';
 
 		$additional_fields = Additional_Fields::get_additional_fields( $event_id );
+
+		if ( ! $additional_fields ) {
+			return;
+		}
 
 		foreach ( $additional_fields as $additional_field ) {
 			if ( isset( $ufs[ $additional_field['id'] ] ) && $ufs[ $additional_field['id'] ] ) {

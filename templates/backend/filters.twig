@@ -14,7 +14,7 @@
 						<select name="ufs[event_id]">
 							<option value="0">-- {{ __('select event', 'wpep') }} --</option>
 							{% for event in events %}
-								<option value="{{ event.ID }}"{% if ufs.event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
+								<option value="{{ event.ID }}"{% if event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
 							{% endfor %}
 						</select>
 					</td>
