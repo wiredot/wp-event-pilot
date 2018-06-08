@@ -119,13 +119,13 @@
 													<td>{{ row.label }}</td>
 													{% for col in field.cols %}
 														<td>
-															{% set disabled = 0 %}
-															{% for dis in field.disabled %}
+															{% set is_disabled = 0 %}
+															{% for dis in field.table_disabled %}
 															    {% if col.id == dis.col and row.id == dis.row %}
-																	{% set disabled = 1 %}
+																	{% set is_disabled = 1 %}
 															    {% endif %}
 															{% endfor %}
-															{% if disabled %}
+															{% if is_disabled %}
 															{% elseif field.table_type == 'text' %}
 																<input type="text" name="ufs[{{ field.id }}][{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ ufs[field.id][row.id][col.id] }}"{% endif %}>
 															{% elseif field.table_type == 'checkbox' %}
