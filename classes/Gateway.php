@@ -31,12 +31,19 @@ class Gateway {
 			$event_id = 0;
 		}
 
+		if ( isset( $_GET['remove'] ) ) {
+			$meta_key = 'used_' . $event_id . '_' . $_GET['field_id'] . '_' . $_GET['row'] . '_' . $_GET['col'];
+			delete_post_meta( $_GET['remove'], $meta_key );
+		}
+
 		$Twig = new Twig();
 		echo $Twig->twig->render(
 			'backend/gateway.twig', array(
 				'events' => $events,
 				'event_id' => $event_id,
 				'tables' => $this->get_tables( $event_id ),
+				'used_codes' => $this->get_used_codes( $event_id ),
+				'get' => $_GET,
 			)
 		);
 	}
@@ -79,6 +86,28 @@ class Gateway {
 	}
 
 	public function get_meta_key( $field_id, $row, $col ) {
-		return $field_id . '_%%_' . $row . '_%%_' . $col;  		
+		return $field_id . '_%%_' . $row . '_%%_' . $col;
+	}
+
+	public function get_used_codes( $event_id ) {
+		if ( ! isset( $_GET['code'] ) ) {
+			return array();
+		}
+
+		global $wpdb;
+
+		$meta_key = 'used_' . $event_id . '_' . $_GET['field_id'] . '_' . $_GET['row'] . '_' . $_GET['col'];
+
+		$codes = $wpdb->get_results(
+			$wpdb->prepare(
+				"
+				SELECT *
+				FROM $wpdb->postmeta
+				WHERE meta_key = %s
+			", $meta_key
+			), ARRAY_A
+		);
+
+		return $codes;
 	}
 }

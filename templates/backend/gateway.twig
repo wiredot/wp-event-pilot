@@ -45,7 +45,7 @@
 								{% endfor %}
 								{% if not disabled %}
 									{% set meta_name = field.id ~ '_%%_' ~ row.id  ~ '_%%_' ~ col.id %}
-									{{ get_post_meta( event_id, meta_name, true) }}
+									<a href="edit.php?post_type=wpep&page=gateway&code={{ get_post_meta( event_id, meta_name, true) }}&row={{ row.id }}&col={{ col.id }}&field_id={{ field.id }}">{{ get_post_meta( event_id, meta_name, true) }}</a>
 								{% endif %}
 							</td>
 						{% endfor %}
@@ -55,4 +55,12 @@
 		</table>
 		<br><br>
 	{% endfor %}
+	{% if used_codes %}
+		<h3>Used Codes</h3>
+		<ul>
+		{% for code in used_codes %}
+		    <li>{{ code.meta_value }} - {{ get_post_meta( code.post_id, 'id_card_uid', true ) }} - {{ get_post_meta( code.post_id, 'first_name', true ) }} {{ get_post_meta( code.post_id, 'last_name', true ) }} <a href="edit.php?post_type=wpep&page=gateway&code={{ get.code }}&row={{ get.row }}&col={{ get.col }}&field_id={{ get.field_id }}&remove={{ code.post_id }}">remove</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
 </div>

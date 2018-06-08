@@ -14,6 +14,9 @@ class Gateway_Shortcode {
 
 		add_action( 'wp_ajax_wpep-gateway-remove', array( $this, 'remove_code' ) );
 		add_action( 'wp_ajax_nopriv_wpep-gateway-remove', array( $this, 'remove_code' ) );
+
+		add_action( 'wp_ajax_wpep-gateway-check', array( $this, 'check_code' ) );
+		add_action( 'wp_ajax_nopriv_wpep-gateway-check', array( $this, 'check_code' ) );
 	}
 
 	public function gateway_shortcode() {
@@ -106,6 +109,66 @@ class Gateway_Shortcode {
 		exit;
 	}
 
+	public function check_code() {
+		global $wpdb;
+
+		$form_errors = array();
+
+		$code = sanitize_text_field( trim( $_POST['code'] ) );
+
+		// check if email is not empty and valid
+		if ( empty( $code ) ) {
+			$form_errors = __( 'Enter Barcode', 'wpep' );
+		}
+
+		if ( empty( $form_errors ) ) {
+			$reg_id = $this->get_user_registration_id( $code );
+
+			if ( ! $reg_id ) {
+				$form_errors = __( 'Invalid Barcode', 'wpep' );
+			} else {
+				$validation_error = $this->check_validity( $reg_id );
+				if ( $validation_error ) {
+					$form_errors = $validation_error;
+				}
+			}
+		}
+
+		// only log the user in if there are no errors
+		if ( empty( $form_errors ) ) {
+
+			// response alert
+			$response = array(
+				'alert' => array(
+					'type' => 'success',
+					'title' => ( 'Success' ),
+					'message' => ( 'All ok!' ),
+					'container' => '.wpep-barcode',
+					'animationIn' => 'dissolve',
+				),
+				'reset' => 1,
+			);
+		} // if there are errors
+		else {
+			$response = array(
+				'alert' => array(
+					'type' => 'error',
+					'title' => __( 'Ups!', 'wpep' ),
+					'message' => $form_errors,
+					'container' => '.wpep-barcode',
+					'animationIn' => 'dissolve',
+				),
+				'reset' => 1,
+			);
+		}
+
+		// encode and return response
+		$response_json = json_encode( $response );
+		header( 'Content-Type: application/json' );
+		echo $response_json;
+		exit;
+	}
+
 	public function remove_code() {
 		$code = sanitize_text_field( $_GET['code'] );
 		unset( $_SESSION['wpep-gateway'][ $code ] );
@@ -135,5 +198,55 @@ class Gateway_Shortcode {
 		}
 
 		// print_r( $fields );
+	}
+
+	public function get_user_registration_id( $barcode ) {
+		global $wpdb;
+
+		$registration = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+				SELECT post_id
+				FROM $wpdb->postmeta
+				WHERE meta_value = %s
+					AND meta_key = 'id_card_uid'
+				", $barcode
+			)
+		);
+
+		return $registration;
+	}
+
+	public function check_validity( $reg_id ) {
+		if ( ! isset( $_SESSION['wpep-gateway'] ) || ! count( $_SESSION['wpep-gateway'] ) ) {
+			return __( 'Not Unique Code for event added', 'wpep' );
+		}
+		$event_id = get_post_meta( $reg_id, 'event_id', true );
+
+		$ok = 0;
+
+		foreach ( $_SESSION['wpep-gateway'] as $code ) {
+			if ( $event_id == $code['event_id'] ) {
+				$field = get_post_meta( $reg_id, $code['field'], true );
+				if ( isset( $field[ $code['row'] ][ $code['col'] ] ) ) {
+					$ok = 1;
+				}
+			}
+		}
+
+		if ( ! $ok ) {
+			return __( 'User has no permissions to enter', 'wpep' );
+		}
+
+		$meta_key = 'used_' . $event_id . '_' . $code['field'] . '_' . $code['row'] . '_' . $code['col'];
+
+		$used = get_post_meta( $reg_id, $meta_key, true );
+		if ( $used ) {
+			return __( 'User has already entered', 'wpep' );
+		}
+
+		update_post_meta( $reg_id, $meta_key, date( 'Y-m-d H:i:s' ) );
+
+		return null;
 	}
 }

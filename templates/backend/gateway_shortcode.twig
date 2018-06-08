@@ -16,4 +16,13 @@
 		    </li>
 		{% endfor %}
 	</ul>
+	<br>
+	<h3>Check</h3>
+	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-gateway-check" class="ui form attached segment wd-form wpep-barcode">
+		<div class="field">
+			<label>{{ __('Barcode', 'wpep') }}</label>
+			<input type="text" name="code" placeholder="{{ __('Barcode', 'wpep') }}" required="required">
+		</div>
+		<button class="ui button" type="submit">{{ __('Check', 'wpep') }}</button>
+	</form>
 </div>
