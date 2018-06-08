@@ -34,12 +34,12 @@ class Login {
 
 		// check if email is not empty and valid
 		if ( empty( $email ) ) {
-			$form_errors['email'] = __cp( 'The E-mail field is empty', 'wpep' );
+			$form_errors['email'] = __( 'The E-mail field is empty', 'wpep' );
 		}
 
 		// check if password is not empty
 		if ( empty( $password ) ) {
-			$form_errors['password'] = __cp( 'The password field is empty', 'wpep' );
+			$form_errors['password'] = __( 'The password field is empty', 'wpep' );
 		}
 
 		// if there are no errors so far

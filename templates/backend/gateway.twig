@@ -44,7 +44,7 @@
 									{% endif %}
 								{% endfor %}
 								{% if not disabled %}
-									{% set meta_name = field.id ~ '_' ~ row.id  ~ '_' ~ col.id %}
+									{% set meta_name = field.id ~ '_%%_' ~ row.id  ~ '_%%_' ~ col.id %}
 									{{ get_post_meta( event_id, meta_name, true) }}
 								{% endif %}
 							</td>

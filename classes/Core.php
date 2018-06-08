@@ -53,6 +53,7 @@ class Core {
 		new Shortcode();
 		new Single_Event_Registration();
 		new Backend();
+		new Gateway_Shortcode();
 	}
 
 	public static function run() {

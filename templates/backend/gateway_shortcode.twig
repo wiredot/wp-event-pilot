@@ -1,0 +1,19 @@
+<h1>Gateway</h1>
+<div id="wpep-gateway">
+	<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-gateway-add" class="ui form attached segment wd-form">
+		<div class="field">
+			<label>{{ __('Unique Code', 'wpep') }}</label>
+			<input type="text" name="code" placeholder="{{ __('Unique Code', 'wpep') }}" required="required">
+		</div>
+		<input type="hidden" name="page" value="{{ the_ID() }}">
+		<button class="ui button" type="submit">{{ __('Add', 'wpep') }}</button>
+	</form>
+	<h3>Codes</h3>
+	<ul>
+		{% for key,code in codes %}
+		    <li>
+		    	{{ get_the_title( code.event_id ) }} - {{ code.title }} - <a href="{{ admin_url('admin-ajax.php') }}?action=wpep-gateway-remove&code={{ key }}&page={{ the_ID() }}">remove</a>
+		    </li>
+		{% endfor %}
+	</ul>
+</div>

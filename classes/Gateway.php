@@ -68,11 +68,17 @@ class Gateway {
 	}
 
 	public function get_unique_code( $event_id, $id, $row, $col ) {
-		return get_post_meta( $event_id, $id . '_' . $row . '_' . $col, true );
+		$meta_key = $this->get_meta_key( $id, $row, $col );
+		return get_post_meta( $event_id, $meta_key, true );
 	}
 
 	public function create_unique_code( $event_id, $id, $row, $col ) {
 		$code = uniqid( md5( rand() ), true );
-		update_post_meta( $event_id, $id . '_' . $row . '_' . $col, $code );
+		$meta_key = $this->get_meta_key( $id, $row, $col );
+		update_post_meta( $event_id, $meta_key, $code );
+	}
+
+	public function get_meta_key( $field_id, $row, $col ) {
+		return $field_id . '_%%_' . $row . '_%%_' . $col;  		
 	}
 }
