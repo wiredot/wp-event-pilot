@@ -37,6 +37,7 @@ class Core {
 			new Export();
 			new Id();
 			new Filters();
+			new Gateway();
 		}
 
 		new User_Fields();

@@ -1,0 +1,58 @@
+<div class="wrap">
+	<h2>{{ __('Gateway', 'bookings') }}</h2>
+	<div class="tablenav top" style="height: auto;">
+		<form action="edit.php?post_type=wpep&page=gateway" method="POST" id="gateway_form">
+			<table class="form-table">
+				<tr>
+					<th scope="row"><label for="event_id">Event</label></th>
+					<td>
+						<select name="event_id">
+							<option value="0">-- {{ __('select event', 'wpep') }} --</option>
+							{% for event in events %}
+								<option value="{{ event.ID }}"{% if event_id == event.ID %} selected="selected"{% endif %}>{{ event.post_title }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="{{ __('show', 'wpep') }}" class="button">
+			<br>
+			<br>
+		</form>
+	</div>
+	{% for field in tables %}
+		<h3>{{ field.label }}</h3>
+	    <table class="ui compact celled definition table">
+			<thead>
+				<tr>
+					<th></th>
+					{% for col in field.cols %}
+						<th>{{ col.label }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in field.rows %}
+					<tr>
+						<td>{{ row.label }}</td>
+						{% for col in field.cols %}
+							<td>
+								{% set disabled = 0 %}
+								{% for dis in field.table_disabled %}
+									{% if col.id == dis.col and row.id == dis.row %}
+										{% set disabled = 1 %}
+									{% endif %}
+								{% endfor %}
+								{% if not disabled %}
+									{% set meta_name = field.id ~ '_' ~ row.id  ~ '_' ~ col.id %}
+									{{ get_post_meta( event_id, meta_name, true) }}
+								{% endif %}
+							</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<br><br>
+	{% endfor %}
+</div>
