@@ -62,10 +62,18 @@ class Filters {
 		$sql_search = $this->get_user_field_search( $event_id, $ufs );
 		$sql_search .= $this->get_additional_field_search( $event_id, $ufs );
 
+		if ( ! isset( $ufs['all_events'] ) || ! $ufs['all_events'] ) {
+			$sql_search = " AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' ";
+		}
+
 		if ( isset( $ufs['function'] ) && $ufs['function'] ) {
 			foreach ( $ufs['function'] as $function => $value ) {
 				$sql_search .= ' AND (SELECT count(*) FROM ' . $wpdb->term_relationships . " WHERE object_id = ID AND term_taxonomy_id = '" . $function . "') > 0";
 			}
+		}
+
+		if ( ! isset( $_SESSION['filters_event_id'] ) ) {
+			$_SESSION['filters_event_id'] = 0;
 		}
 
 		$Twig = new Twig();
@@ -148,7 +156,6 @@ class Filters {
 				post_date registration_date 
 			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
-				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' 
 				AND post_status = 'publish'
 				" . $sql . $sql_search . '
 			ORDER BY post_date DESC
@@ -326,8 +333,7 @@ class Filters {
 				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) field
 			FROM " . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
-				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
-				and post_status = 'publish'
+				AND post_status = 'publish'
 				" . '
 			', ARRAY_A
 		);
@@ -384,8 +390,7 @@ class Filters {
 				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field['id'] . "' AND post_id = ID) field
 			FROM " . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
-				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
-				and post_status = 'publish'
+				AND post_status = 'publish'
 				" . '
 			', ARRAY_A
 		);
@@ -433,13 +438,11 @@ class Filters {
 	public function count_registrations( $event_id, $mode = 'all', $sql_search = '' ) {
 		global $wpdb;
 
-		$sql = '';
-
 		if ( 'paid' == $mode ) {
-			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID
+			$sql_search .= ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID
 		) > 0";
 		} else if ( 'notpaid' == $mode ) {
-			$sql = 'AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID) < 1";
+			$sql_search .= ' AND (SELECT count(*) FROM ' . $wpdb->postmeta . " WHERE meta_key = 'paid' and meta_value = 1 and post_id = ID) < 1";
 		}
 
 		return $wpdb->get_var(
@@ -447,10 +450,10 @@ class Filters {
 			SELECT count(*)
 			FROM ' . $wpdb->posts . "
 			WHERE post_type = 'wpep-registration'
-				and (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' and post_id = ID) = '" . $event_id . "'
-				and post_status = 'publish'
-			" . $sql . $sql_search
+				AND post_status = 'publish'
+			" .  $sql_search
 		);
+
 	}
 
 	public function new_filter_save() {
