@@ -11,6 +11,9 @@ class Gateway {
 
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'filters_admin_menu' ) );
+
+		add_action( 'wp_ajax_wpep-gateway-add-pdf', array( $this, 'gateway_pdf' ) );
+		add_action( 'wp_ajax_nopriv_wpep-gateway-add-pdf', array( $this, 'gateway_pdf' ) );
 	}
 
 	public function filters_admin_menu() {
@@ -64,9 +67,6 @@ class Gateway {
 			foreach ( $table['cols'] as $col ) {
 				foreach ( $table['rows'] as $row ) {
 					$code = $this->get_unique_code( $event_id, $table['id'], $row['id'], $col['id'] );
-					if ( ! $code ) {
-						$this->create_unique_code( $event_id, $table['id'], $row['id'], $col['id'] );
-					}
 				}
 			}
 		}
@@ -76,13 +76,46 @@ class Gateway {
 
 	public function get_unique_code( $event_id, $id, $row, $col ) {
 		$meta_key = $this->get_meta_key( $id, $row, $col );
-		return get_post_meta( $event_id, $meta_key, true );
+		$code = get_post_meta( $event_id, $meta_key, true );
+		
+		if ( $code ) {
+			return $code;
+		}
+		return $this->create_unique_code( $event_id, $meta_key );
 	}
 
-	public function create_unique_code( $event_id, $id, $row, $col ) {
-		$code = uniqid( md5( rand() ), true );
-		$meta_key = $this->get_meta_key( $id, $row, $col );
+	public function create_unique_code( $event_id, $meta_key ) {
+		$code = $this->generate_unique_id();
 		update_post_meta( $event_id, $meta_key, $code );
+	}
+
+	public function generate_unique_id() {
+		global $wpdb;
+
+		$id = '';
+
+		for ( $i = 0; $i < 12; $i++ ) {
+			$id .= rand( 0, 9 );
+		}
+
+		$weightflag = true;
+		$sum = 0;
+
+		for ( $i = strlen( $id ) - 1; $i >= 0; $i-- ) {
+			$sum += ( int )$id[$i] * ( $weightflag?3:1 );
+			$weightflag = ! $weightflag;
+		}
+		$id .= (10 - ( $sum % 10 ) ) % 10;
+
+		$count = $wpdb->get_var(
+			$wpdb->prepare( 'SELECT count(*) FROM ' . $wpdb->postmeta . ' WHERE meta_value = %d', $id )
+		);
+
+		if ( $count ) {
+			$id = $this->generate_unique_id();
+		}
+
+		return $id;
 	}
 
 	public function get_meta_key( $field_id, $row, $col ) {
@@ -109,5 +142,31 @@ class Gateway {
 		);
 
 		return $codes;
+	}
+
+	public function gateway_pdf() {
+		if ( isset( $_POST['event_id'] ) ) {
+			$event_id = $_POST['event_id'];
+		}
+
+		$Twig = new Twig();
+		$pdf = $Twig->twig->render(
+			'backend/gateway_pdf.twig', array(
+				'event_id' => $event_id,
+				'tables' => $this->get_tables( $event_id ),
+			)
+		);
+
+		$mpdf = new \Mpdf\Mpdf(
+			[
+				'mode' => 'utf-8',
+				'format' => 'A4',
+				'orientation' => 'L',
+			]
+		);
+		$mpdf->WriteHTML( $pdf );
+		$mpdf->Output();
+
+		exit;
 	}
 }

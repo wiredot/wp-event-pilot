@@ -1,0 +1,72 @@
+<html>
+	<style>
+		html, body, table, td {
+			margin: 0;
+			padding: 0;
+			font-family: Verdana;
+		}
+
+		table {
+			width: 100%;
+		}
+
+		td {
+			text-align: center;
+			margin: 0;
+			padding: 0;
+			height: 40mm;
+			/*background: #c00;*/
+		}
+		
+		h3 {
+			margin-top: 10mm;
+			font-size: 3.5mm;
+		}
+
+		h2 {
+			margin-bottom: 30mm;
+		}
+
+		h5 {
+			margin-top: 10mm;
+			font-size: 2mm;
+		}
+	</style>
+	<body>
+		{% for field in tables %}
+			<h3>{{ field.label }}</h3>
+			<table class="ui compact celled definition table">
+				<thead>
+					<tr>
+						<th></th>
+						{% for col in field.cols %}
+							<th>{{ col.label }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in field.rows %}
+						<tr>
+							<td>{{ row.label }}</td>
+							{% for col in field.cols %}
+								<td>
+									{% set disabled = 0 %}
+									{% for dis in field.table_disabled %}
+										{% if col.id == dis.col and row.id == dis.row %}
+											{% set disabled = 1 %}
+										{% endif %}
+									{% endfor %}
+									{% if not disabled %}
+										{% set meta_name = field.id ~ '_%%_' ~ row.id  ~ '_%%_' ~ col.id %}
+										<barcode code="{{ get_post_meta( event_id, meta_name, true) }}" type="EAN13" text="1" class="barcode" height="0.66">
+									{% endif %}
+								</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br><br>
+		{% endfor %}
+	</body>
+</html>

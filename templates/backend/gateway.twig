@@ -19,6 +19,14 @@
 			<br>
 			<br>
 		</form>
+		{% if event_id %}
+			<form action="{{ admin_url('admin-ajax.php') }}?action=wpep-gateway-add-pdf" method="POST">
+				<input type="submit" value="{{ __('show pdf', 'wpep') }}" class="button">
+				<input type="hidden" name="event_id" value="{{ event_id }}">
+				<br>
+				<br>
+			</form>
+		{% endif %}
 	</div>
 	{% for field in tables %}
 		<h3>{{ field.label }}</h3>
