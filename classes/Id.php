@@ -107,13 +107,31 @@ class Id {
 			}
 		}
 
+		$paged = array();
+
+		$page = 1;
+
+		$on_page = 1;
+		foreach ( $posts as $post ) {
+			$paged[ $page ][ $on_page ] = $post;
+			// echo $on_page . ' - ' . $page;
+			// echo ' ----- ';
+
+			if ( $on_page == 8 ) {
+				$page++;
+				$on_page = 1;
+			} else {
+				$on_page++;
+			}
+		}
+
 		$pdf = $Twig->twig->render(
 			'backend/id_cards_pdf.twig', array(
 				'posts' => $posts,
+				'paged' => $paged,
 			)
 		);
 
-		// echo $pdf;
 		$mpdf = new \Mpdf\Mpdf(
 			[
 				'mode' => 'utf-8',
