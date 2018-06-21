@@ -4,7 +4,7 @@ $config['taxonomy']['wpep-function'] = array(
 	'active' => true,
 	'post_type' => 'wpep-registration',
 	'args' => array(
-		'label' => __( 'Function', 'wpep' ),
+		'label' => __( 'Functions', 'wpep' ),
 		'public' => true,
 		'publicly_queryable' => true,
 		'show_ui' => true,
@@ -13,7 +13,7 @@ $config['taxonomy']['wpep-function'] = array(
 		'show_in_rest' => false,
 		'show_tagcloud' => false,
 		'show_admin_column' => true,
-		'description' => __( 'Function', 'wpep' ),
+		'description' => __( 'Functions Taxonomy', 'wpep' ),
 		'hierarchical' => true,
 		'rewrite' => array( 'slug' => 'wpep-function' ),
 	),

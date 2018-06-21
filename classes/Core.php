@@ -38,6 +38,7 @@ class Core {
 			new Id();
 			new Filters();
 			new Gateway();
+			new Groups();
 		}
 
 		new User_Fields();
