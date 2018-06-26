@@ -77,11 +77,12 @@ class Gateway {
 	public function get_unique_code( $event_id, $id, $row, $col ) {
 		$meta_key = $this->get_meta_key( $id, $row, $col );
 		$code = get_post_meta( $event_id, $meta_key, true );
-		
-		if ( $code ) {
-			return $code;
+
+		if ( ! $code || '0' == substr( $code, 0, 1 ) ) {
+			$code = $this->create_unique_code( $event_id, $meta_key );
 		}
-		return $this->create_unique_code( $event_id, $meta_key );
+
+		return $code;
 	}
 
 	public function create_unique_code( $event_id, $meta_key ) {
@@ -106,6 +107,10 @@ class Gateway {
 			$weightflag = ! $weightflag;
 		}
 		$id .= (10 - ( $sum % 10 ) ) % 10;
+
+		if ( '0' == substr( $id, 0, 1 ) ) {
+			$id = $this->generate_unique_id();
+		}
 
 		$count = $wpdb->get_var(
 			$wpdb->prepare( 'SELECT count(*) FROM ' . $wpdb->postmeta . ' WHERE meta_value = %d', $id )

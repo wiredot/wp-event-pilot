@@ -101,8 +101,8 @@ class Id {
 		$posts = $_POST['post'];
 
 		if ( is_array( $posts ) ) {
-			foreach ( $posts as $post ) {
-				$this->update_unique_id( $post );
+			foreach ( $posts as $key => $post ) {
+				$barcode = $this->get_unique_id( $post );
 				$this->mark_as_printed( $post );
 			}
 		}
@@ -117,7 +117,7 @@ class Id {
 			// echo $on_page . ' - ' . $page;
 			// echo ' ----- ';
 
-			if ( $on_page == 8 ) {
+			if ( 8 == $on_page ) {
 				$page++;
 				$on_page = 1;
 			} else {
@@ -174,10 +174,9 @@ class Id {
 		update_post_meta( $registration_id, 'printed', 1 );
 	}
 
-	public function update_unique_id( $registration_id ) {
+	public function get_unique_id( $registration_id ) {
 		$uid = get_post_meta( $registration_id, 'id_card_uid', true );
-
-		if ( ! $uid ) {
+		if ( ! $uid || '0' == substr( $uid, 0, 1 ) ) {
 			update_post_meta( $registration_id, 'id_card_uid', $this->generate_unique_id() );
 		}
 	}
@@ -199,6 +198,10 @@ class Id {
 			$weightflag = ! $weightflag;
 		}
 		$id .= (10 - ( $sum % 10 ) ) % 10;
+
+		if ( '0' == substr( $id, 0, 1 ) ) {
+			$id = $this->generate_unique_id();
+		}
 
 		$count = $wpdb->get_var(
 			$wpdb->prepare(
