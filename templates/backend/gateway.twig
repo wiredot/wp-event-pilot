@@ -63,8 +63,9 @@
 		</table>
 		<br><br>
 	{% endfor %}
+	<h3>Used Codes</h3>
+	<p>{{ count(used_codes) }} / {{ used_codes_totals }}</p>
 	{% if used_codes %}
-		<h3>Used Codes</h3>
 		<ul>
 		{% for code in used_codes %}
 		    <li>{{ code.meta_value }} - {{ get_post_meta( code.post_id, 'id_card_uid', true ) }} - {{ get_post_meta( code.post_id, 'first_name', true ) }} {{ get_post_meta( code.post_id, 'last_name', true ) }} <a href="edit.php?post_type=wpep&page=gateway&code={{ get.code }}&row={{ get.row }}&col={{ get.col }}&field_id={{ get.field_id }}&remove={{ code.post_id }}">remove</a></li>

@@ -46,6 +46,7 @@ class Gateway {
 				'event_id' => $event_id,
 				'tables' => $this->get_tables( $event_id ),
 				'used_codes' => $this->get_used_codes( $event_id ),
+				'used_codes_totals' => $this->get_used_codes_totals( $event_id ),
 				'get' => $_GET,
 			)
 		);
@@ -147,6 +148,47 @@ class Gateway {
 		);
 
 		return $codes;
+	}
+
+	public function get_used_codes_totals( $event_id ) {
+		if ( ! isset( $_GET['code'] ) ) {
+			return 0;
+		}
+
+		$field_id = $_GET['field_id'];
+		$f_row = $_GET['row'];
+		$f_col = $_GET['col'];
+
+		global $wpdb;
+
+		$registrations = $wpdb->get_results(
+			'
+			SELECT ID,
+				(SELECT meta_value FROM ' . $wpdb->postmeta . " WHERE meta_key = '" . $field_id . "' AND post_id = ID) field
+			FROM " . $wpdb->posts . "
+			WHERE post_type = 'wpep-registration'
+				AND post_status = 'publish'
+				AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "'
+				" . '
+			', ARRAY_A
+		);
+
+		if ( ! $registrations ) {
+			return 0;
+		}
+
+		$ok = 0;
+
+		foreach ( $registrations as $key => $reg ) {
+			$field = maybe_unserialize( $reg['field'] );
+
+			if ( isset( $field[ $f_row ][ $f_col ] ) ) {
+				$ok++;
+			}
+		}
+
+
+		return $ok;
 	}
 
 	public function gateway_pdf() {
