@@ -174,4 +174,8 @@ class Gateway {
 
 		exit;
 	}
+
+	public function get_used_meta_key( $event_id, $field, $row, $col ) {
+		return 'used_' . $event_id . '_' . $field . '_' . $row . '_' . $col;
+	}
 }

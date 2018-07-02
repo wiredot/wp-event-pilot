@@ -63,7 +63,7 @@ class Filters {
 		$sql_search .= $this->get_additional_field_search( $event_id, $ufs );
 
 		if ( ! isset( $ufs['all_events'] ) || ! $ufs['all_events'] ) {
-			$sql_search = " AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' ";
+			$sql_search .= " AND (SELECT meta_value FROM " . $wpdb->postmeta . " WHERE meta_key = 'event_id' AND post_id = ID) = '" . $event_id . "' ";
 		}
 
 		if ( isset( $ufs['function'] ) && $ufs['function'] ) {

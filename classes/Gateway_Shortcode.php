@@ -3,6 +3,7 @@
 namespace Wiredot\WPEP;
 
 use Wiredot\Preamp\Twig;
+use Wiredot\WPEP\Gateway;
 
 class Gateway_Shortcode {
 
@@ -121,15 +122,23 @@ class Gateway_Shortcode {
 			$form_errors = __( 'Enter Barcode', 'wpep' );
 		}
 
+		if ( ! isset( $_SESSION['wpep-gateway'] ) || ! count( $_SESSION['wpep-gateway'] ) ) {
+			$form_errors = __( 'No Unique Code for event added', 'wpep' );
+		} else {
+			$codes = $_SESSION['wpep-gateway'];
+		}
+
 		if ( empty( $form_errors ) ) {
 			$reg_id = $this->get_user_registration_id( $code );
 
 			if ( ! $reg_id ) {
 				$form_errors = __( 'Invalid Barcode', 'wpep' );
 			} else {
-				$validation_error = $this->check_validity( $reg_id );
+				$validation_error = $this->check_validity( $reg_id, $codes );
 				if ( $validation_error ) {
 					$form_errors = $validation_error;
+				} else {
+					$this->mark_used( $reg_id, $codes );
 				}
 			}
 		}
@@ -217,36 +226,46 @@ class Gateway_Shortcode {
 		return $registration;
 	}
 
-	public function check_validity( $reg_id ) {
-		if ( ! isset( $_SESSION['wpep-gateway'] ) || ! count( $_SESSION['wpep-gateway'] ) ) {
-			return __( 'Not Unique Code for event added', 'wpep' );
-		}
+	public function check_validity( $reg_id, $codes = array() ) {
 		$event_id = get_post_meta( $reg_id, 'event_id', true );
-
-		$ok = 0;
-
-		foreach ( $_SESSION['wpep-gateway'] as $code ) {
+		foreach ( $codes as $code ) {
 			if ( $event_id == $code['event_id'] ) {
 				$field = get_post_meta( $reg_id, $code['field'], true );
 				if ( isset( $field[ $code['row'] ][ $code['col'] ] ) ) {
-					$ok = 1;
+					if ( $this->check_if_used( $reg_id, $event_id, $code['field'], $code['row'], $code['col'] ) ) {
+						return __( 'User has already entered', 'wpep' );
+					} else {
+						return null;
+					}
 				}
 			}
 		}
 
-		if ( ! $ok ) {
-			return __( 'User has no permissions to enter', 'wpep' );
-		}
+		return __( 'User has no permissions to enter', 'wpep' );
+	}
 
-		$meta_key = 'used_' . $event_id . '_' . $code['field'] . '_' . $code['row'] . '_' . $code['col'];
-
+	public function check_if_used( $reg_id, $event_id, $field, $row, $col ) {
+		$Gateway = new Gateway;
+		$meta_key = $Gateway->get_used_meta_key( $event_id, $field, $row, $col );
 		$used = get_post_meta( $reg_id, $meta_key, true );
 		if ( $used ) {
-			return __( 'User has already entered', 'wpep' );
+			return true;
 		}
 
-		update_post_meta( $reg_id, $meta_key, date( 'Y-m-d H:i:s' ) );
+		return false;
+	}
 
-		return null;
+	public function mark_used( $reg_id, $codes = array() ) {
+		$event_id = get_post_meta( $reg_id, 'event_id', true );
+		foreach ( $codes as $code ) {
+			if ( $event_id == $code['event_id'] ) {
+				$field = get_post_meta( $reg_id, $code['field'], true );
+				if ( isset( $field[ $code['row'] ][ $code['col'] ] ) ) {
+					$Gateway = new Gateway;
+					$meta_key = $Gateway->get_used_meta_key( $event_id, $code['field'], $code['row'], $code['col'] );
+					update_post_meta( $reg_id, $meta_key, date( 'Y-m-d H:i:s' ) );
+				}
+			}
+		}
 	}
 }
