@@ -1,6 +1,6 @@
 <?php
 
-$config['settings']['page']['wpep_settings'] = array(
+$config['settings']['submenu']['wpep_settings'] = array(
 	'active' => true,
 	'parent_slug' => 'edit.php?post_type=wpep',
 	'page_title' => __( 'WP Event Pilot Settings', 'wpep' ),
